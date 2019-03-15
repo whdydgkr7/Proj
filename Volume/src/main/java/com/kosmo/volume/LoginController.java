@@ -85,6 +85,7 @@ public class LoginController {
 		dto.setName(req.getParameter("name"));
 		dto.setEmail(req.getParameter("email"));
 		dto.setAuthority("USER");
+		dto.setUserType("default");
 				
 		sqlSession.getMapper(UserImpl.class).regiUser(dto);
 		session.setAttribute("login", dto);
@@ -129,9 +130,12 @@ public class LoginController {
 		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		String apiResult = naverLoginBO.getUserProfile(oauthToken);
 		userDTO = json.changeJson(apiResult); // dto에 userEmail저장
-		
-		
-		session.setAttribute("login", userDTO);
+		System.out.println("User Uid : " + userDTO.getEmail().substring(0, userDTO.getEmail().indexOf("@")));
+        System.out.println("User Name : " + userDTO.getName());
+        System.out.println("User Email : " + userDTO.getEmail());
+				
+		//sqlSession.getMapper(UserImpl.class).regiUser(userDTO);
+		session.setAttribute("login", inputSocialUser(userDTO.getEmail().substring(0, userDTO.getEmail().indexOf("@")), userDTO.getName(), userDTO.getEmail(), "naver"));
 
 		return "login/callback";
 	}
@@ -187,13 +191,17 @@ public class LoginController {
         System.out.println("User Email : " + profile.getAccountEmail());
         System.out.println("User Profile : " + profile.getImageUrl());
  
-        UserDTO userDTO=new UserDTO();
+
+        
+       /* UserDTO userDTO=new UserDTO();
         userDTO.setId(profile.getId());
         userDTO.setName(profile.getDisplayName());
         userDTO.setEmail(profile.getAccountEmail());
+        userDTO.setPass(profile.getAccountEmail());
         userDTO.setUserType("google");
-        
-        session.setAttribute("login", userDTO);
+        sqlSession.getMapper(UserImpl.class).regiUser(userDTO);*/
+        String id=profile.getAccountEmail().substring(0,profile.getAccountEmail().indexOf("@"));
+        session.setAttribute("login",  inputSocialUser(id, id,profile.getAccountEmail(), "google"));
         
         // Access Token 취소
         try {
@@ -266,18 +274,19 @@ public class LoginController {
         System.out.println("name : " + name);
         System.out.println("email : " + email);
         
-        UserDTO userDTO=new UserDTO();
-        userDTO.setId(id);
-        userDTO.setName(name);
-        userDTO.setEmail(email);
-        userDTO.setUserType("kakao");
-        
-        session.setAttribute("login", userDTO);
+        session.setAttribute("login",  inputSocialUser(email.substring(0, email.indexOf("@")),name,email,"kakao"));
         
         return "redirect:/";
     }
-	
-    @RequestMapping(value = "/logout", produces = "application/json")
+    
+    @RequestMapping("/logout")
+    public String logout(Model model, HttpSession session) {
+    	session.removeAttribute("login");
+    	model.addAttribute("logoutMsg", " ");
+    	
+    	return "redirect:/";
+    }
+    /*@RequestMapping(value = "/logout", produces = "application/json")
     public String Logout(HttpSession session) {
         //kakao restapi 객체 선언
         kakao_restapi kr = new kakao_restapi();
@@ -286,5 +295,21 @@ public class LoginController {
         //결과 값 출력
         System.out.println("로그인 후 반환되는 아이디 : " + node.get("id"));
         return "redirect:/";
+    }*/
+    
+    public UserDTO inputSocialUser(String id, String name, String email, String userType) {
+        UserDTO userDTO=new UserDTO();
+        if(sqlSession.getMapper(UserImpl.class).idCheck(id)==0) {
+            userDTO.setId(id);
+            userDTO.setName(name);
+            userDTO.setEmail(email);
+            userDTO.setPass(email);
+            userDTO.setAuthority("USER");
+            userDTO.setUserType(userType);
+    		sqlSession.getMapper(UserImpl.class).regiUser(userDTO);
+        }
+        else userDTO=sqlSession.getMapper(UserImpl.class).getUser(id);
+        
+        return userDTO;
     }
 }

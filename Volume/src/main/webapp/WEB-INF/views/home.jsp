@@ -16,6 +16,17 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
 </style>
 <body>
+<%if(session.getAttribute("login")!=null){ %>
+	아이디: ${login.id }  /  이름: ${login.name }  /  이메일: ${login.email }  님 환영해요 &nbsp;&nbsp;
+	<a href="logout">로그아웃</a>
+<%} else{%>
+	<a href="login">로그인</a>
+<%}
+if(request.getParameter("logoutMsg")!=null) {%>
+<script type="text/javascript">
+	alert('로그아웃 되었습니다.');
+<%}%>
+</script>
 <!-- Header -->
 <div >
 <header class="w3-container  w3-center" style="padding:120px 16px; height: 400px; background-image: url('./resources/images/8.png'); ">

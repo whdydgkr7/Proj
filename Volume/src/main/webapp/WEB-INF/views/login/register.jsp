@@ -11,13 +11,17 @@
 <br />
 <hr>
 <script type="text/javascript">
+window.onload=function (){
+	id.focus();
+}
+
 function inputValidate(f) {
 	
-	if (!f.id.value) {
+	/* if (!f.id.value) {
 		alert("아이디를 입력 해 주세요.");
 		f.id.focus();
 		return false;
-	}
+	} */
 	
 	if (!f.name.value) {
 		alert("닉네임을 입력 해 주세요.");
@@ -41,6 +45,11 @@ function inputValidate(f) {
 		f.pass.focus();
 		return false;
 	}
+	if(hidden2.value!=1){
+		alert("아이디 체크버튼을 눌러주세요.");
+		btn_idcheck.focus();
+		return false;
+	}
 }
 
 function checkInputId(param) {
@@ -54,8 +63,8 @@ function checkInputId(param) {
 		regiFrm.id.focus();
 		return false;
 	}
-	else if(idLen>12 || idLen<2) {
-		alert("아이디는 8~12자 이내여야 합니다");
+	else if(idLen>8 || idLen<2) {
+		alert("아이디는 2~8자 이내여야 합니다");
 		regiFrm.id.focus();
 		return false;
 	}
@@ -64,6 +73,13 @@ function checkInputId(param) {
 		regiFrm.id.focus();
 		return false;
 	}
+	else if(param==""){
+		alert("아이디를 입력 해 주세요.");
+		regiFrm.id.focus();
+		return false;
+	}
+	
+		
 	return true;
 }
 </script>
@@ -82,11 +98,10 @@ function idOverlap() {
   	if (regiFrm.id.value=="") {
   		alert("아이디를 입력 후 중복확인을 누르삼");
   		regiFrm.id.focus();
+  		return false;
   	}
   	
-  	else if(checkInputId(f.id.value)==false){
-  		alert("아이디를 입력 해 주세요.");
-  		regiFrm.id.focus();
+  	if(checkInputId(regiFrm.id.value)==false){
   		return false;
   	}
   	else{
@@ -102,11 +117,13 @@ function idOverlap() {
   				if (responseData=="true") {
   					alert("사용 가능한 아이디입니다.");
       				regiFrm.id.readOnly = true;
+      				hidden2.value=1;
 				}
   				else{
   					alert("중복 된 아이디입니다.\n 다시 입력 해 주세요.");
   					regiFrm.id.value="";
   					regiFrm.id.focus();
+  					hidden2.value=0;
   				}
   			},	
   			error: function(errorData) {
@@ -120,7 +137,7 @@ function idOverlap() {
 <article class="card-body mx-auto" style="max-width: 400px;">
 	<h4 class="card-title mt-3 text-center">회원가입</h4>
 	<p class="text-center">Volume 과 함께 해요</p>
-	<hr />
+	<!-- <hr />
 	<p class="text-center">
 		<a href=""><img src="./resources/images/login_google.png" alt="" style="width: 100%;"/></a><br />
 		<a href=""><img src="./resources/images/login_kakao.png" alt="" style="width: 100%;"/></a><br />
@@ -129,17 +146,18 @@ function idOverlap() {
 	<hr />
 	<p class="divider-text" style="text-align: center;">
 	       <span class="bg-light">또는</span>
-	</p>
+	</p> -->
 	<hr />
 	<form action="registerAction" onsubmit="return inputValidate(this);" method="post" name="regiFrm">
 	<input type="hidden" id="hidden1" name="hidden1"/>
+	<input type="hidden" id="hidden2" name="hidden2" value="0"/>
 	<div class="form-group input-group">
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 		 </div>
         <input id="id" name="id" class="form-control" placeholder="2~12자 내의 영문" type="text">
 
-        <input class="btn btn-danger" type="button" value="아이디 중복체크" style="max-width: 150px;" onclick="idOverlap();">
+        <input class="btn btn-danger" type="button" value="아이디 체크" id="btn_idcheck" style="max-width: 150px;" onclick="idOverlap();">
     </div> <!-- form-group// -->
     <div class="form-group input-group">
 		<div class="input-group-prepend">

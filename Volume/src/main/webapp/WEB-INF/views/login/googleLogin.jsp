@@ -9,10 +9,15 @@
     <meta name="google-signin-client_id" content="727891470099-ibar4c1mhvf5564uraeoeh9o8itf3i10.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
+<script type="text/javascript">
+window.onload=function(){
+	location.href='${google_url}';
+}
+</script>
 <body>
-    <a href="${google_url}"><button id="btnJoinGoogle" class="btn btn-primary btn-round"
+<%--     <a href="${google_url}"><button id="btnJoinGoogle" class="btn btn-primary btn-round"
         style="width: 100%">
         <i class="fa fa-google" aria-hidden="true"></i>Google Login
-    </button></a> 
+    </button></a>  --%>
 </body>
 </html>

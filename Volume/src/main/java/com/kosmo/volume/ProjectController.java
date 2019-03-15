@@ -66,7 +66,7 @@ public class ProjectController {
 		//페이지 처리
 		String pagingImg = PagingUtil.pagingImg(totalRecordCount, pageSize, blockPage, nowPage, req.getContextPath()+"/ProjectController.do?"+addQueryString);
 		
-		model.addAttribute("pagingImg",pagingImg);
+		model.addAttribute("pagingImg",pagingImg); 
 		
 		//줄바꿈처리
 		for(ProjectBbsDTO dto : lists) {
