@@ -22,11 +22,11 @@ body {font-size:16px;}
     <h3 class="w3-padding-64"><b>Volume<br>관리자 페이지</b></h3>
   </div>
   <div class="w3-bar-block">
-    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">회원관리</a> 
-    <a href="#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">프로젝트 요청 관리</a> 
-    <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">원데이 클래스 요청 관리</a> 
-    <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">제안하기 관리</a> 
-    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Packages</a> 
+    <!-- <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">회원 관리</a>  -->
+    <a href="#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">회원 관리</a> 
+    <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">프로젝트 관리</a> 
+    <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">원데이 클래스 관리</a> 
+    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">제안하기 관리</a> 
     <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
   </div>
 </nav>
@@ -45,9 +45,9 @@ body {font-size:16px;}
 
   <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><b>Interior Design</b></h1>
-    <h1 class="w3-xxxlarge w3-text-red"><b>Showcase.</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <!-- <h1 class="w3-jumbo"><b>회원 관리</b></h1> -->
+    <h1 class="w3-xxxlarge w3-text-red"><b>회원 관리</b></h1>
+    <a href="ViewUserList.do">s</a>
   </div>
   
   <!-- Photo grid (modal) -->
