@@ -148,7 +148,7 @@ function myFunction() {
 
 </body>
 
-<!-- 카카오 플러스친구 1234 -->
+<!-- 카카오 플러스친구 1234  -->
 <script>
   window.kakaoAsyncInit = function () {
     Kakao.init('b458377709ca26b5cb9a3bc9d36c1860');
