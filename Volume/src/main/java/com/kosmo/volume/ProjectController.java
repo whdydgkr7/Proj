@@ -99,6 +99,8 @@ public class ProjectController {
         return list;
     }
 	
+	
+	
 	   @RequestMapping("ProjectBbsViewController.do")
 	   public String PrjectBbsView(Model model , HttpServletRequest req) {
 	      String idx= req.getParameter("idx");
@@ -171,5 +173,13 @@ public class ProjectController {
 	      model.addAttribute("lists",lists);
 
 	      return "ProjectBbsView";
+	   }
+	   
+	   @RequestMapping("ProjectBbsWriteController.do")
+	   public String PrjectBbsWrite(Model model , HttpServletRequest req) {
+		   
+		
+		   
+		   return "ProjectBbsWrite";
 	   }
 }

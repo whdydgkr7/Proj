@@ -109,73 +109,93 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   </div>
   
  
-<div id="map" style="width:100%;height:350px;"></div>
+			<div id="map" style="width:100%;height:350px;"></div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=70a54cc4cc1852fb30a4ac2b3cd30ac3&libraries=services"></script>
+			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=70a54cc4cc1852fb30a4ac2b3cd30ac3&libraries=services"></script>
+			<script>
+			
+			
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			    mapOption = {
+			        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			        level: 3 // 지도의 확대 레벨
+			    };  
+			var addstr = "";
+			var addstr = "";
+			// 지도를 생성합니다    
+			var map = new daum.maps.Map(mapContainer, mapOption); 
+			
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new daum.maps.services.Geocoder();
+			
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch('${dto.f}', function(result, status) {
+			
+			   
+			   
+			   
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === daum.maps.services.Status.OK) {
+			
+			        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+			
+			        // 결과값으로 받은 위치를 마커로 표시합니다
+			        var marker = new daum.maps.Marker({
+			            map: map,
+			            position: coords
+			        });
+			
+			        // 인포윈도우로 장소에 대한 설명을 표시합니다
+			        var infowindow = new daum.maps.InfoWindow({
+			            content: '<div style="width:150px;text-align:center;padding:6px 0;">경기장 위치</div>'
+			        });
+			        infowindow.open(map, marker);
+			
+			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			        map.setCenter(coords);
+			    } 
+			    
+			});    
+			</script>
+			<div class="w3-container">
+			  <h2 style="font-weight: bold;'">프로젝트 참가인원</h2>
+			
+			  <div class="w3-light-grey">
+			    <div id="myBar" class="w3-container w3-green"  style="height:24px;width:0%">
+			    </div>
+			  </div>
+			
+			  <p id="myP">현재 인원 <span id="demo">0</span> /  총 100 명</p>
+			  <p id="Cmyp">참가하기를 클릭해주세요</p>
+			  
+			
+			  <button class="w3-button w3-lime" onclick="move();">참가하기</button> 
+			</div>
+			  <hr>
 <script>
+function move() {
+  var elem = document.getElementById("myBar");   
+  var width=0;
+  width = parseInt(elem.style.width);
+  
+  if (width >= 100) {
+    clearInterval(id);
 
+  } else {
+    width+=1; 
+    elem.style.width = width + '%'; 
+    var num = parseInt(elem.style.width);
+    num = num.toFixed(0)
+    document.getElementById("demo").innerHTML = num;
+    document.getElementById("Cmyp").className = "w3-text-green w3-animate-opacity";
+    document.getElementById("Cmyp").innerHTML = "참가 신청되었습니다.!";
+	alert("참가신청이 완료되었습니다.")
 
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
-var addstr = "";
-var addstr = "";
-// 지도를 생성합니다    
-var map = new daum.maps.Map(mapContainer, mapOption); 
-
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new daum.maps.services.Geocoder();
-
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch('${dto.f}', function(result, status) {
-
-   
-   
-   
-    // 정상적으로 검색이 완료됐으면 
-     if (status === daum.maps.services.Status.OK) {
-
-        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new daum.maps.Marker({
-            map: map,
-            position: coords
-        });
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new daum.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">경기장 위치</div>'
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-    
-});    
+	
+	
+  }
+}
 </script>
-  </div>  
-  <div class="w3-container">
-    <h5>필요기부자</h5>
-    <p>건설</p>
-    <div class="w3-grey">
-      <div class="w3-container w3-center w3-padding w3-green" style="width:25%">+25%</div>
-    </div>
-
-    <p>예술</p>
-    <div class="w3-grey">
-      <div class="w3-container w3-center w3-padding w3-orange" style="width:50%">50%</div>
-    </div>
-
-    <p>인ㅌ리어</p>
-    <div class="w3-grey">
-      <div class="w3-container w3-center w3-padding w3-red" style="width:75%">75%</div>
-    </div>
-  </div>
-  <hr>
 
 
   <div class="w3-container">
@@ -203,17 +223,7 @@ geocoder.addressSearch('${dto.f}', function(result, status) {
   <br>
 
 
-<footer class="w3-container w3-center w3-opacity w3-lime">  
-  <div class="w3-xlarge w3-padding-32">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
- </div> 
- <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-</footer>
+<jsp:include page="/resources/navbar/footer.jsp" />
 
 
 </body>

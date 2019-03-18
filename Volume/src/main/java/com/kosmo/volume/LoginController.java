@@ -60,7 +60,7 @@ public class LoginController {
 		}
 		else {
 			mv.addObject("loginCheck", "true");
-			session.setAttribute("UserInfo", usersDTO);
+			session.setAttribute("login", usersDTO);
 		}
 		
 		//로그인 후 페이지 이동
@@ -85,7 +85,7 @@ public class LoginController {
 		dto.setName(req.getParameter("name"));
 		dto.setEmail(req.getParameter("email"));
 		dto.setAuthority("USER");
-		dto.setUserType("default");
+		dto.setUserType("user");
 				
 		sqlSession.getMapper(UserImpl.class).regiUser(dto);
 		session.setAttribute("login", dto);
