@@ -52,7 +52,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 									</button>
 								</div>
 							</div>
-							<div class="input-group">
+							<div class="input-group" style="margin-left: 50px;">
 								<div class="input-group-btn">
 									<button type="button" class="btn btn-success"  style="height: 50px; width: 200px; border-radius: 15px;"  onclick="location.href='ProjectBbsWriteController.do';">
 										<i class="glyphicon glyphicon-pencil" style="font-size: 16px; font-weight: bold;">프로젝트 제안하기</i>
