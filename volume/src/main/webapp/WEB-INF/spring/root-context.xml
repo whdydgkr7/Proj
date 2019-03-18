@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- bean: 네임스페이스가 없어서 지움
+	(xmlns:beans="http://www.springframework.org/schema/beans") -->
+	<bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"></property>
+		<property name="username" value="kosmo"></property>
+		<property name="password" value="1234"></property>
+	</bean>	
+	
+	<!-- <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"></property>
+		<property name="username" value="project_web"></property>
+		<property name="password" value="1234"></property>
+	</bean> -->
+	
+	
+	<!-- Google 소셜 로그인 연결 설정 -->
+	<bean id = "googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
+		<constructor-arg value="727891470099-ibar4c1mhvf5564uraeoeh9o8itf3i10.apps.googleusercontent.com"/>
+		<constructor-arg value="gRoUl0MeytkDuOakzxmRsK8B"/>    
+	</bean>
+	<bean id = "googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+		<property name="scope" value="https://www.googleapis.com/auth/plus.profile.emails.read"></property>
+		<property name="redirectUri" value="http://localhost:8080/volume/googleSignInCallback"/>
+	</bean>
+</beans>
