@@ -20,7 +20,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 	아이디: ${login.id }  /  이름: ${login.name }  /  이메일: ${login.email }  님 환영해요 &nbsp;&nbsp;
 	<a href="logout">로그아웃</a>
 <%} else{%>
-	<a href="login">로그인</a>
+	<a href="login">로그인</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="adminMain">관리자 페이지</a>
 <%}
 if(request.getParameter("logoutMsg")!=null) {%>
 <script type="text/javascript">
