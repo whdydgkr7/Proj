@@ -40,7 +40,7 @@ function frmValidate(frm){
 <div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 900px; ">
 		<form action="/action_page.php" class="w3-container w3-card-4 w3-light-grey  w3-margin">
 		<h2 class="w3-center" style="font-weight: bold;">프로젝트 제안하기</h2>
-
+	
 		 
 		
 		</form>

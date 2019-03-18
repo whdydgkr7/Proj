@@ -225,6 +225,16 @@
             <version>4.5.2</version>
         </dependency>
         
+        
+        <!-- Jackson2 카카오 채팅봇 --> 
+        <dependency> 
+        	<groupId>com.fasterxml.jackson.core</groupId> 
+	        	<artifactId>jackson-databind</artifactId> 
+	        <version>2.7.2</version> 
+        </dependency>
+
+        
+        
 	</dependencies>
     <build>
         <plugins>

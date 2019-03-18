@@ -47,6 +47,11 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping("/adminMain")
+	public String adminMain(Model model) {
+		return "admin/adminMain";
+	}
+	
 	
 
 }
