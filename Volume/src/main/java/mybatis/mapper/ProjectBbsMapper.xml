@@ -54,6 +54,12 @@
 		WHERE rNum BETWEEN ${start} AND ${end}
 	</select>
 
+	<select id="clist" resultType="model.ProjectBbsDTO">
+      SELECT * FROM board ORDER BY idx DESC
+   	</select>
 	
+	<select id="listView" resultType="model.ProjectBbsDTO">
+      SELECT * FROM board WHERE idx=#{idx}
+   	</select>	
 	
 </mapper>   

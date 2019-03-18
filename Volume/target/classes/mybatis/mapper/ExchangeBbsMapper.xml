@@ -53,6 +53,12 @@
 		)
 		WHERE rNum BETWEEN ${start} AND ${end}
 	</select>
+	
+	<!-- 상세보기  -->
+	
+	<select id="exView" resultType="model.ExchangeBbsDTO">
+		SELECT * FROM board WHERE IDX = #{0}
+	</select>
 
 	
 	

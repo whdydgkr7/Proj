@@ -39,6 +39,7 @@ if(request.getParameter("logoutMsg")!=null) {%>
 
 <!-- ---------------------------------------------------------------------------------- -->
 
+
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
 
   First Photo Grid
@@ -91,7 +92,7 @@ if(request.getParameter("logoutMsg")!=null) {%>
   </div>
  
   <!-- Pagination -->
-  <div class="w3-center w3-padding-32">
+ <!--  <div class="w3-center w3-padding-32">
     <div class="w3-bar">
       <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
       <a href="#" class="w3-bar-item w3-black w3-button">1</a>
@@ -100,20 +101,9 @@ if(request.getParameter("logoutMsg")!=null) {%>
       <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
       <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
     </div>
-  </div>
-  
- 
-	
-
-
-
-<!-- ----------------------------------------------------------------------- -->
-
-<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
-    <h1 class="w3-margin w3-xlarge">Quote of the day: live life</h1>
-</div>
-
-<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-lime">  
+     -->
+   </div>   
+   <footer class="w3-container  w3-center w3-opacity w3-lime">  
   <div class="w3-xlarge w3-padding-32">
     <i class="fa fa-facebook-official w3-hover-opacity"></i>
     <i class="fa fa-instagram w3-hover-opacity"></i>
@@ -124,6 +114,8 @@ if(request.getParameter("logoutMsg")!=null) {%>
  </div> -->
  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
 </footer>
+
+
 
 <script>
 // Used to toggle the menu on small screens when clicking on the menu button

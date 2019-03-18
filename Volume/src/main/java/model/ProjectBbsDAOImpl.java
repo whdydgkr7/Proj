@@ -38,6 +38,12 @@ public interface ProjectBbsDAOImpl {
 	//검색처리추가
 	public int getTotalCountSearch(ParamDTO paramDTO);
 	//start와 end를 파라미터로 받아 게시물 가져오기
-	public ArrayList<ProjectBbsDTO> listPageSearch(ParamDTO paramDTO);	
+	public ArrayList<ProjectBbsDTO> listPageSearch(ParamDTO paramDTO);
+
+	//캘린더에서 DB 불러오기
+	public ArrayList<ProjectBbsDTO> clist();
+
+	//프로젝트게시판 상세보기
+	public ArrayList<ProjectBbsDTO> listView(String idx);	
 	
 }

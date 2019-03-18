@@ -84,12 +84,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 										<td class="text-center">${row.start_date }</td>
 										<td class="text-center">${row.end_date }</td>
 										<td class="text-center">
-										<%-- <a href="./view.do?idx=${row.idx}
-												&nowPage=${nowPage}"> --%>
-											${row.title}</td>
+										<a href="./ProjectBbsViewController.do?idx=${row.idx}"> 
+											${row.title}</a></td>
 										<td class="text-left">
-											<%-- <a href="./view.do?idx=${row.idx}
-												&nowPage=${nowPage}"> --%>${row.content}</a>
+										<a href="./ProjectBbsViewController.do?idx=${row.idx}">${row.content}</a>
 										</td>
 										<td class="text-center">${row.rec_count }</td>
 										<td class="text-center">${row.visit_count }</td>

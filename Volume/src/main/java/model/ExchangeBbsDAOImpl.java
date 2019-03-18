@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -14,7 +16,7 @@ public interface ExchangeBbsDAOImpl {
 	public void write(String name, String contents, String id);
 	
 	//수정하기폼
-	public ProjectBbsDTO view(String idx, String id);
+	public ExchangeBbsDTO view(String idx, String id);
 	
 	//수정처리
 	/*public int modify(String idx, String name, 
@@ -39,5 +41,9 @@ public interface ExchangeBbsDAOImpl {
 	public int getTotalCountSearch(ParamDTO paramDTO);
 	//start와 end를 파라미터로 받아 게시물 가져오기
 	public ArrayList<ExchangeBbsDTO> listPageSearch(ParamDTO paramDTO);	
+	
+	//상세보기
+
+	public ExchangeBbsDTO exView(String idx);
 	
 }
