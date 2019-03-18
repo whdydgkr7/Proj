@@ -1,6 +1,7 @@
 
 /* Drop Tables */
 
+DROP TABLE eChat CASCADE CONSTRAINTS;
 DROP TABLE eComment CASCADE CONSTRAINTS;
 DROP TABLE eEntry CASCADE CONSTRAINTS;
 DROP TABLE eBBS CASCADE CONSTRAINTS;
@@ -34,6 +35,17 @@ CREATE TABLE eBBS
 	thumbnail varchar2(100),
 	e_limit number NOT NULL,
 	PRIMARY KEY (idx)
+);
+
+
+CREATE TABLE eChat
+(
+	char_idx number NOT NULL,
+	idx number NOT NULL,
+	id varchar2(100) NOT NULL,
+	content varchar2(3000),
+	postdate date DEFAULT sysdate,
+	PRIMARY KEY (char_idx)
 );
 
 
@@ -105,6 +117,8 @@ CREATE TABLE pPropose
 	id varchar2(100) NOT NULL,
 	content varchar2(3000) NOT NULL,
 	postdate date DEFAULT sysdate NOT NULL,
+	visit_count number DEFAULT 0,
+	recommend number DEFAULT 0,
 	PRIMARY KEY (propose_idx)
 );
 
@@ -140,6 +154,12 @@ CREATE TABLE users
 
 /* Create Foreign Keys */
 
+ALTER TABLE eChat
+	ADD FOREIGN KEY (idx)
+	REFERENCES eBBS (idx)
+;
+
+
 ALTER TABLE eComment
 	ADD FOREIGN KEY (idx)
 	REFERENCES eBBS (idx)
@@ -171,6 +191,12 @@ ALTER TABLE pReview
 
 
 ALTER TABLE eBBS
+	ADD FOREIGN KEY (id)
+	REFERENCES users (id)
+;
+
+
+ALTER TABLE eChat
 	ADD FOREIGN KEY (id)
 	REFERENCES users (id)
 ;

@@ -26,7 +26,14 @@ if(request.getParameter("logoutMsg")!=null) {%>
 <script type="text/javascript">
 	alert('로그아웃 되었습니다.');
 <%}%>
+
 </script>
+
+
+<!-- 카카오 플러스친구 -->
+<div id="plusfriend-chat-button" data-plusfriend-id="_kxgxbkj" data-title="consult" data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true"></div>
+
+
 <!-- Header -->
 <div >
 <header class="w3-container  w3-center" style="padding:120px 16px; height: 400px; background-image: url('./resources/images/8.png'); ">
@@ -137,5 +144,25 @@ function myFunction() {
 }
 </script>
 
+
+
 </body>
+
+<!-- 카카오 플러스친구 -->
+<script>
+  window.kakaoAsyncInit = function () {
+    Kakao.init('b458377709ca26b5cb9a3bc9d36c1860');
+    Kakao.PlusFriend.createChatButton({
+      container: '#plusfriend-chat-button'
+    });
+  };
+
+  (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//developers.kakao.com/sdk/js/kakao.plusfriend.min.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'kakao-js-sdk'));
+</script>
 </html>
