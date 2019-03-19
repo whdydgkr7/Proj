@@ -36,13 +36,13 @@ if(request.getParameter("logoutMsg")!=null) {%>
 
 <!-- Header -->
 <div >
-<header class="w3-container  w3-center" style="padding:120px 16px; height: 400px; background-image: url('./resources/images/8.png'); ">
+<header class="w3-container w3-lime w3-center" style="padding:120px 16px; height: 400px; background-image: url('./resources/images/8.png'); ">
   <h1 class="w3-margin w3-jumbo" style="font-weight:bold;"> <span class="w3-padding w3-lime w3-opacity-min" style="font-size: 90px;">VolUMe</span></h1>
-<!--   <p class="w3-xlarge" style="padding:10px; ">Volunteer U and ME</p> -->
 </div> 
+<jsp:include page="/resources/navbar/navbarTop.jsp" />
 </header>
 <!-- Navbar -->
-	<jsp:include page="/resources/navbar/navbarTop.jsp" />
+	
 
 <!-- ---------------------------------------------------------------------------------- -->
 
@@ -110,17 +110,7 @@ if(request.getParameter("logoutMsg")!=null) {%>
     </div>
      -->
    </div>   
-   <footer class="w3-container  w3-center w3-opacity w3-lime">  
-  <div class="w3-xlarge w3-padding-32">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
- </div> -->
- <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-</footer>
+<jsp:include page="/resources/navbar/footer.jsp" />
 
 
 

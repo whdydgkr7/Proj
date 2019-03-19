@@ -21,45 +21,83 @@
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
+button{
+  background:#CDDB39;
+  color:black;
+  border:none;
+  position:relative;
+  height:60px;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+button:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+button:before,button:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+button:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+button:hover:before,button:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
 </style>
 <body>
-
-
+<div>
 	<div class="w3-row">
 		<img src="./resources/images/10.jpg" alt="" />
 	</div>
 	<jsp:include page="/resources/navbar/navbarTop.jsp" />
-<!-- First Grid -->
-<div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 900px; ">
-		<h1 class="w3-text-lime" style="font-weight:bold;">PROjECT</h1>
-		<small>전체페이지:${totalPage } / 현재페이지:${nowPage }</small></h3>
+	<!-- First Grid -->
+	<div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 900px; ">
+		<h1 class="w3-text-BLACK" style="font-weight:bold;">PROjECT</h1>
 		<div class="w3-row">
 			  <div class="w3-col s8 w3">
 					  <form class="form-inline" name="searchFrm" onsubmit="return searchValidate(this);">
-					  
 							<div class="form-group">
-								<select name="searchColumn" class="form-control">
+								<select name="searchColumn" style="height:50px;"  class="form-control">
 									<option value="title">프로젝트</option>
 									<option value="name">작성자</option>
 									<option value="content">내용</option>
 								</select>
 							</div>
+							
+							
 							<div class="input-group">
-								<input type="text" name="searchWord" class="form-control"/>
+								<input type="text" name="KeyString" style="height: 50px;" class="form-control"/>
 								<div class="input-group-btn">
-									<button type="submit" class="btn btn-success">
-										<i class="glyphicon glyphicon-search"></i>
+									<button type="submit" style="height: 50px; width: 50px; border-radius: 15px;"  onclick="location.href='ProjectBbsWriteController.do';">
+										<i class="glyphicon glyphicon-search" style="font-size: 18px; font-weight: bold;"></i>
 									</button>
 								</div>
+								
+																
 							</div>
 							<div class="input-group" style="margin-left: 50px;">
 								<div class="input-group-btn">
-									<button type="button" class="btn btn-success"  style="height: 50px; width: 200px; border-radius: 15px;"  onclick="location.href='ProjectBbsWriteController.do';">
-										<i class="glyphicon glyphicon-pencil" style="font-size: 16px; font-weight: bold;">프로젝트 제안하기</i>
+									<button type="button" style="height: 50px; width: 200px; border-radius: 15px;"  onclick="location.href='ProjectBbsWriteController.do';">
+										<i class="glyphicon glyphicon-pencil" style="font-size: 18px; font-weight: bold;">제안하기</i>
 									</button>
 								</div>
 							</div>
-					  </form>			  
+					  </form>
+					  			  
 			  	<table class="table table-success"style="width:90%; margin:10px;">
 					  <thead class="w3-lime">
 					    <th>이미지</th>
@@ -116,13 +154,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 						${pagingImg }
 					</ul>	
 					</div>	
-			</div>
+			  </div>
 			  <div class="w3-col s4 23 ">
 					<jsp:include page="/resources/fullcalendar/fullcalendar.jsp" />
-		</div>
-    </div>
+			 </div>
+    	</div>
+	</div>
 </div>
-
 <jsp:include page="/resources/navbar/footer.jsp" />
 	
 
