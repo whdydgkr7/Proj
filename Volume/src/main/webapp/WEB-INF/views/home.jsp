@@ -36,7 +36,7 @@ if(request.getParameter("logoutMsg")!=null) {%>
 
 <!-- Header -->
 <div >
-<header class="w3-container w3-lime w3-center" style="padding:120px 16px; height: 400px; background-image: url('./resources/images/99.jpg'); ">
+<header class="w3-container w3-lime w3-center" style="padding:120px 16px; height: 390px; background-image: url('./resources/images/8.png'); ">
   <h1 class="w3-margin w3-jumbo" style="font-weight:bold;"> <span class="w3-padding w3-lime w3-opacity-min" style="font-size: 90px;">VolUMe</span></h1>
 </div> 
 <jsp:include page="/resources/navbar/navbarTop.jsp" />

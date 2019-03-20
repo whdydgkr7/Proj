@@ -76,7 +76,11 @@ button:hover:before,button:hover:after{
 #uploadImage{
   width:200px;
   float:left;
+  
 }
+ html,body{
+background-color:#F2F3F2;
+ }
 
 </style>
 <body>
@@ -90,7 +94,7 @@ button:hover:before,button:hover:after{
 
 <!--///////////////////////////////////////////////  -->
 
-<form class="form-horizontal" style="background-image: url('./resources/images/88.jpg');">
+<form class="form-horizontal" >
 <fieldset>
 
 <!-- Form Name -->
