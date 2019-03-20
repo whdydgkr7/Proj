@@ -33,17 +33,8 @@ background-color:#F2F3F2;
     <h5><b><i class="fa fa-dashboard"></i> 상세보기</b></h5>
   </header>
 
-  <div class="w3-row-padding w3-margin-bottom">
-    <div class="w3-quarter">
-      <div class="w3-container w3-red w3-padding-16">
-        <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
-        <div class="w3-right">
-          <h3>52</h3>
-        </div>
-        <div class="w3-clear"></div>
-        <h4>댓글수</h4>
-      </div>
-    </div>
+ <!--  <div class="w3-row-padding w3-margin-bottom">
+
     <div class="w3-quarter">
       <div class="w3-container w3-blue w3-padding-16">
         <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
@@ -55,27 +46,17 @@ background-color:#F2F3F2;
       </div>
     </div>
     <div class="w3-quarter">
-      <div class="w3-container w3-teal w3-padding-16">
-        <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
-        <div class="w3-right">
-          <h3>23</h3>
-        </div>
-        <div class="w3-clear"></div>
-        <h4>후기</h4>
-      </div>
-    </div>
-    <div class="w3-quarter">
       <div class="w3-container w3-orange w3-text-white w3-padding-16">
-        <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
+        <div class="w3-left"><i class="far fa-thumbs-up w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3>50</h3>
         </div>
         <div class="w3-clear"></div>
-        <h4>참여자수</h4>
+        <h4>추천수</h4>
       </div>
     </div>
   </div>
-
+ -->
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-twothird">
@@ -203,29 +184,6 @@ function move() {
 }
 </script>
 
-
-  <div class="w3-container">
-    <h5>Recent Comments</h5>
-    <div class="w3-row">
-      <div class="w3-col m2 text-center">
-        <img class="w3-circle" src="/w3images/avatar3.png" style="width:96px;height:96px">
-      </div>
-      <div class="w3-col m10 w3-container">
-        <h4>John <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
-        <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
-      </div>
-    </div>
-
-    <div class="w3-row">
-      <div class="w3-col m2 text-center">
-        <img class="w3-circle" src="/w3images/avatar1.png" style="width:96px;height:96px">
-      </div>
-      <div class="w3-col m10 w3-container">
-        <h4>Bo <span class="w3-opacity w3-medium">Sep 28, 2014, 10:15 PM</span></h4>
-        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
-      </div>
-    </div>
-  </div>
   <br>
 
 

@@ -93,13 +93,8 @@ background-color:#F2F3F2;
 								
 																
 							</div>
-							<div class="input-group" style="margin-left: 50px;">
-								<div class="input-group-btn">
-									<button type="button" style="height: 50px; width: 200px; border-radius: 15px;"  onclick="location.href='ProjectBbsWriteController.do';">
-										<i class="glyphicon glyphicon-pencil" style="font-size: 18px; font-weight: bold;">제안하기</i>
-									</button>
-								</div>
-							</div>
+
+					
 					  </form>
 					  			  
 			  	<table class="table table-success"style="width:90%; margin:10px;">
@@ -144,7 +139,25 @@ background-color:#F2F3F2;
 												<span class="glyphicon glyphicon-paperclip"></span>					
 											</c:if>
 										</td>
-										
+																																					
+<%-- 										<%
+										  String id =request.getAttribute("id").toString();
+										  String user_id="";
+										  if(session.getAttribute("id")!=null){
+											  user_id=session.getAttribute("id").toString();
+										  }
+										 if(id.equals(user_id)){		
+										%>  --%>
+								
+										<td class="text-center w3-text-lime"  style="font-size: 20px; color: #F2F3F2; ">
+										<i class="glyphicon glyphicon-edit" ></i>
+										</td>
+										<td class="text-center w3-text-lime" style="font-size: 20px; color: #F2F3F2;" >
+										<i class="glyphicon glyphicon-trash" ></i>
+										</td>
+
+						<%-- 			<%} %>	 --%>
+								
 									</tr>
 									<!-- 리스트반복끝 -->
 								</c:forEach>
