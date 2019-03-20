@@ -3,7 +3,7 @@ package model;
 
 import java.sql.Date;
 
-public class ProjectBbsDTO {
+public class BeforeApprovalDTO {
 
 	private int idx;
 	private String id;
@@ -24,9 +24,9 @@ public class ProjectBbsDTO {
 	
 	
 	
-	public ProjectBbsDTO() {}
+	public BeforeApprovalDTO() {}
 	
-	public ProjectBbsDTO(int idx, String id, String title, String content, Date postdate, int visit_count,
+	public BeforeApprovalDTO(int idx, String id, String title, String content, Date postdate, int visit_count,
 			String cla_bbs, int par_count, Date start_date, Date end_date, int rec_count, int bgroup, int bstep,
 			int bindent, String attachedfile,String thumbnail) {
 		this.idx = idx;

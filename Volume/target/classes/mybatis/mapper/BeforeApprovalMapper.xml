@@ -5,9 +5,9 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
     
-    <mapper namespace="model.ExchangeBbsDAOImpl">
+    <mapper namespace="model.BeforeApprovalImpl">
 	
-	<select id="list" resultType="model.ExchangeBbsDTO">
+	<select id="list" resultType="model.BeforeApprovalDTO">
 		SELECT * FROM board ORDER BY idx DESC
 	</select>
 
@@ -19,7 +19,7 @@
 		SELECT COUNT(*) FROM board
 	</select>
 	
-	<select id="listPage" resultType="model.ExchangeBbsDTO">
+	<select id="listPage" resultType="model.BeforeApprovalDTO">
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
 				SELECT * FROM board ORDER BY idx DESC
@@ -40,7 +40,7 @@
 
 	
 	<select id="listPageSearch" 
-		resultType="model.ExchangeBbsDTO" 
+		resultType="model.BeforeApprovalDTO" 
 		parameterType="model.ParamDTO">
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
@@ -54,6 +54,10 @@
 		WHERE rNum BETWEEN ${start} AND ${end}
 	</select>
 
+
 	
+	<select id="listView" resultType="model.BeforeApprovalDTO">
+      SELECT * FROM board WHERE idx=#{idx}
+   	</select>	
 	
 </mapper>   

@@ -70,9 +70,8 @@ background-color:#F2F3F2;
 	<jsp:include page="/resources/navbar/navbarTop.jsp" />
 	<!-- First Grid -->
 	<div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 900px; ">
-		<h1 class="w3-text-BLACK" style="font-weight:bold;">PROjECT</h1>
+		<h1 class="w3-text-BLACK" style="font-weight:bold;">승인 대기중인 PROjECT</h1>
 		<div class="w3-row">
-			  <div class="w3-col s8 w3">
 					  <form class="form-inline" name="searchFrm" onsubmit="return searchValidate(this);">
 							<div class="form-group">
 								<select name="searchColumn" style="height:50px;"  class="form-control">
@@ -159,9 +158,6 @@ background-color:#F2F3F2;
 					</ul>	
 					</div>	
 			  </div>
-			  <div class="w3-col s4 23 ">
-					<jsp:include page="/resources/fullcalendar/fullcalendar.jsp" />
-			 </div>
     	</div>
 	</div>
 </div>
