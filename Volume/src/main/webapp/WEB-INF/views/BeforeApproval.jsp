@@ -130,10 +130,10 @@ background-color:#F2F3F2;
 										<td class="text-center">${row.start_date }</td>
 										<td class="text-center">${row.end_date }</td>
 										<td class="text-center">
-										<a href="./ProjectBbsViewController.do?idx=${row.idx}"> 
+										<a href="./BeforeApprovalViewController.do?idx=${row.idx}"> 
 											${row.title}</a></td>
 										<td class="text-left">
-										<a href="./ProjectBbsViewController.do?idx=${row.idx}">${row.content}</a>
+										<a href="./BeforeApprovalViewController.do?idx=${row.idx}">${row.content}</a>
 										</td>
 										<td class="text-center">${row.rec_count }</td>
 										<td class="text-center">${row.visit_count }</td>

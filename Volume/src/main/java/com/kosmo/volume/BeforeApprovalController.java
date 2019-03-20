@@ -80,26 +80,26 @@ public class BeforeApprovalController {
 		return "BeforeApproval";
 	}	
 
+
 	
-	
-/*	   @RequestMapping("ProjectBbsViewController.do")
+   @RequestMapping("BeforeApprovalViewController.do")
 	   public String PrjectBbsView(Model model , HttpServletRequest req) {
 	      String idx= req.getParameter("idx");
 	      ArrayList<BeforeApprovalDTO> lists = sqlSession.getMapper(BeforeApprovalImpl.class).listView(idx);
 	
 	      model.addAttribute("lists",lists);
 
-	      return "ProjectBbsView";
+	      return "BeforeApprovalView";
 	   }
 	   
-	   @RequestMapping("ProjectBbsWriteController.do")
+/*	   @RequestMapping("ProjectBbsWriteController.do")
 	   public String PrjectBbsWrite(Model model , HttpServletRequest req) {
 		   
 		
 		   
 		   return "ProjectBbsWrite";
-	   }	
-	*/
+	   }	*/
+	
 	
 	
 }
