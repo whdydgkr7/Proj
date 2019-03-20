@@ -8,7 +8,7 @@
     <mapper namespace="model.BeforeApprovalImpl">
 	
 	<select id="list" resultType="model.BeforeApprovalDTO">
-		SELECT * FROM board ORDER BY idx DESC
+		SELECT * FROM ppropose ORDER BY idx DESC
 	</select>
 
 	
@@ -16,13 +16,13 @@
 	<!-- 방명록 페이지 처리 -->
 	<!-- 전체 게시물수 카운트 -->
 	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM board
+		SELECT COUNT(*) FROM ppropose
 	</select>
 	
 	<select id="listPage" resultType="model.BeforeApprovalDTO">
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM board ORDER BY idx DESC
+				SELECT * FROM ppropose ORDER BY propose_idx DESC
 			) Tb
 		)
 		WHERE rNum BETWEEN #{param1} AND #{param2}
@@ -32,7 +32,7 @@
 	<!-- 전체 게시물수 카운트 : 검색기능추가 -->
 	<select id="getTotalCountSearch" resultType="int" 
 		parameterType="model.ParamDTO">
-		SELECT COUNT(*) FROM board
+		SELECT COUNT(*) FROM ppropose
 		<if test="!keyString.equals('') and keyString!=null">
 			WHERE ${keyField} like '%'||#{keyString}||'%'
 	   	</if> 
@@ -44,11 +44,11 @@
 		parameterType="model.ParamDTO">
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM board 
+				SELECT * FROM ppropose 
 				<if test="!keyString.equals('') and keyString!=null">
 					WHERE ${keyField} like '%'||#{keyString}||'%'
 			   	</if> 
-				ORDER BY idx DESC
+				ORDER BY propose_idx DESC
 			) Tb
 		)
 		WHERE rNum BETWEEN ${start} AND ${end}
@@ -57,7 +57,12 @@
 
 	
 	<select id="listView" resultType="model.BeforeApprovalDTO">
-      SELECT * FROM board WHERE idx=#{idx}
+      SELECT * FROM ppropose WHERE propose_idx=#{idx}
    	</select>	
+   	
+    <update id="write">
+   	  INSERT INTO ppropose (propose_idx, id,content,postdate,visit_count,recommend,title,start_end,end_date,p_limit,thumbnail,attachedfile,address,state) 
+   	  VALUES (pPropose_seq.NEXTVAL, #{param1},#{param7},sysdate,0,0,#{param2},#{param4},#{param5},#{param6},#{param3},0,#{param8},"wait")
+   	</update>
 	
 </mapper>   

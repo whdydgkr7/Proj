@@ -8,7 +8,7 @@
     <mapper namespace="model.ProjectBbsDAOImpl">
 	
 	<select id="list" resultType="model.ProjectBbsDTO">
-		SELECT * FROM board ORDER BY idx DESC
+		SELECT * FROM pbbs ORDER BY idx DESC
 	</select>
 
 	
@@ -16,13 +16,13 @@
 	<!-- 방명록 페이지 처리 -->
 	<!-- 전체 게시물수 카운트 -->
 	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM board
+		SELECT COUNT(*) FROM pbbs
 	</select>
 	
 	<select id="listPage" resultType="model.ProjectBbsDTO">
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM board ORDER BY idx DESC
+				SELECT * FROM pbbs ORDER BY idx DESC
 			) Tb
 		)
 		WHERE rNum BETWEEN #{param1} AND #{param2}
@@ -32,7 +32,7 @@
 	<!-- 전체 게시물수 카운트 : 검색기능추가 -->
 	<select id="getTotalCountSearch" resultType="int" 
 		parameterType="model.ParamDTO">
-		SELECT COUNT(*) FROM board
+		SELECT COUNT(*) FROM pbbs
 		<if test="!keyString.equals('') and keyString!=null">
 			WHERE ${keyField} like '%'||#{keyString}||'%'
 	   	</if> 
@@ -44,7 +44,7 @@
 		parameterType="model.ParamDTO">
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM board 
+				SELECT * FROM pbbs
 				<if test="!keyString.equals('') and keyString!=null">
 					WHERE ${keyField} like '%'||#{keyString}||'%'
 			   	</if> 
@@ -55,11 +55,11 @@
 	</select>
 
 	<select id="clist" resultType="model.ProjectBbsDTO">
-      SELECT * FROM board ORDER BY idx DESC
+      SELECT * FROM pbbs ORDER BY idx DESC
    	</select>
 	
 	<select id="listView" resultType="model.ProjectBbsDTO">
-      SELECT * FROM board WHERE idx=#{idx}
+      SELECT * FROM pbbs WHERE idx=#{idx}
    	</select>	
 	
 </mapper>   

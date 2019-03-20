@@ -60,53 +60,34 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 	      </div>
 	      
 	      <div class="w3-container w3-card w3-white w3-round w3-margin" style="border: solid white 1px; text-align:center;"><br>
-	        <h2>${boardInfo.title }</h2><br>
+	        <h2>${rows.title }</h2><br>
 	        <hr class="w3-clear">
 	          <div class="w3-row-padding" style="margin:0 -16px; border: solid white 1px; text-align:center;" >
 	            <div class="w3" style="margin-left: 12%;  width:1000px; text-align: center;">
 	              <img src="./resources/images/13.jpg" style="width:700px;" alt="Northern Lights" class="w3-margin-bottom"><br />
 	        
 	          <div class="w3-row-padding w3-margin-bottom">
-	    <div class="w3-quarter">
-	      <div class="w3-container w3-red w3-padding-16">
-	        <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+	    <div class="w3-half">
+	      <div class="w3-container w3-red w3-padding-8">
+	        <div class="w3-left"><i class="	fa fa-thumbs-o-up w3-xxxlarge"></i></div>
 	        <div class="w3-right">
 	          <h3>52</h3>
 	        </div>
 	        <div class="w3-clear"></div>
-	        <h4>댓글수</h4>
+	        <h4>추천수</h4>
 	      </div>
 	    </div>
-	    <div class="w3-quarter">
-	      <div class="w3-container w3-blue w3-padding-16">
+	    	    <div class="w3-half">
+	      <div class="w3-container w3-orange w3-padding-8">
 	        <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
 	        <div class="w3-right">
-	          <h3>99</h3>
+	          <h3>52</h3>
 	        </div>
 	        <div class="w3-clear"></div>
 	        <h4>조회수</h4>
 	      </div>
 	    </div>
-	    <div class="w3-quarter">
-	      <div class="w3-container w3-teal w3-padding-16">
-	        <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
-	        <div class="w3-right">
-	          <h3>23</h3>
-	        </div>
-	        <div class="w3-clear"></div>
-	        <h4>후기</h4>
-	      </div>
-	    </div>
-	    <div class="w3-quarter">
-	      <div class="w3-container w3-orange w3-text-white w3-padding-16">
-	        <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
-	        <div class="w3-right">
-	          <h3>50</h3>
-	        </div>
-	        <div class="w3-clear"></div>
-	        <h4>참여자수</h4>
-	      </div>
-	    </div>
+
 	  </div>
         
         

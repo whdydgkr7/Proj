@@ -37,7 +37,7 @@
 		  background:#fff;
 		  color:#1AAB8A;
 		}
-		button:before,button:after{
+		button:before,#proposal:after{
 		  content:'';
 		  position:absolute;
 		  top:0;
@@ -94,7 +94,7 @@
 							</div>
 							<div class="input-group" style="margin-left: 50px;">
 								<div class="input-group-btn">
-									<button type="button" style="height: 50px; width: 200px; border-radius: 15px;"  onclick="location.href='ProjectBbsWriteController.do';">
+									<button type="button" style="height: 50px; width: 200px; border-radius: 15px;"  onclick="location.href='BeforeApprovalWriteController.do';">
 										<i class="glyphicon glyphicon-pencil" style="font-size: 18px; font-weight: bold;">제안하기</i>
 									</button>
 								</div>
@@ -130,12 +130,12 @@
 										<td class="text-center">${row.start_date }</td>
 										<td class="text-center">${row.end_date }</td>
 										<td class="text-center">
-										<a href="./BeforeApprovalViewController.do?idx=${row.idx}"> 
+										<a href="./BeforeApprovalViewController.do?idx=${row.propose_idx}"> 
 											${row.title}</a></td>
 										<td class="text-left">
-										<a href="./BeforeApprovalViewController.do?idx=${row.idx}">${row.content}</a>
+										<a href="./BeforeApprovalViewController.do?idx=${row.propose_idx}">${row.content}</a>
 										</td>
-										<td class="text-center">${row.rec_count }</td>
+										<td class="text-center">${row.recommend }</td>
 										<td class="text-center">${row.visit_count }</td>
 										<td class="text-center">${row.postdate }</td>
 										<td class="text-center"> 			

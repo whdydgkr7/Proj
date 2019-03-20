@@ -101,7 +101,8 @@ background-color:#F2F3F2;
 
 
 <!-- Text input-->
-<div class="form-group" >
+
+<div class="form-group"  enctype="multipart/form-data" name="writeFrm"	method="post" action="<c:url value="./ProposalWriteCtrl.do"/>"onsubmit="return frmValidate(this);">
 
   </div>
 
@@ -111,7 +112,7 @@ background-color:#F2F3F2;
       
         <label class="w3=text-green col-md-4 control-label">작성자(ID) : </label>  
         <div class="col-md-4">
-        <input id="ln" name="ln" type="text" placeholder="작성자" class="form-control input-md" style="width:200px;">
+        <input id="id" name="id" type="text" placeholder="작성자" class="form-control input-md" style="width:200px;">
         </div>
       
       </div>
@@ -122,7 +123,7 @@ background-color:#F2F3F2;
       <div class="form-group">
         <label class="col-md-4 control-label" > 프로젝트 명  : </label>  
         <div class="col-md-4">
-        <input id="ln" name="ln" type="text" placeholder="프로젝트명" class="form-control input-md" style="width:200px;">
+        <input id="title" name="title" type="text" placeholder="프로젝트명" class="form-control input-md" style="width:200px;">
         </div>
       </div>
       
@@ -130,7 +131,7 @@ background-color:#F2F3F2;
       <div class="form-group">
         <label class="col-md-4 control-label" > 썸네일 이미지  : </label>  
         <div class="col-md-4">
-        	<input id="uploadImage" type="file" name="myPhoto" onchange="PreviewImage();" />
+        	<input id="thumbnail" type="file" name="thumbnail" onchange="PreviewImage();" />
         </div>
       </div>     
       
@@ -138,14 +139,14 @@ background-color:#F2F3F2;
       
       
        <div class="form-group">
-        <label class="col-md-4 control-label" > 썸네일 이미지  : </label>  
+        <label class="col-md-4 control-label" > 미리보기  : </label>  
         <div class="col-md-4">
         	    <img id="uploadPreview" style="width: 300px; height: 300px;" />
 				<script type="text/javascript">
 				
 				function PreviewImage() {
 				    var oFReader = new FileReader();
-				    oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+				    oFReader.readAsDataURL(document.getElementById("thumbnail").files[0]);
 				
 				    oFReader.onload = function (oFREvent) {
 				        document.getElementById("uploadPreview").src = oFREvent.target.result;
@@ -160,7 +161,7 @@ background-color:#F2F3F2;
       <div class="form-group">
         <label class="col-md-4 control-label" for="ln">프로젝트 시작일 : </label>  
         <div class="col-md-4">
-             <input type="date" name="start_time" >
+             <input type="date" name="start_date" >
         </div>
       </div>
          
@@ -168,14 +169,14 @@ background-color:#F2F3F2;
       <div class="form-group">
         <label class="col-md-4 control-label" for="ln">프로젝트 종료일 : </label>  
         <div class="col-md-4">
-            <input type="date" name="end_time" >
+            <input type="date" name="end-date" >
         </div>
       </div>
 
       <div class="form-group">
         <label class="col-md-4 control-label" for="ln">참여인원 수  : </label>  
         <div class="col-md-4">
-            <input type=text style="width: 50px; size:"> 명
+            <input type=text style="width: 50px;" name="p_limit" > 명
         </div>
       </div>
 
@@ -202,7 +203,7 @@ background-color:#F2F3F2;
             <input type="text" id="sample6_address" placeholder="주소" style="width:600px;"><br />
             <input type="text" id="sample6_detailAddress" placeholder="상세주소">
             <input type="text" id="sample6_extraAddress" placeholder="참고항목">
-
+			<input type="hid den" id="address" name="address" disabled="disabled" >
          <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
          <script>
              function sample6_execDaumPostcode() {
@@ -260,7 +261,7 @@ background-color:#F2F3F2;
       <div class="form-group">
         <label class="col-md-4 control-label" for="submit"></label>
         <div class="col-md-4">
-               <button type="button" style="height: 50px; width: 200px; border-radius: 15px;"  onclick="location.href='ProjectBbsWriteController.do';">
+               <button type="submit" id="proposal" style="height: 50px; width: 200px; border-radius: 15px;"  onclick="location.href='ProjectBbsWriteController.do';">
                <i class="glyphicon glyphicon-pencil" style="font-size: 18px; font-weight: bold;">제안하기</i>
               </button>
         </div>

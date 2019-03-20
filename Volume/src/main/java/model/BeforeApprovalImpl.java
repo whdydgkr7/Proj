@@ -41,6 +41,10 @@ public interface BeforeApprovalImpl {
 	public ArrayList<BeforeApprovalDTO> listPageSearch(ParamDTO paramDTO);
 
 	//프로젝트게시판 상세보기
-	public ArrayList<BeforeApprovalDTO> listView(String idx);	
+	public ArrayList<BeforeApprovalDTO> listView(String idx);
+
+	//글쓰기 처리
+	public void write(String parameter, String parameter2, String parameter3, String parameter4, String parameter5,
+			String parameter6, String parameter7, String parameter8);	
 	
 }

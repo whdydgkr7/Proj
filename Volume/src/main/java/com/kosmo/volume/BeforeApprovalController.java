@@ -92,14 +92,23 @@ public class BeforeApprovalController {
 	      return "BeforeApprovalView";
 	   }
 	   
-/*	   @RequestMapping("ProjectBbsWriteController.do")
+	   @RequestMapping("BeforeApprovalWriteController.do")
 	   public String PrjectBbsWrite(Model model , HttpServletRequest req) {
 		   
 		
 		   
-		   return "ProjectBbsWrite";
-	   }	*/
+		   return "BeforeApprovalWrite";
+	   }	
 	
-	
+	   //글쓰기처리
+	@RequestMapping("ProposalWriteCtrl.do")
+	public String ProposalWriteCtrl(Model model, HttpServletRequest req) {
+		
+		
+		sqlSession.getMapper(BeforeApprovalImpl.class).write(req.getParameter("id"), req.getParameter("title"),req.getParameter("thumbnail"),req.getParameter("start_date"),req.getParameter("end_date"),req.getParameter("p_limit"),req.getParameter("content"),req.getParameter("sample6_address"));
+		
+		
+		return "redirect:BeforeApproval";
+	}
 	
 }
