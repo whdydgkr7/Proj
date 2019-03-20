@@ -2,38 +2,104 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<title>ProjectBbsViewtle</title>
+<title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"> 
+<link rel="stylesheet" href="./resources/stars/fontawesome-stars.css"> 
+<script type="text/javascript" src="./resources/stars/jquery.barrating.min.js"></script>
+
+
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
+
+
 <style>
-html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 
- html,body{
-background-color:#F2F3F2;
- }
 </style>
-<body>
 
-<div class="container">
+<script>
+function openEx(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("Ex");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-border-red", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.firstElementChild.className += " w3-border-red";
+}
+
+$(function() { $('#example').barrating({ 
+   theme: 'fontawesome-stars' 
+   }); 
+}); 
+
+
+$('#example').barrating({ 
+   theme: 'fontawesome-stars' , onSelect: function(value, text, event){ 
+      // 별점 클릭 후 처리는 여기서 코드 // 선택한 별점 값을 value로 받음 
+      
+   } 
+   
+   });
+
+   
+</script>
+
+
+<body class="w3-theme-l5">
+
+<!-- Navbar -->
 <div class="w3-row">
       <img src="./resources/images/10.jpg" alt="" />
 </div>
 <jsp:include page="/resources/navbar/navbarTop.jsp" />
 
 
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+  <!-- The Grid -->
+  <div class="w3-row ">
+    
+    
 
-
-  <!-- Header -->
-  <header class="w3-container w3-text-lime " style="padding-top:22px;font-weight: bold; font-size:20px; ">
-    <h5><b><i class="fa fa-dashboard"></i> 상세보기</b></h5>
-  </header>
-
-  <div class="w3-row-padding w3-margin-bottom">
+    
+      <div class="w3-row-padding">
+        <div class="w3-col m12">
+          <div class="w3-card w3-round w3-white">
+           
+          </div>
+        </div>
+      </div>
+      <div class="w3-container">
+           <header class="w3-container"  style="padding-top:25px;font-weight: bold; font-size:20px; text-align: center;">
+   			 <h1><b>프로젝트 상세보기</b></h1>
+ 			 </header>
+      </div>
+      
+      <div class="w3-container w3-card w3-white w3-round w3-margin" style="border: solid white 1px; text-align:center;"><br>
+        <h2>${boardInfo.title }</h2><br>
+        <hr class="w3-clear">
+          <div class="w3-row-padding" style="margin:0 -16px; border: solid white 1px; text-align:center;" >
+            <div class="w3" style="margin-left: 12%;  width:1000px; text-align: center;">
+              <img src="./resources/images/13.jpg" style="width:700px;" alt="Northern Lights" class="w3-margin-bottom"><br />
+        
+          <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter">
       <div class="w3-container w3-red w3-padding-16">
         <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
@@ -75,8 +141,10 @@ background-color:#F2F3F2;
       </div>
     </div>
   </div>
-
-  <div class="w3-panel">
+        
+        
+        
+ <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-twothird">
             <h5 class="w3-text-black">프로젝트 상세보기</h5>
@@ -227,10 +295,22 @@ function move() {
     </div>
   </div>
   <br>
+            </div>
+         </div>
+      </div>
+ 
+    
+  <!-- End Grid -->
+  </div>
+  
+<!-- End Page Container -->
+</div>
+<br>
 
 
 <jsp:include page="/resources/navbar/footer.jsp" />
+ 
 
-</div>
+
 </body>
-</html>
+</html> 

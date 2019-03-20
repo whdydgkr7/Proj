@@ -78,6 +78,16 @@ public class ProjectController {
 		model.addAttribute("lists",lists);
 		return "ProjectBbs";
 	}	
+	
+	
+	@RequestMapping("Calendar.do")
+	public String fullcalendar (Model model) {
+		
+		
+		return "fullcalendarView";
+	}
+	
+	
 	@RequestMapping(value="/CalendarView.do")
     @ResponseBody
     public ArrayList<ProjectBbsDTO> projectBbsView(Model model){
@@ -95,6 +105,7 @@ public class ProjectController {
       }
       else {
          list.addAll(clist);
+         
       }
         return list;
     }

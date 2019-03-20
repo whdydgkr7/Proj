@@ -72,7 +72,7 @@ background-color:#F2F3F2;
 	<div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 900px; ">
 		<h1 class="w3-text-BLACK" style="font-weight:bold;">PROjECT</h1>
 		<div class="w3-row">
-			  <div class="w3-col s8 w3">
+			  
 					  <form class="form-inline" name="searchFrm" onsubmit="return searchValidate(this);">
 							<div class="form-group">
 								<select name="searchColumn" style="height:50px;"  class="form-control">
@@ -89,11 +89,15 @@ background-color:#F2F3F2;
 									<button type="submit" style="height: 50px; width: 50px; border-radius: 15px;"  onclick="location.href='ProjectBbsWriteController.do';">
 										<i class="glyphicon glyphicon-search" style="font-size: 18px; font-weight: bold;"></i>
 									</button>
-								</div>
-								
-																
+								</div>						
 							</div>
-
+							<div class="input-group" style="margin-left: 50px;">
+								<div class="input-group-btn">
+									<button type="button" style="height: 50px; width: 200px; border-radius: 15px;"  onclick="window.open('Calendar.do','window_name','width=1000,height=600,location=no,status=no,scrollbars=no');">
+										<i class="glyphicon glyphicon-calendar" style="font-size: 18px; font-weight: bold;">일정보기</i>
+									</button>
+								</div>
+							</div>
 					
 					  </form>
 					  			  
@@ -171,10 +175,7 @@ background-color:#F2F3F2;
 						${pagingImg }
 					</ul>	
 					</div>	
-			  </div>
-			  <div class="w3-col s4 23 ">
-					<jsp:include page="/resources/fullcalendar/fullcalendar.jsp" />
-			 </div>
+			 
     	</div>
 	</div>
 </div>

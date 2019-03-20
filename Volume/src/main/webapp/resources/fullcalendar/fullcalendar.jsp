@@ -14,8 +14,8 @@
 
 </head>
 <body>
-   <div id="calendar" style="width: 600px;"></div>
-   <div id="dataArea" style="width: 600px;"></div>
+   <div id="calendar" style="width: 100%;"></div>
+   <div id="dataArea" style="height: 500px;"></div>
    <script>
    $(document).ready(function name() {
       $("#calendar").fullCalendar({
