@@ -86,14 +86,13 @@ $('#example').barrating({
 	      <h2 style="text-align: center;">oneday class</h2>
       </div>
       
-      <div class="w3-container w3-card w3-white w3-round w3-margin" ><br>
-        <h4>Class 정보</h4><br>
+      <div class="w3-container w3-card w3-white w3-round w3-margin" style="border: solid white 1px;"><br>
+        <h2>${boardInfo.title }</h2><br>
         <hr class="w3-clear">
-          <div class="w3-row-padding" style="margin:0 -16px">
-            <div class="w3-half">
+          <div class="w3-row-padding" style="margin:0 -16px;border: solid white 1px;">
+            <div class="w3-half" style="margin-left: 10%; width:700px;">
               <img src="./resources/images/13.jpg" style="width:100%" alt="Northern Lights" class="w3-margin-bottom"><br />
 		  
-		  <h2>Tabs in a Grid</h2>
 		
 		  <div class="w3-row">
 		    <a href="javascript:void(0)" onclick="openEx(event, 'view');">
@@ -107,17 +106,22 @@ $('#example').barrating({
 		    </a>
 		  </div>
 		
-		 <div id="view" class="w3-container Ex" style="display:block; height:800px;">
+		 <div id="view" class="w3-container Ex" style="display:block; height:800px; text-align: left;">
 		    <h2>상세정보</h2>
-		    <p>London is the capital city of England.</p>
+		    <div><h3>클래스명 : ${boardInfo.title }</h3></div>
+		    <div class="fa fa-map-marker"><h3>장소 : ${boardInfo.address }</h3></div>
+		    <div><h3>참여인원 : 0/${boardInfo.e_limit }</h3></div>
+		    <div><h3>클래스 시작시간 : ${boardInfo.start_date }</h3></div>
+		    <div><h3>클래스 종료시간 : ${boardInfo.end_date }</h3></div>
+		    <div><h3>class 내용 : ${boardInfo.content }</h3></div>
 		  </div>
 		
-		  <div id="location" class="w3-container Ex" style="display:none; height:800px;">
+		  <div id="location" class="w3-container Ex" style="display:none; height:800px; text-align: left;">
 		    <h2>위치정보</h2>
 		    <p>Paris is the capital of France.</p> 
 		  </div>
 		
-		  <div id="review" class="w3-container Ex" style="display:none; height:800px;">
+		  <div id="review" class="w3-container Ex" style="display:none; height:800px; text-align: left;">
 		    <h2>후기</h2><br />
 		    
 		    <p>Class별점</p>
@@ -174,9 +178,9 @@ $('#example').barrating({
          <h4 class="w3-center">My Profile</h4>
          <p class="w3-center"><img src="./resources/images/img_avatar1.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
          <hr>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
-         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+         <p><i class="fa fa-book fa-fw w3-margin-right w3-text-theme"></i> 수업시간 : ${boardInfo.t_time }</p>
+         <p><i class="fa fa-map-marker fa-fw w3-margin-right w3-text-theme"></i> 수업방식 : ${boardInfo.t_method }</p>
+         <p><i class="fa fa-heart fa-fw w3-margin-right w3-text-theme"></i> Point : ${boardInfo.t_point }</p>
         </div>
       </div>
       <br>

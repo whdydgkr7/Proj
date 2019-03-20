@@ -105,8 +105,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 				<!-- 각종 버튼 부분 -->
 				<!-- <button type="reset" class="btn">Reset</button> -->
 					
-				<!-- <button type="button" class="btn btn-default" 
-					onclick="location.href='write.do';">글쓰기</button>	 -->			
+				<button type="button" class="btn btn-default" 
+					onclick="location.href='write.do';">글쓰기</button>			
 			
 			</div>
 		<div class="row text-center">
