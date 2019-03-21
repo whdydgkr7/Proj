@@ -34,6 +34,8 @@ CREATE TABLE eBBS
 	attachedfile varchar2(2000),
 	thumbnail varchar2(100),
 	e_limit number NOT NULL,
+	state varchar2(100),
+	report_count number DEFAULT 0,
 	PRIMARY KEY (idx)
 );
 
@@ -67,6 +69,7 @@ CREATE TABLE eEntry
 	idx number NOT NULL,
 	id varchar2(100) NOT NULL,
 	regidate date DEFAULT sysdate,
+	state varchar2(100),
 	PRIMARY KEY (entry_idx)
 );
 
@@ -107,6 +110,7 @@ CREATE TABLE pEntry
 	idx number NOT NULL,
 	id varchar2(100) NOT NULL,
 	regidate date DEFAULT sysdate,
+	result number DEFAULT 1,
 	PRIMARY KEY (entry_idx)
 );
 
@@ -119,6 +123,15 @@ CREATE TABLE pPropose
 	postdate date DEFAULT sysdate NOT NULL,
 	visit_count number DEFAULT 0,
 	recommend number DEFAULT 0,
+	title varchar2(100) NOT NULL,
+	start_date date DEFAULT sysdate,
+	end_date date DEFAULT sysdate,
+	p_limit number DEFAULT 1 NOT NULL,
+	thumbnail varchar2(2000),
+	attachedfile varchar2(2000),
+	address varchar2(1000) NOT NULL,
+	state varchar2(100),
+	add_point number DEFAULT 1,
 	PRIMARY KEY (propose_idx)
 );
 
