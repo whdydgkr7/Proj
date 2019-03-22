@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@page import="java.sql.Date"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.ProjectBbsDTO"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <title>W3.CSS Template</title>
@@ -44,19 +48,10 @@ function openEx(evt, cityName) {
   evt.currentTarget.firstElementChild.className += " w3-border-red";
 }
 
-$(function() { $('#example').barrating({ 
-   theme: 'fontawesome-stars' 
-   }); 
-}); 
 
 
-$('#example').barrating({ 
-   theme: 'fontawesome-stars' , onSelect: function(value, text, event){ 
-      // 별점 클릭 후 처리는 여기서 코드 // 선택한 별점 값을 value로 받음 
-      
-   } 
-   
-   });
+
+
 
    
 </script>
@@ -75,7 +70,26 @@ $('#example').barrating({
 <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
   <!-- The Grid -->
   <div class="w3-row ">
-    
+    <%
+        System.out.println(request.getAttribute("lists").toString());
+        ProjectBbsDTO list= new ProjectBbsDTO();
+        ArrayList<ProjectBbsDTO> dto= (ArrayList<ProjectBbsDTO>)request.getAttribute("lists");
+        String id="";
+        int visitcount= 0;
+        Date sdate= null;
+        Date edate= null;
+        String content= "";
+        int m_limits=0;
+        
+        for(ProjectBbsDTO dt : dto) {
+	          id= dt.getTitle().toString();
+	          sdate= dt.getStart_date();
+	          edate= dt.getEnd_date();
+	          visitcount= dt.getVisit_count();
+	          content= dt.getContent();
+	          m_limits= dt.getM_limit();
+	       }
+        %>
     
 
     
@@ -97,6 +111,7 @@ $('#example').barrating({
         <hr class="w3-clear">
           <div class="w3-row-padding" style="margin:0 -16px; border: solid white 1px; text-align:center;" >
             <div class="w3" style="margin-left: 12%;  width:1000px; text-align: center;">
+            <!-- 디비에서 값 받아오기 -->
               <img src="./resources/images/13.jpg" style="width:700px;" alt="Northern Lights" class="w3-margin-bottom"><br />
         
           <div class="w3-row-padding w3-margin-bottom">
@@ -114,7 +129,7 @@ $('#example').barrating({
       <div class="w3-container w3-blue w3-padding-16">
         <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
         <div class="w3-right">
-          <h3>99</h3>
+          <h3><%=visitcount %></h3>
         </div>
         <div class="w3-clear"></div>
         <h4>조회수</h4>
@@ -134,14 +149,13 @@ $('#example').barrating({
       <div class="w3-container w3-orange w3-text-white w3-padding-16">
         <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
         <div class="w3-right">
-          <h3>50</h3>
+          <h3><%=m_limits %></h3>
         </div>
         <div class="w3-clear"></div>
         <h4>참여자수</h4>
       </div>
     </div>
   </div>
-        
         
         
  <div class="w3-panel">
@@ -152,31 +166,29 @@ $('#example').barrating({
       </div>
     </div>
        <table>
-          <tr>
-             <td>      
-             이미지:
-             </td>
-          </tr>   
+        
+          
           <tr>
              <td>
-             프로젝트이름:
+            	프로젝트 이름: <%=id %>
              </td>
           </tr>             
           <tr>
              <td>
-             프로젝트 기간:
+             프로젝트 기간: <%=sdate %> ~ <%=edate %>
              </td>
           </tr>      
           <tr>
-          <td>
-             프로젝트 설명:
-          </td>
-          </tr>   
+          	<td>
+             프로젝트 설명: 
+          	</td>
+          </tr>
           <tr>
-          <td>
-             프로젝트 참여인원:
-          </td>
-          </tr>                       
+          	<td>
+          		&nbsp;&nbsp;&nbsp; <%=content %>
+          	</td>
+          </tr>   
+                               
        </table>
     
     <hr>
@@ -242,7 +254,7 @@ $('#example').barrating({
 			  <p id="myP">현재 인원 <span id="demo">0</span> /  총 100 명</p>
 			  <p id="Cmyp">참가하기를 클릭해주세요</p>
 			  
-			
+				<!-- 한번 신청하면 더이상신청안되게하기 -->
 			  <button class="w3-button w3-lime" onclick="move();">참가하기</button> 
 			</div>
 			  <hr>
@@ -254,8 +266,9 @@ function move() {
   
   if (width >= 100) {
     clearInterval(id);
-
-  } else {
+	
+  }
+  else {
     width+=1; 
     elem.style.width = width + '%'; 
     var num = parseInt(elem.style.width);
@@ -264,14 +277,15 @@ function move() {
     document.getElementById("Cmyp").className = "w3-text-green w3-animate-opacity";
     document.getElementById("Cmyp").innerHTML = "참가 신청되었습니다.!";
 	alert("참가신청이 완료되었습니다.")
-
-	
-	
+  }
+  if(width == 100){
+	  document.getElementById("Cmyp").innerHTML = "인원초과";
   }
 }
 </script>
 
 
+<<<<<<< HEAD
   <script>
 function commValidate(frm) {
    if(frm.co_content.value==""){
@@ -281,8 +295,26 @@ function commValidate(frm) {
    }
 }
 </script>
+=======
+  
+<script>
+function commValidate(frm) {
+	
+   if(frm.id.value == ""){
+	   alert("로그인후 사용가능합니다");
+	   action = "/login";
+	   submit();
+   }
+   if(frm.content.value==""){
+      alert("내용을입력해주세요");
+      frm.content.focus();
+      return false;
+   }
+}
+>>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
 
 
+<<<<<<< HEAD
 
    <!-- 댓글달기s -->
    <h5>댓글</h5>
@@ -366,6 +398,93 @@ function commValidate(frm) {
    </div>
    <!-- 댓글리스트e -->
    <br />
+=======
+</script>
+
+   <!-- 댓글달기s -->
+   <h5>댓글</h5>
+	
+      <form action="./DataComment.do" method="post" name="commentFrm" onsubmit="return commValidate(this);">
+      <input type="hidden" name="idx" value="${param.idx }" />
+      <input type="hidden" name="id" value="${login.id }" />
+      <!-- 원게시물 일련번호 -->
+         <table class="table table-bordered" style="margin-left: auto; margin-right: auto;">
+            <tr >
+               <td rowspan="2">
+                  <img class="w3-circle" src="./resources/defaultimg.png" style="width:96px;height:96px">
+               </td>
+               <td>작성자: ${login.id }</td>
+               <td><input type="hidden" /></td>
+               <td rowspan="2" ><input type="submit" value="댓글달기" style="width: 80px; height: 96px;"/></td>
+            </tr>
+            <tr>
+               <td colspan="2">
+                  <textarea name="content" style="width: 700px; height: 76px; " ></textarea>
+               </td>      
+            </tr>
+         </table>
+      </form>
+   
+   <!-- 댓글달기e -->
+   <br /><br /><br /><br />
+   
+   <!-- 댓글리스트s -->   
+   <script>
+   function isDelete(){
+      var ans = confirm("정말로 삭제하시겠습니까?");
+      if(ans == true){
+         var f = document.getElementById("pcReply");
+         f.action = "./pcDelete";
+         f.method="post";
+         f.submit();
+      }
+   }
+</script>
+   <c:choose>
+      <c:when test="${empty pcomment }">
+         
+      </c:when>
+      <c:otherwise>
+         <c:forEach items="${pcomment }" var="pclist" varStatus="loop">
+            <form action="./pcDelete" method="post" id="pcReply">
+                 <table class="table table-bordered"  style="margin-left: 250px; margin-right: auto;">
+                    <tr style="text-align: left;">
+                       <td rowspan="2">
+                         <img src="./resources/defaultimg.png" class="media-object" style="width:60px">
+                       </td>
+                       <td>
+          작성자: ${pclist.id } &nbsp;&nbsp; 작성일:${pclist.postdate }
+                       </td>
+                    </tr>
+                    <tr>
+                       <td>
+          &nbsp;&nbsp;&nbsp;&nbsp;${pclist.content }
+                       </td>
+                    </tr>
+                 <c:choose>
+                    <c:when test="${login.id == pclist.id }">
+                    <input type="hidden" value="${param.idx }" name="idx" />
+                    <input type="hidden" value="${pclist.comment_idx }" name="cidx" />
+                       <tr>
+                          <td>
+                          <input type="submit" value="삭제하기" onclick="isDelete(this);"/>
+                          </td>
+                       </tr>                     
+                    </c:when>
+                    <c:otherwise>
+                    </c:otherwise>
+                 </c:choose>
+                 </table>
+                 <br />
+            </form>   
+         </c:forEach>
+      </c:otherwise>
+   </c:choose>
+   </div>
+   <!-- 댓글리스트e -->
+   <br />
+   
+>>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
             </div>
          </div>
       </div>

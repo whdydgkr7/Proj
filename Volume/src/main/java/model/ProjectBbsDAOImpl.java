@@ -52,4 +52,9 @@ public interface ProjectBbsDAOImpl {
     public ArrayList<PcommentDTO> viewcommend(String idx);
     public void cdelete(String idx, String cidx);	*/
 	
+	//댓글
+    public void pcomment(PcommentDTO pDTO);
+    public ArrayList<PcommentDTO> viewcommend(String idx);
+    public void cdelete(String idx, String cidx);
+	
 }

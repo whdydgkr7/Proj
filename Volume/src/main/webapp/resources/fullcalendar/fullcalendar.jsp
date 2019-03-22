@@ -51,7 +51,7 @@
             });
          },
          eventClick: function(event) {
-            location.href="../volume/";
+            
          }
          
       });

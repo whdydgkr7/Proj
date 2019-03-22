@@ -91,17 +91,11 @@ public class ProjectController {
 	
 	@RequestMapping(value="/CalendarView.do")
     @ResponseBody
-    public ArrayList<ProjectBbsDTO> projectBbsView(Model model){
+    public ArrayList<ProjectBbsDTO> projectBbsView(Model model, HttpServletRequest req){
       ArrayList<ProjectBbsDTO> list = new ArrayList<ProjectBbsDTO>();
-      System.out.println("이동");
-      //에러발생
-      //ArrayList<ProjectBbsDTO> clists = sqlSession.getMapper(ProjectBbsDAOImpl.class).clist();
-      ArrayList<ProjectBbsDTO> clist= sqlSession.getMapper(ProjectBbsDAOImpl.class).clist();
       
-      System.out.println(clist);
-      for(ProjectBbsDTO dto : clist) {
-         System.out.println(dto.getId().toString());
-      }
+      ArrayList<ProjectBbsDTO> clist= sqlSession.getMapper(ProjectBbsDAOImpl.class).clist();
+
       if(clist==null) {
       }
       else {
@@ -112,6 +106,7 @@ public class ProjectController {
     }
 	
 	
+<<<<<<< HEAD
 	
 	   
 	   
@@ -155,9 +150,57 @@ public class ProjectController {
 	   
 	   @RequestMapping("ProjectBbsWriteController.do")
 	   public String PrjectBbsWrite(Model model , HttpServletRequest req) {
-		   
-		
-		   
-		   return "ProjectBbsWrite";
+=======
+	//페이지이동(댓글뿌리기)
+	   @RequestMapping("ProjectBbsViewController.do")
+	   public String PrjectBbsView(Model model , HttpServletRequest req) {
+	      String idx= req.getParameter("idx");
+	      ArrayList<ProjectBbsDTO> lists = sqlSession.getMapper(ProjectBbsDAOImpl.class).listView(idx);
+	      ArrayList<PcommentDTO> pcomment= sqlSession.getMapper(ProjectBbsDAOImpl.class).viewcommend(idx);
+	      
+	      for(ProjectBbsDTO dto : lists) {
+	          System.out.println(dto.getTitle());
+	       }
+		  model.addAttribute("pcomment",pcomment);
+	      model.addAttribute("lists",lists);
+
+	      return "ProjectBbsView";
 	   }
+	   //http://localhost:8080/Volume/ProjectBbsViewController.do?idx=2
+	   //댓글달기
+	   @RequestMapping(value="/DataComment.do",produces="text/plain;charset=UTF-8")
+	   public String DataComment(HttpServletRequest req) {
+>>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
+		   
+		   PcommentDTO PDTO= new PcommentDTO();
+		   String idx= req.getParameter("idx");
+		   PDTO.setIdx(Integer.parseInt(req.getParameter("idx")));
+		   PDTO.setId(req.getParameter("id"));
+		   PDTO.setContent(req.getParameter("content"));
+		   sqlSession.getMapper(ProjectBbsDAOImpl.class).pcomment(PDTO);
+		   
+		   return "redirect:ProjectBbsViewController.do?idx="+idx;
+	   }
+	   //댓글삭제
+	   @RequestMapping("pcDelete")
+	   public String pcDelete(HttpServletRequest req) {
+		   
+		   String idx= req.getParameter("idx");
+		   String cidx= req.getParameter("cidx");
+		   
+		   sqlSession.getMapper(ProjectBbsDAOImpl.class).cdelete(idx, cidx);
+		   
+		   return "redirect:ProjectBbsViewController.do?idx="+idx;
+	   }
+	
+	
+   
+   
+   @RequestMapping("ProjectBbsWriteController.do")
+   public String PrjectBbsWrite(Model model , HttpServletRequest req) {
+	   
+	
+	   
+	   return "ProjectBbsWrite";
+   }
 }
