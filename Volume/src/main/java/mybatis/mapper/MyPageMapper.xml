@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="myPage.MyPageImpl">
+	<!-- 목록 전부 가져오기 -->
+	<select id="ViewProj" resultType="model.ProjectBbsDTO" parameterType="String">
+		SELECT * FROM pbbs WHERE id=#{0} ORDER BY idx DESC
+	</select>
+	<!-- 전체 게시물수 카운트 -->
+	<!-- <select id="getTotalCount" resultType="int">
+		SELECT COUNT(*) FROM pbbs
+	</select>
+	
+	<select id="listPage" resultType="model.ProjectBbsDTO">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM pbbs ORDER BY idx DESC
+			) Tb
+		)
+		WHERE rNum BETWEEN #{param1} AND #{param2}
+	</select> -->
+</mapper>

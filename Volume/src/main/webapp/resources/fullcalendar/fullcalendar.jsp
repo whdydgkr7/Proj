@@ -14,30 +14,52 @@
 
 </head>
 <body>
-				<div id="calendar" style="width: 600px;"></div>
-							 <script>
-						 $(function() {
-					              $('#calendar').fullCalendar({
-					                defaultView: 'month',
-					                defaultDate: '2019-02-12',
-					                eventColor: 'green',
-					                events: [
-					                  {
-					                    title: 'Long Event',
-					                    start: '2019-03-07',
-					                    end: '2019-03-10',
-					                    color: 'green' 
-					                  }
-					                ]
-					    
-					              });
-						 })
- 
- 						/* $('#calendar').fullCalendar({
-					            }); 
-							 
-						0 */
-							 </script>			  
-		
+   <div id="calendar" style="width: 100%;"></div>
+   <div id="dataArea" style="height: 500px;"></div>
+   <script>
+   $(document).ready(function name() {
+      $("#calendar").fullCalendar({
+         header: {
+            left: '',
+            center: 'title',
+            right: ''
+         },
+         events: function(start, end, timezone, callback) {
+            $.ajax({
+               type: "POST",
+                 contentType: "application/json; charset=utf-8", 
+                 url: "CalendarView.do", 
+                 dataType: 'json',
+                 success: function(data){
+                    console.log(data);
+                    var events= [];
+                    
+                    $.each(data, function (index,value) {
+                      events.push({
+                         id: value['id'],
+                         title: value['title'],
+                         start: value['start_date'],
+                         end: value['end_date']
+                      });
+                      console.log(value);
+                  });
+                    callback(events);
+                },
+                error: function (e) {
+               alert("에러발생"+e.status+":"+e.statusText);
+            }
+            });
+         },
+         eventClick: function(event) {
+            location.href="../volume/";
+         }
+         
+      });
+   });
+
+
+   
+   </script>           
+      
 </body>
 </html>

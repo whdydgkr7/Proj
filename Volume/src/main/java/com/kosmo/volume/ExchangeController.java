@@ -1,6 +1,7 @@
 package com.kosmo.volume;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -72,10 +73,18 @@ public class ExchangeController {
 		
 	
 	}
-	/*@RequestMapping("/Exchangeview.do")
+	@RequestMapping("/Exchangeview.do")
 	public String Exchangeview(Model model, HttpServletRequest req) {
 		
 		
-	}*/
+		String idx = req.getParameter("idx");
+		
+		ExchangeBbsDTO dto = sqlSession.getMapper(ExchangeBbsDAOImpl.class).exView(idx);
+		
+		model.addAttribute("boardInfo",dto);
+		
+		return "ExchangeView";
+		
+	}
 	
 }

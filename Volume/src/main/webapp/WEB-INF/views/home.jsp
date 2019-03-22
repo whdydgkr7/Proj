@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
@@ -17,10 +19,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </style>
 <body>
 <%if(session.getAttribute("login")!=null){ %>
-	아이디: ${login.id }  /  이름: ${login.name }  /  이메일: ${login.email }  님 환영해요 &nbsp;&nbsp;
-	<a href="logout">로그아웃</a>
+<div class="text-right" style="padding-top: 30px; padding-right: 30px;">
+	<button type="button" class="btn btn-primary">${login.id }(${login.name })</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" onclick="location.href='MyPage'" class="btn btn-info">마이페이지</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" onclick="location.href='logout'" class="btn btn-danger">로그아웃</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	<span id="plusfriend-chat-button" data-plusfriend-id="_kxgxbkj" data-title="consult" data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true"></span>
+</div>
 <%} else{%>
-	<a href="login">로그인</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="adminMain">관리자 페이지</a>
+	<a href="login"><button type="button" value="로그인" class="btn btn-primary"></button></a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="adminMain">관리자 페이지</a>
 <%}
 if(request.getParameter("logoutMsg")!=null) {%>
 <script type="text/javascript">
@@ -31,20 +37,21 @@ if(request.getParameter("logoutMsg")!=null) {%>
 
 
 <!-- 카카오 플러스친구 -->
-<div id="plusfriend-chat-button" data-plusfriend-id="_kxgxbkj" data-title="consult" data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true"></div>
+
 
 
 <!-- Header -->
 <div >
-<header class="w3-container  w3-center" style="padding:120px 16px; height: 400px; background-image: url('./resources/images/8.png'); ">
+<header class="w3-container w3-lime w3-center" style="padding:120px 16px; height: 390px; background-image: url('./resources/images/8.png'); ">
   <h1 class="w3-margin w3-jumbo" style="font-weight:bold;"> <span class="w3-padding w3-lime w3-opacity-min" style="font-size: 90px;">VolUMe</span></h1>
-<!--   <p class="w3-xlarge" style="padding:10px; ">Volunteer U and ME</p> -->
 </div> 
+<jsp:include page="/resources/navbar/navbarTop.jsp" />
 </header>
 <!-- Navbar -->
-	<jsp:include page="/resources/navbar/navbarTop.jsp" />
+	
 
 <!-- ---------------------------------------------------------------------------------- -->
+
 
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
 
@@ -98,7 +105,7 @@ if(request.getParameter("logoutMsg")!=null) {%>
   </div>
  
   <!-- Pagination -->
-  <div class="w3-center w3-padding-32">
+ <!--  <div class="w3-center w3-padding-32">
     <div class="w3-bar">
       <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
       <a href="#" class="w3-bar-item w3-black w3-button">1</a>
@@ -107,30 +114,11 @@ if(request.getParameter("logoutMsg")!=null) {%>
       <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
       <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
     </div>
-  </div>
-  
- 
-	
+     -->
+   </div>   
+<jsp:include page="/resources/navbar/footer.jsp" />
 
 
-
-<!-- ----------------------------------------------------------------------- -->
-
-<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
-    <h1 class="w3-margin w3-xlarge">Quote of the day: live life</h1>
-</div>
-
-<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-lime">  
-  <div class="w3-xlarge w3-padding-32">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
- </div> -->
- <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-</footer>
 
 <script>
 // Used to toggle the menu on small screens when clicking on the menu button
