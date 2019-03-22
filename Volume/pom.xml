@@ -232,7 +232,7 @@
 	        	<artifactId>jackson-databind</artifactId> 
 	        <version>2.7.2</version> 
         </dependency>
-	<!--  -->
+	<!--파일업로드  -->
       <dependency>
           <groupId>servlets.com</groupId>
           <artifactId>cos</artifactId>
