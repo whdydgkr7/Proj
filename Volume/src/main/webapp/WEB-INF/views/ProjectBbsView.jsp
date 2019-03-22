@@ -272,29 +272,100 @@ function move() {
 </script>
 
 
-  <div class="w3-container">
-    <h5>Recent Comments</h5>
-    <div class="w3-row">
-      <div class="w3-col m2 text-center">
-        <img class="w3-circle" src="/w3images/avatar3.png" style="width:96px;height:96px">
-      </div>
-      <div class="w3-col m10 w3-container">
-        <h4>John <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
-        <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
-      </div>
-    </div>
+  <script>
+function commValidate(frm) {
+   if(frm.co_content.value==""){
+      alert("내용을입력해주세요");
+      frm.con.focus();
+      return false;
+   }
+}
+</script>
 
-    <div class="w3-row">
-      <div class="w3-col m2 text-center">
-        <img class="w3-circle" src="/w3images/avatar1.png" style="width:96px;height:96px">
-      </div>
-      <div class="w3-col m10 w3-container">
-        <h4>Bo <span class="w3-opacity w3-medium">Sep 28, 2014, 10:15 PM</span></h4>
-        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
-      </div>
-    </div>
-  </div>
-  <br>
+
+
+   <!-- 댓글달기s -->
+   <h5>댓글</h5>
+   
+      <form action="./DataComment.do" method="post" name="commentFrm" onsubmit="return commValidate(this);">
+      <input type="hidden" name="idx" value="${param.idx }" />
+      <input type="hidden" name="id" value="${login.id }" />
+      <!-- 원게시물 일련번호 -->
+         <table class="table table-bordered" style="margin-left: auto; margin-right: auto;">
+            <tr >
+               <td rowspan="2">
+                  <img class="w3-circle" src="./resources/defaultimg.png" style="width:96px;height:96px">
+               </td>
+               <td>작성자: ${login.id }</td>
+               <td><input type="hidden" /></td>
+               <td rowspan="2" ><input type="submit" value="댓글달기" style="width: 80px; height: 96px;"/></td>
+            </tr>
+            <tr>
+               <td colspan="2">
+                  <textarea name="content" style="width: 700px; height: 76px; " ></textarea>
+               </td>      
+            </tr>
+         </table>
+      </form>
+   
+   <!-- 댓글달기e -->
+   <br /><br /><br /><br />
+   
+   <!-- 댓글리스트s -->   
+   <script>
+   function isDelete(){
+      var ans = confirm("정말로 삭제하시겠습니까?");
+      if(ans == true){
+         var f = document.getElementById("pcReply");
+         f.action = "./pcDelete";
+         f.method="post";
+         f.submit();
+      }
+   }
+</script>
+   <c:choose>
+      <c:when test="${empty pcomment }">
+         
+      </c:when>
+      <c:otherwise>
+         <c:forEach items="${pcomment }" var="pclist" varStatus="loop">
+            <form action="./pcDelete" method="post" id="pcReply">
+                 <table class="table table-bordered"  style="margin-left: 250px; margin-right: auto;">
+                    <tr style="text-align: left;">
+                       <td rowspan="2">
+                         <img src="./resources/defaultimg.png" class="media-object" style="width:60px">
+                       </td>
+                       <td>
+          작성자: ${pclist.id } &nbsp;&nbsp; 작성일:${pclist.postdate }
+                       </td>
+                    </tr>
+                    <tr>
+                       <td>
+          &nbsp;&nbsp;&nbsp;&nbsp;${pclist.content }
+                       </td>
+                    </tr>
+                 <c:choose>
+                    <c:when test="${login.id == pclist.id }">
+                    <input type="hidden" value="${param.idx }" name="idx" />
+                    <input type="hidden" value="${pclist.comment_idx }" name="cidx" />
+                       <tr>
+                          <td>
+                          <input type="submit" value="삭제하기" onclick="isDelete(this);"/>
+                          </td>
+                       </tr>                     
+                    </c:when>
+                    <c:otherwise>
+                    </c:otherwise>
+                 </c:choose>
+                 </table>
+                 <br />
+            </form>   
+         </c:forEach>
+      </c:otherwise>
+   </c:choose>
+   </div>
+   <!-- 댓글리스트e -->
+   <br />
             </div>
          </div>
       </div>

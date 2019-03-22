@@ -11,11 +11,12 @@ public class BeforeApprovalDTO {
 	private int visit_count;
 	private int recommend;
 	private String title;
-	private Date start_date;
-	private Date end_date;
+	private String start_date;
+	private String end_date;
 	private int p_limit;
 	private String thumbnail;
 	private String attachedfile;
+	private String address;
 	private String state;
 	private int add_point;
 	
@@ -26,9 +27,8 @@ public class BeforeApprovalDTO {
 
 
 	public BeforeApprovalDTO(int propose_idx, String id, String content, Date postdate, int visit_count, int recommend,
-			String title, Date start_date, Date end_date, int p_limit, String thumbnail, String attachedfile,
-			String state, int add_point) {
-		
+			String title, String start_date, String end_date, int p_limit, String thumbnail, String attachedfile,
+			String address, String state, int add_point) {
 		this.propose_idx = propose_idx;
 		this.id = id;
 		this.content = content;
@@ -41,6 +41,7 @@ public class BeforeApprovalDTO {
 		this.p_limit = p_limit;
 		this.thumbnail = thumbnail;
 		this.attachedfile = attachedfile;
+		this.address = address;
 		this.state = state;
 		this.add_point = add_point;
 	}
@@ -131,25 +132,25 @@ public class BeforeApprovalDTO {
 
 
 
-	public Date getStart_date() {
+	public String getStart_date() {
 		return start_date;
 	}
 
 
 
-	public void setStart_date(Date start_date) {
+	public void setStart_date(String start_date) {
 		this.start_date = start_date;
 	}
 
 
 
-	public Date getEnd_date() {
+	public String getEnd_date() {
 		return end_date;
 	}
 
 
 
-	public void setEnd_date(Date end_date) {
+	public void setEnd_date(String end_date) {
 		this.end_date = end_date;
 	}
 
@@ -191,6 +192,18 @@ public class BeforeApprovalDTO {
 
 
 
+	public String getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+
 	public String getState() {
 		return state;
 	}
@@ -212,11 +225,10 @@ public class BeforeApprovalDTO {
 	public void setAdd_point(int add_point) {
 		this.add_point = add_point;
 	}
+
 	
+
+
 	
-	
-	
-	
-	
-	
+
 }

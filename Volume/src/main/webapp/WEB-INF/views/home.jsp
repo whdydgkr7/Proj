@@ -27,7 +27,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </div>
 <%} else{%>
 <div class="text-right" style="padding-top: 30px; padding-right: 30px;">
-	<a href="login"><button type="button" class="btn btn-primary">로그인</button></a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="adminMain">관리자 페이지</a>
+	<a href="login"><button type="button" class="btn btn-primary">로그인</button></a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="http://localhost:8080/VolumeAdmin/admin/adminMain.jsp">관리자 페이지</a>
 </div>
 <%}
 if(request.getParameter("logoutMsg")!=null) {%>

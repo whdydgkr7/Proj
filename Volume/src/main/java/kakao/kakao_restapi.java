@@ -29,7 +29,7 @@ public class kakao_restapi {
  
         postParams.add(new BasicNameValuePair("client_id", "b311350538692c9393bb8d785b0a0ef8"));
  
-        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8080/volume/oauth"));
+        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8080/Volume/oauth"));
  
         postParams.add(new BasicNameValuePair("code", autorize_code));
  

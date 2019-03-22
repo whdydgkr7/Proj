@@ -3,57 +3,73 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
-    
-    <mapper namespace="model.ProjectBbsDAOImpl">
-	
+
+
+<mapper namespace="model.ProjectBbsDAOImpl">
+
 	<select id="list" resultType="model.ProjectBbsDTO">
-		SELECT * FROM board ORDER BY idx DESC
+		SELECT * FROM board ORDER BY idx
+		DESC
 	</select>
 
-	
-	
+
+
 	<!-- 방명록 페이지 처리 -->
 	<!-- 전체 게시물수 카운트 -->
 	<select id="getTotalCount" resultType="int">
 		SELECT COUNT(*) FROM board
 	</select>
-	
+
 	<select id="listPage" resultType="model.ProjectBbsDTO">
 		SELECT * FROM (
-			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM board ORDER BY idx DESC
-			) Tb
+		SELECT Tb.*, rownum rNum FROM (
+		SELECT * FROM board ORDER BY idx DESC
+		) Tb
 		)
 		WHERE rNum BETWEEN #{param1} AND #{param2}
 	</select>
-	
-	
+
+
 	<!-- 전체 게시물수 카운트 : 검색기능추가 -->
-	<select id="getTotalCountSearch" resultType="int" 
+	<select id="getTotalCountSearch" resultType="int"
 		parameterType="model.ParamDTO">
 		SELECT COUNT(*) FROM board
 		<if test="!keyString.equals('') and keyString!=null">
 			WHERE ${keyField} like '%'||#{keyString}||'%'
-	   	</if> 
-	</select> 
+		</if>
+	</select>
 
-	
-	<select id="listPageSearch" 
-		resultType="model.ProjectBbsDTO" 
+
+	<select id="listPageSearch" resultType="model.ProjectBbsDTO"
 		parameterType="model.ParamDTO">
 		SELECT * FROM (
-			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM board 
-				<if test="!keyString.equals('') and keyString!=null">
-					WHERE ${keyField} like '%'||#{keyString}||'%'
-			   	</if> 
-				ORDER BY idx DESC
-			) Tb
+		SELECT Tb.*, rownum rNum FROM (
+		SELECT * FROM board
+		<if test="!keyString.equals('') and keyString!=null">
+			WHERE ${keyField} like '%'||#{keyString}||'%'
+		</if>
+		ORDER BY idx DESC
+		) Tb
 		)
 		WHERE rNum BETWEEN ${start} AND ${end}
 	</select>
+	<!-- 댓글달기 -->
+	<insert id="pcomment" parameterType="model.PcommentDTO">
+		INSERT INTO pcomment (comment_idx, idx, id, content)
+		values(p_seq.nextval, #{idx}, #{id}, #{content})
+		<selectKey keyProperty="comment_idx" resultType="Integer"
+			order="AFTER">
+			select p_seq.currval FROM dual
+		</selectKey>
+	</insert>
+	<!-- 댓글뿌리기 -->
+	<select id="viewcommend" resultType="model.PcommentDTO">
+		SELECT * FROM pcomment WHERE idx=#{idx} order by comment_idx desc
+	</select>
+	<!-- 댓글삭제 -->
+	<delete id="cdelete" parameterType="model.PcommentDTO">
+		delete from pcomment where idx=#{0} and comment_idx=#{1}
+	</delete>
 
-	
-	
+
 </mapper>   

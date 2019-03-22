@@ -61,7 +61,7 @@ function inputValidate(f) {
 <hr />
 <p class="text-center"> 
 	<a href="googleLogin"><img src="./resources/images/login_google.png" alt="" style="width: 100%;"/></a>
-	<a href="https://kauth.kakao.com/oauth/authorize?client_id=b311350538692c9393bb8d785b0a0ef8&redirect_uri=http://localhost:8080/volume/oauth&response_type=code"><img src="./resources/images/login_kakao.png" alt="" style="width: 100%;"/></a>
+	<a href="https://kauth.kakao.com/oauth/authorize?client_id=b311350538692c9393bb8d785b0a0ef8&redirect_uri=http://localhost:8080/Volume/oauth&response_type=code"><img src="./resources/images/login_kakao.png" alt="" style="width: 100%;"/></a>
 	<a href="naverLogin"><img src="./resources/images/login_naver.png" alt="" style="width: 100%;"/></a>
 </p>
 <hr />

@@ -94,7 +94,7 @@ background-color:#F2F3F2;
 
 <!--///////////////////////////////////////////////  -->
 
-<form class="form-horizontal" >
+<form class="form-horizontal" enctype="multipart/form-data" name="writeFrm"	method="post" action="<c:url value="BeforeApprovalWriteAction.do"/>"onsubmit="return frmValidate(this);">
 <fieldset>
 
 <!-- Form Name -->
@@ -102,7 +102,7 @@ background-color:#F2F3F2;
 
 <!-- Text input-->
 
-<div class="form-group"  enctype="multipart/form-data" name="writeFrm"	method="post" action="<c:url value="./ProposalWriteCtrl.do"/>"onsubmit="return frmValidate(this);">
+<div class="form-group">
 
   </div>
 
@@ -112,7 +112,7 @@ background-color:#F2F3F2;
       
         <label class="w3=text-green col-md-4 control-label">작성자(ID) : </label>  
         <div class="col-md-4">
-        <input id="id" name="id" type="text" placeholder="작성자" class="form-control input-md" style="width:200px;">
+        <input name="id" type="text" class="form-control input-md" style="width:200px;" value= "${sessionScope.login.id}"  >
         </div>
       
       </div>
@@ -159,19 +159,19 @@ background-color:#F2F3F2;
       
       <!-- 작성자 입력칸-->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="ln">프로젝트 시작일 : </label>  
+        <label class="col-md-4 control-label" for="ln">프로젝트 시작일 : ${start_date}</label>  
         <div class="col-md-4">
              <input type="date" name="start_date" >
         </div>
       </div>
-         
-
-      <div class="form-group">
+       <div class="form-group">
         <label class="col-md-4 control-label" for="ln">프로젝트 종료일 : </label>  
         <div class="col-md-4">
-            <input type="date" name="end-date" >
+             <input type="date" name="end_date" >
         </div>
-      </div>
+      </div>        
+
+
 
       <div class="form-group">
         <label class="col-md-4 control-label" for="ln">참여인원 수  : </label>  
@@ -200,7 +200,7 @@ background-color:#F2F3F2;
         <span>
             <input type="text" id="sample6_postcode" placeholder="우편번호"">
             <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br /></span><br/>      
-            <input type="text" id="sample6_address" placeholder="주소" style="width:600px;"><br />
+            <input type="text" id="sample6_address" placeholder="주소" style="width:600px;" name="address"><br />
             <input type="text" id="sample6_detailAddress" placeholder="상세주소">
             <input type="text" id="sample6_extraAddress" placeholder="참고항목">
 			<input type="hid den" id="address" name="address" disabled="disabled" >
@@ -261,7 +261,7 @@ background-color:#F2F3F2;
       <div class="form-group">
         <label class="col-md-4 control-label" for="submit"></label>
         <div class="col-md-4">
-               <button type="submit" id="proposal" style="height: 50px; width: 200px; border-radius: 15px;"  onclick="location.href='ProjectBbsWriteController.do';">
+               <button type="submit" id="proposal" style="height: 50px; width: 200px; border-radius: 15px;">
                <i class="glyphicon glyphicon-pencil" style="font-size: 18px; font-weight: bold;">제안하기</i>
               </button>
         </div>
