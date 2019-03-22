@@ -60,6 +60,23 @@
 	
 	<select id="listView" resultType="model.ProjectBbsDTO">
       SELECT * FROM pbbs WHERE idx=#{idx}
-   	</select>	
+   	</select>
+   	<!-- 댓글달기 -->
+      <insert id="pcomment" parameterType="model.PcommentDTO">
+         INSERT INTO pcomment (comment_idx, idx, id, content) 
+            values(p_seq.nextval, #{idx}, #{id}, #{content})
+         <selectKey keyProperty="comment_idx" resultType="Integer" order="AFTER">
+            select p_seq.currval FROM dual
+         </selectKey>
+      </insert>
+      <!-- 댓글뿌리기 -->
+      <select id="viewcommend" resultType="model.PcommentDTO">
+         SELECT * FROM pcomment WHERE idx=#{idx} order by comment_idx desc
+      </select>
+      <!-- 댓글삭제 -->
+      <delete id="cdelete" parameterType="model.PcommentDTO">
+         delete from pcomment where idx=#{0} and comment_idx=#{1}
+      </delete>
+   		
 	
 </mapper>   

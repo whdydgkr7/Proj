@@ -17,7 +17,7 @@ public class ProposeDAO {
 		try {
 			//java파일에서 web.xml의 초기화 파라미터를 가져옴
 			Class.forName("oracle.jdbc.OracleDriver");
-			con=DriverManager.getConnection("jdbc:oracle:thin://@localhost:1521:orcl", "project", "1234");
+			con=DriverManager.getConnection("jdbc:oracle:thin://@localhost:1521:orcl", "kosmo", "1234");
 			System.out.println("DB 연결 성공 ^^*");
 		} catch (Exception e) {
 			e.printStackTrace();

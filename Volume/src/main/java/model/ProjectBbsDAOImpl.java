@@ -46,4 +46,9 @@ public interface ProjectBbsDAOImpl {
 	//프로젝트게시판 상세보기
 	public ArrayList<ProjectBbsDTO> listView(String idx);	
 	
+	//댓글
+    public void pcomment(PcommentDTO pDTO);
+    public ArrayList<PcommentDTO> viewcommend(String idx);
+    public void cdelete(String idx, String cidx);
+	
 }
