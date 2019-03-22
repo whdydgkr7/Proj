@@ -26,7 +26,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 	<span id="plusfriend-chat-button" data-plusfriend-id="_kxgxbkj" data-title="consult" data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true"></span>
 </div>
 <%} else{%>
-	<a href="login"><button type="button" value="로그인" class="btn btn-primary"></button></a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="adminMain">관리자 페이지</a>
+<div class="text-right" style="padding-top: 30px; padding-right: 30px;">
+	<a href="login"><button type="button" class="btn btn-primary">로그인</button></a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="adminMain">관리자 페이지</a>
+</div>
 <%}
 if(request.getParameter("logoutMsg")!=null) {%>
 <script type="text/javascript">
