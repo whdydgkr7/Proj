@@ -6,62 +6,74 @@
     
     
     <mapper namespace="model.ProjectBbsDAOImpl">
-	
-	<select id="list" resultType="model.ProjectBbsDTO">
-		SELECT * FROM pbbs ORDER BY idx DESC
-	</select>
-
-	
-	
-	<!-- 방명록 페이지 처리 -->
-	<!-- 전체 게시물수 카운트 -->
-	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM pbbs
-	</select>
-	
-	<select id="listPage" resultType="model.ProjectBbsDTO">
-		SELECT * FROM (
-			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM pbbs ORDER BY idx DESC
-			) Tb
-		)
-		WHERE rNum BETWEEN #{param1} AND #{param2}
-	</select>
-	
-	
-	<!-- 전체 게시물수 카운트 : 검색기능추가 -->
-	<select id="getTotalCountSearch" resultType="int" 
-		parameterType="model.ParamDTO">
-		SELECT COUNT(*) FROM pbbs
-		<if test="!keyString.equals('') and keyString!=null">
-			WHERE ${keyField} like '%'||#{keyString}||'%'
-	   	</if> 
-	</select> 
-
-	
-	<select id="listPageSearch" 
-		resultType="model.ProjectBbsDTO" 
-		parameterType="model.ParamDTO">
-		SELECT * FROM (
-			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM pbbs
-				<if test="!keyString.equals('') and keyString!=null">
-					WHERE ${keyField} like '%'||#{keyString}||'%'
-			   	</if> 
-				ORDER BY idx DESC
-			) Tb
-		)
-		WHERE rNum BETWEEN ${start} AND ${end}
-	</select>
-
-	<select id="clist" resultType="model.ProjectBbsDTO">
+   
+   <select id="list" resultType="model.ProjectBbsDTO">
       SELECT * FROM pbbs ORDER BY idx DESC
-   	</select>
-	
-	<select id="listView" resultType="model.ProjectBbsDTO">
+   </select>
+
+   
+   
+   <!-- 방명록 페이지 처리 -->
+   <!-- 전체 게시물수 카운트 -->
+   <select id="getTotalCount" resultType="int">
+      SELECT COUNT(*) FROM pbbs
+   </select>
+   
+   <select id="listPage" resultType="model.ProjectBbsDTO">
+      SELECT * FROM (
+         SELECT Tb.*, rownum rNum FROM (
+            SELECT * FROM pbbs ORDER BY idx DESC
+         ) Tb
+      )
+      WHERE rNum BETWEEN #{param1} AND #{param2}
+   </select>
+   
+   
+   <!-- 전체 게시물수 카운트 : 검색기능추가 -->
+   <select id="getTotalCountSearch" resultType="int" 
+      parameterType="model.ParamDTO">
+      SELECT COUNT(*) FROM pbbs
+      <if test="!keyString.equals('') and keyString!=null">
+         WHERE ${keyField} like '%'||#{keyString}||'%'
+         </if> 
+   </select> 
+
+   
+   <select id="listPageSearch" 
+      resultType="model.ProjectBbsDTO" 
+      parameterType="model.ParamDTO">
+      SELECT * FROM (
+         SELECT Tb.*, rownum rNum FROM (
+            SELECT * FROM pbbs
+            <if test="!keyString.equals('') and keyString!=null">
+               WHERE ${keyField} like '%'||#{keyString}||'%'
+               </if> 
+            ORDER BY idx DESC
+         ) Tb
+      )
+      WHERE rNum BETWEEN ${start} AND ${end}
+   </select>
+   
+   <!-- 조회수증가 -->
+   <update id="visitcount" >
+      update pbbs set VISIT_COUNT= VISIT_COUNT+1 where idx=#{idx}
+   </update>
+   <!-- 댓글,리뷰 뿌리기 -->
+   <select id="reviewCount" parameterType="model.ReviewDTO">
+      select * from preview WHERE idx=#{idx}
+   </select>
+   <select id="pcCount" parameterType="model.PcommentDTO">
+      select COUNT(*) from pcomment WHERE idx=#{idx}
+   </select>
+
+   <select id="clist" resultType="model.ProjectBbsDTO">
+      SELECT * FROM pbbs ORDER BY idx DESC
+      </select>
+   
+   <select id="listView" resultType="model.ProjectBbsDTO">
       SELECT * FROM pbbs WHERE idx=#{idx}
-   	</select>
-   	<!-- 댓글달기 -->
+      </select>
+      <!-- 댓글달기 -->
       <insert id="pcomment" parameterType="model.PcommentDTO">
          INSERT INTO pcomment (comment_idx, idx, id, content) 
             values(p_seq.nextval, #{idx}, #{id}, #{content})
@@ -77,6 +89,6 @@
       <delete id="cdelete" parameterType="model.PcommentDTO">
          delete from pcomment where idx=#{0} and comment_idx=#{1}
       </delete>
-   		
-	
+         
+   
 </mapper>   

@@ -81,7 +81,7 @@ public class BeforeApprovalController {
 		model.addAttribute("lists", lists);
 		return "BeforeApproval";
 	}
-
+	//상세보기
 	@RequestMapping("BeforeApprovalViewController.do")
 	public String PrjectBbsView(Model model, HttpServletRequest req) {
 		String idx = req.getParameter("idx");
@@ -135,5 +135,16 @@ public class BeforeApprovalController {
 		
 		return "redirect:BeforeApproval.do";
 	}
+	
+	//추천하기
+	@RequestMapping("recommendAction.do")
+	public String recommendAction(Model model, HttpSession session, HttpServletRequest req) {
+		int idx = Integer.parseInt(req.getParameter("idx"));
+			System.out.println("propose_idx:"+idx);
+		sqlSession.getMapper(BeforeApprovalImpl.class).recommendAction(idx);
+		
+		return  "redirect:BeforeApproval.do";
+	}
+	
 		
 }

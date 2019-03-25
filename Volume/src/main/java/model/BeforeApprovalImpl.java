@@ -48,6 +48,15 @@ public interface BeforeApprovalImpl {
 
 
 
+	//추천하기
+	public void recommendAction(int idx);
+
+
+
+
+
+
+
 
 
 
