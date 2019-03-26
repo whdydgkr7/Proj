@@ -21,7 +21,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <body>
 <div class="w3">
   <div class="w3-bar w3-black w3-center-align w3-large">
-  	<div class="w3-right">
+<%--   	<div class="w3-right">
 		<%if(session.getAttribute("login")!=null) { 
 			if( !((UserDTO)session.getAttribute("login")).getAuthority().equals("ADMIN")) { %>
 				<button type="button" class="w3-white w3-bar-item w3-button" style="z-index:1;width:*;font-weight:bold;">${login.id }(${login.name }) 님 환영합니다.</button>
@@ -41,11 +41,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 			alert('로그아웃 되었습니다.');
 		</script>
 		<%}%>
-		</div>
+		</div> --%>
 	</div>
 </div>
-<<<<<<< HEAD
-<%} else{%>
+<%-- <%} else {%>
 <div class="text-right" style="padding-top: 30px; padding-right: 30px;">
 	<a href="login"><button type="button" class="btn btn-primary">로그인</button></a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="http://localhost:8080/VolumeAdmin/admin/adminMain.jsp">관리자 페이지</a>
 </div>
@@ -53,23 +52,21 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 if(request.getParameter("logoutMsg")!=null) {%>
 <script type="text/javascript">
 	alert('로그아웃 되었습니다.');
-<%}%>
+<%}%> --%>
 
 </script>
 
-
-=======
->>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
 <!-- 카카오 플러스친구 -->
 
 
 
 <!-- Header -->
-<div >
+<div class="w3-row">
+<jsp:include page="/resources/navbar/navbarTop.jsp" /></div>
 <header class="w3-container w3-lime w3-center" style="padding:120px 16px; height: 390px; background-image: url('./resources/images/8.png'); ">
   <h1 class="w3-margin w3-jumbo" style="font-weight:bold;"> <span class="w3-padding w3-lime w3-opacity-min" style="font-size: 90px;">VolUMe</span></h1>
-</div> 
-<jsp:include page="/resources/navbar/navbarTop.jsp" />
+
+
 </header>
 <!-- Navbar -->
 	

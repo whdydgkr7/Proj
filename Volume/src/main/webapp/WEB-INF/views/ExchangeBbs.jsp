@@ -24,11 +24,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </style>
 <body>
 
-
+	<jsp:include page="/resources/navbar/navbarTop.jsp" />
 	<div class="w3-row">
 		<img src="./resources/images/10.jpg" alt="" />
 	</div>
-	<jsp:include page="/resources/navbar/navbarTop.jsp" />
+
 <div class="w3-container">	
 <!-- Contents부분 -->
 				<h3>EXCHANGE</h3>

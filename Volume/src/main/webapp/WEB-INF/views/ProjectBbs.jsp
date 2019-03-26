@@ -64,10 +64,12 @@ background-color:#F2F3F2;
 </style>
 <body>
 <div>
+
 	<div class="w3-row">
+	<jsp:include page="/resources/navbar/navbarTop.jsp" />
 		<img src="./resources/images/10.jpg" alt="" />
 	</div>
-	<jsp:include page="/resources/navbar/navbarTop.jsp" />
+	
 	<!-- First Grid -->
 	<div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 900px; ">
 		<h1 class="w3-text-BLACK" style="font-weight:bold;">PROjECT</h1>

@@ -54,12 +54,12 @@ function openEx(evt, cityName) {
 
 
 <body class="w3-theme-l5">
-
+<jsp:include page="/resources/navbar/navbarTop.jsp" />
 <!-- Navbar -->
 <div class="w3-row">
       <img src="./resources/images/10.jpg" alt="" />
 </div>
-<jsp:include page="/resources/navbar/navbarTop.jsp" />
+
 
 
 <!-- Page Container -->

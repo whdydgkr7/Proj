@@ -67,12 +67,12 @@ int propose_idx=beforeApprovalDTO.getPropose_idx();
 
 
 <body class="w3-theme-l5">
-
+<jsp:include page="/resources/navbar/navbarTop.jsp" />
 	<!-- Navbar -->
 	<div class="w3-row">
 		<img src="./resources/images/10.jpg" alt="" />
 	</div>
-	<jsp:include page="/resources/navbar/navbarTop.jsp" />
+	
 
 
 	<!-- Page Container -->
@@ -104,9 +104,8 @@ int propose_idx=beforeApprovalDTO.getPropose_idx();
 					style="margin: 0 -16px; border: solid white 1px; text-align: center;">
 					<div class="w3"
 						style="margin-left: 12%; width: 1000px; text-align: center;">
-						<img src="./resources/images/${beforeApprovalDTO.thumbnail}" 
-							>
-							${beforeApprovalDTO.thumbnail}
+						<img src="./resources/thumbnail/${beforeApprovalDTO.thumbnail}">
+							
 							
 				<br>
 				
