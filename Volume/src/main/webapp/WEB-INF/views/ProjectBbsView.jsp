@@ -109,6 +109,7 @@ table.greenTable tbody td {
 				int m_limits = 0;
 				String title = null;
 				String address = null;
+				String thumbnail=null;
 
 				for (ProjectBbsDTO dt : dto) {
 					title = dt.getTitle();
@@ -118,6 +119,7 @@ table.greenTable tbody td {
 					visitcount = dt.getVisit_count();
 					content = dt.getContent();
 					m_limits = dt.getM_limit();
+					thumbnail=dt.getThumbnail();
 				}
 			%>
 			<%
@@ -155,8 +157,20 @@ table.greenTable tbody td {
 					<div class="w3"
 						style="margin-left: 12%; width: 1000px; text-align: center;">
 						<!-- 디비에서 값 받아오기 -->
-						<img src="./resources/images/13.jpg" style="width: 700px;"
-							alt="Northern Lights" class="w3-margin-bottom"><br />
+						<c:choose>
+							<c:when test="${not empty thumbnail }">
+								<td class="text-center"><img
+									src="./resources/thumbnail/${thumbnail}"></td>
+							</c:when>
+							<c:otherwise>
+								<td class="text-center"><img
+									src="./resources/images/defaultimage.jpg"></td>
+							</c:otherwise>
+						</c:choose>
+						<br>
+						<h2><%=title%></h2>
+						<br>
+
 
 						<div class="w3-row-padding w3-margin-bottom">
 							<div class="w3-quarter">
@@ -236,8 +250,9 @@ table.greenTable tbody td {
 								</tr>
 								<tr>
 									<td colspan="2"><div id="map"
-											style="width: 100%; height: 350px;"></div> 
-											<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=70a54cc4cc1852fb30a4ac2b3cd30ac3&libraries=services"></script>
+											style="width: 100%; height: 350px;"></div> <script
+											type="text/javascript"
+											src="//dapi.kakao.com/v2/maps/sdk.js?appkey=70a54cc4cc1852fb30a4ac2b3cd30ac3&libraries=services"></script>
 										<script>
 											var mapContainer = document
 													.getElementById('map'), // 지도를 표시할 div 
@@ -293,8 +308,7 @@ table.greenTable tbody td {
 																}
 
 															});
-										</script>
-										</td>
+										</script></td>
 								</tr>
 							</tbody>
 						</table>

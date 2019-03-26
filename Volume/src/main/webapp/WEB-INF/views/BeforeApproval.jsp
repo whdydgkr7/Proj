@@ -93,7 +93,7 @@ html, body {
 
 		<!-- First Grid -->
 		<div class="w3-row-padding w3-padding-64 w3-container-fluid "
-			style="height: 900px;">
+			style="height: 1400px;">
 			<h1 class="w3-text-BLACK" style="font-weight: bold;">승인 대기중인
 				PROjECT</h1>
 			<div class="w3-row">
@@ -158,14 +158,20 @@ html, body {
 								<c:forEach items="${lists }" var="row" varStatus="loop">
 									<!-- 리스트반복시작 -->
 									<tr>
-										<td class="text-center"><c:choose>
-												<c:when test="${empty row.thumbnail}">
-													<img src="./resources/images/123.png">
+										
+											<c:choose>
+												<c:when test="${not empty row.thumbnail }">
+												<td class="text-center">
+													<img src="./resources/thumbnail/${row.thumbnail}"  width="200" height="200">
+												</td>	
 												</c:when>
-												<c:otherwise>
-													<img src="./resources/thumbnail/${row.thumbnail}">
-												</c:otherwise>
-											</c:choose></td>
+												<c:otherwise>	
+												<td class="text-center">
+													<img src="./resources/images/defaultimage.jpg" width="200" height="200">
+												</td>
+												</c:otherwise>		
+											</c:choose>			
+										</td>
 										<td class="text-center">${row.start_date }</td>
 										<td class="text-center">${row.end_date }</td>
 										<td class="text-center"><a
@@ -177,8 +183,7 @@ html, body {
 										<td class="text-center">${row.recommend }</td>
 										<td class="text-center">${row.visit_count }</td>
 										<td class="text-center">${row.postdate }</td>
-										<td class="text-center"><c:if
-												test="${not empty row.attachedfile }">
+										<td class="text-center"><c:if test="${not empty row.attachedfile }">
 												<span class="glyphicon glyphicon-paperclip"></span>
 											</c:if></td>
 

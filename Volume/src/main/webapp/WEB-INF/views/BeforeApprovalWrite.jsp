@@ -1,148 +1,243 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-<!--summernote  -->   
+<!--summernote  -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.css" rel="stylesheet">
- <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
 
 
 <style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
-.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
-.fa-anchor,.fa-coffee {font-size:200px}
-
-button{
-  background:#CDDB39;
-  color:black;
-  border:none;
-  position:relative;
-  height:60px;
-  font-size:1.6em;
-  padding:0 2em;
-  cursor:pointer;
-  transition:800ms ease all;
-  outline:none;
-}
-button:hover{
-  background:#fff;
-  color:#1AAB8A;
-}
-button:before,button:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-  background: #1AAB8A;
-  transition:400ms ease all;
-}
-button:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
-}
-button:hover:before,button:hover:after{
-  width:100%;
-  transition:800ms ease all;
+body, h1, h2, h3, h4, h5, h6 {
+	font-family: "Lato", sans-serif
 }
 
-*{
-  margin:0;
-  padding:0;
+.w3-bar, h1, button {
+	font-family: "Montserrat", sans-serif
 }
-#uploadPreview{
-  border:1px solid gray;
-  height:300px;
-  width:300px;
-}
-#uploadImage{
-  width:200px;
-  float:left;
-  
-}
- html,body{
-background-color:#F2F3F2;
- }
 
+.fa-anchor, .fa-coffee {
+	font-size: 200px
+}
+
+button {
+	background: #CDDB39;
+	color: black;
+	border: none;
+	position: relative;
+	height: 60px;
+	font-size: 1.6em;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+}
+
+button:hover {
+	background: #fff;
+	color: #1AAB8A;
+}
+
+button:before, button:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #1AAB8A;
+	transition: 400ms ease all;
+}
+
+button:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+button:hover:before, button:hover:after {
+	width: 100%;
+	transition: 800ms ease all;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#uploadPreview {
+	border: 1px solid gray;
+	height: 300px;
+	width: 300px;
+}
+
+#uploadImage {
+	width: 200px;
+	float: left;
+}
+
+html, body {
+	background-color: #F2F3F2;
+}
 </style>
+
 <body>
 
-<!-- Header -->
+	<!-- Header -->
 
-<div class="w3-row">
-      <img src="./resources/images/10.jpg" alt="" />
-</div>   
-<jsp:include page="/resources/navbar/navbarTop.jsp" />
+	<div class="w3-row">
+		<img src="./resources/images/10.jpg" alt="" />
+	</div>
+	<jsp:include page="/resources/navbar/navbarTop.jsp" />
 
-<!--///////////////////////////////////////////////  -->
+	<!--///////////////////////////////////////////////  -->
 
-<form class="form-horizontal" enctype="multipart/form-data" name="writeFrm"	method="post" action="<c:url value="BeforeApprovalWriteAction.do"/>"onsubmit="return frmValidate(this);">
-<fieldset>
+	<form class="form-horizontal" enctype="multipart/form-data"
+		name="writeFrm" method="post"
+		action="<c:url value="BeforeApprovalWriteAction.do"/>"
+		onsubmit="return fileCheck(this.thumbnail.value);">
+		<fieldset>
 
-<!-- Form Name -->
+			<!-- Form Name -->
 
 
-<!-- Text input-->
+			<!-- Text input-->
 
-<div class="form-group">
+			<div class="form-group"></div>
 
-  </div>
+			<h1 class="w3-text-BLACK"
+				style="font-weight: bold; margin-left: 10px; margin-top: 50px;">PROPOSAL</h1>
+			<!-- 작성자 입력칸-->
+			<div class="form-group">
 
-      <h1 class="w3-text-BLACK" style="font-weight:bold; margin-left: 10px; margin-top: 50px;">PROPOSAL</h1>
-      <!-- 작성자 입력칸-->
-      <div class="form-group">
-      
-        <label class="w3=text-green col-md-4 control-label">작성자(ID) : </label>  
-        <div class="col-md-4">
-        <input name="id" type="text" class="form-control input-md" style="width:200px;" value= "${sessionScope.login.id}"  >
-        </div>
-      
-      </div>
-      <!-- 프로젝트명  입력칸-->
-      
-      
-      
-      <div class="form-group">
-        <label class="col-md-4 control-label" > 프로젝트 명  : </label>  
-        <div class="col-md-4">
-        <input id="title" name="title" type="text" placeholder="프로젝트명" class="form-control input-md" style="width:200px;">
-        </div>
-      </div>
-      
-      
-      <div class="form-group">
-        <label class="col-md-4 control-label" > 썸네일 이미지  : </label>  
-        <div class="col-md-4">
-        	<input id="thumbnail" type="file" name="thumbnail" onchange="PreviewImage();" />
-        </div>
-      </div>     
-      
-      
-      
-      
-       <div class="form-group">
-        <label class="col-md-4 control-label" > 미리보기  : </label>  
-        <div class="col-md-4">
-        	    <img id="uploadPreview" style="width: 300px; height: 300px;" />
-				<script type="text/javascript">
+				<label class="w3=text-green col-md-4 control-label">작성자(ID)
+					: </label>
+				<div class="col-md-4">
+					<input name="id" type="text" class="form-control input-md"
+						style="width: 200px;" value="${sessionScope.login.id}">
+				</div>
+
+			</div>
+			<!-- 프로젝트명  입력칸-->
+
+
+
+			<div class="form-group">
+				<label class="col-md-4 control-label"> 프로젝트 명 : </label>
+				<div class="col-md-4">
+					<input id="title" name="title" type="text" placeholder="프로젝트명"
+						class="form-control input-md" style="width: 200px;">
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label class="col-md-4 control-label"> 썸네일 이미지 : </label>
+				<div class="col-md-4">
+					<input id="thumbnail" type="file" name="thumbnail"
+						onchange="PreviewImage(); " data-width="500" data-height="500" />
+				</div>
+			</div>
+			<script>
+
+$(document).on('change', 'input[type=file]', function(){
+
+	 var $width = $(this).attr('data-width');
+
+	 var $height = $(this).attr('data-height');
+
+	 var $target = $(this);
+
+	 
+
+	 if(window.FileReader){ 
+
+	   var reader = new FileReader();
+
+	       reader.onload = function (e) {
+
+	           $('body').append('<img src="" id="temp_img" style="display:none;" />');  //보이지 않는 임시 img 태그를 생성.
+
+	           $img = $('#temp_img').attr('src', e.target.result);                          //파일을 선택했을 경우 정보를 $img 객체에 저장
+
+	           if($img.width() != $width || $img.height() != $height){                  //가로 세로 사이즈 비교 후 반환
+
+	                alert('지정된 크기와 맞지 않습니다.('+$width + 'x'+ $height +')');
+
+	                $target.val('');
+
+	                $('#temp_img').remove(); //위에서 생성한 임시 img 태그 삭제
+
+	                return;
+
+	            }
+
+	      };
+
+	      reader.readAsDataURL($(this)[0].files[0]);  //파일을 img 태그에 보여줄 수 있도록 base64로 url을 생성합니다.
+
+	 } else {                                               
+
+	    $(this)[0].select();
+
+	    var src = document.selection.createRange().text;
+
+	    $('body').append('<img src="" id="temp_img" style="display:none;" />');
+
+	    $img = $('#temp_img').attr('src', src);
+
+	    $('#temp_img').remove();
+
+	    if($img.width() != $width || $img.height() != $height){
+
+	        alert('지정된 크기와 맞지 않습니다.('+$width + 'x'+ $height +')');
+
+	        $(this).val('');
+
+	        return;
+
+	    }
+
+	 }
+
+	 $('#temp_img').remove();
+
+	});
+
+</script>
+
+
+
+			<div class="form-group">
+				<label class="col-md-4 control-label"> 미리보기 : </label>
+				<div class="col-md-4">
+					<img id="uploadPreview" style="width: 300px; height: 300px;" />
+					<script type="text/javascript">
 				
 				function PreviewImage() {
 				    var oFReader = new FileReader();
@@ -152,60 +247,63 @@ background-color:#F2F3F2;
 				        document.getElementById("uploadPreview").src = oFREvent.target.result;
 				    };
 				};
-				</script>	
-        </div>
-      </div>    
-		
-      
-      <!-- 작성자 입력칸-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="ln">프로젝트 시작일 : ${start_date}</label>  
-        <div class="col-md-4">
-             <input type="date" name="start_date" >
-        </div>
-      </div>
-       <div class="form-group">
-        <label class="col-md-4 control-label" for="ln">프로젝트 종료일 : </label>  
-        <div class="col-md-4">
-             <input type="date" name="end_date" >
-        </div>
-      </div>        
+				</script>
+				</div>
+			</div>
+
+
+			<!-- 작성자 입력칸-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="ln">프로젝트 시작일 :
+					${start_date}</label>
+				<div class="col-md-4">
+					<input type="date" name="start_date">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="ln">프로젝트 종료일 : </label>
+				<div class="col-md-4">
+					<input type="date" name="end_date">
+				</div>
+			</div>
 
 
 
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="ln">참여인원 수  : </label>  
-        <div class="col-md-4">
-            <input type=text style="width: 50px;" name="p_limit" > 명
-        </div>
-      </div>
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="ln">참여인원 수 : </label>
+				<div class="col-md-4">
+					<input type=text style="width: 50px;" name="p_limit"> 명
+				</div>
+			</div>
 
-         
-       <div class="form-group">
-       <label class="col-md-4 control-label" for="ln"> 설명 : </label>  
-       <div class="col-md-4" >
-        <textarea id="summernote" class="form-control" name="content" ></textarea>
-            <script>
+
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="ln"> 설명 : </label>
+				<div class="col-md-4">
+					<textarea id="summernote" class="form-control" name="content"></textarea>
+					<script>
             $(document).ready(function() {
                $('#summernote').summernote();
                   height : 500;   
                });
             </script>
-           </div>
-      </div>
-         
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="ln">장 소  : </label>  
-        <div class="col-md-4">
-        <span>
-            <input type="text" id="sample6_postcode" placeholder="우편번호"">
-            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br /></span><br/>      
-            <input type="text" id="sample6_address" placeholder="주소" style="width:600px;" name="address"><br />
-            <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-            <input type="text" id="sample6_extraAddress" placeholder="참고항목">
-			<input type="hid den" id="address" name="address" disabled="disabled" >
-         <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-         <script>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="ln">장 소 : </label>
+				<div class="col-md-4">
+					<span> <input type="text" id="sample6_postcode"
+						placeholder="우편번호""> <input type="button"
+						onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br /></span><br />
+					<input type="text" id="sample6_address" placeholder="주소"
+						style="width: 600px;" name="address"><br /> <input
+						type="text" id="sample6_detailAddress" placeholder="상세주소">
+					<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+					<input type="hid den" id="address" name="address"
+						disabled="disabled">
+					<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+					<script>
              function sample6_execDaumPostcode() {
                  new daum.Postcode({
                      oncomplete: function(data) {
@@ -254,22 +352,24 @@ background-color:#F2F3F2;
                  }).open();
              }
          </script>
-        </div>
-      </div>
+				</div>
+			</div>
 
-      <!-- Button -->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="submit"></label>
-        <div class="col-md-4">
-               <button type="submit" id="proposal" style="height: 50px; width: 200px; border-radius: 15px;">
-               <i class="glyphicon glyphicon-pencil" style="font-size: 18px; font-weight: bold;">제안하기</i>
-              </button>
-        </div>
-  	  </div>
+			<!-- Button -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="submit"></label>
+				<div class="col-md-4">
+					<button type="submit" id="proposal"
+						style="height: 50px; width: 200px; border-radius: 15px;">
+						<i class="glyphicon glyphicon-pencil"
+							style="font-size: 18px; font-weight: bold;">제안하기</i>
+					</button>
+				</div>
+			</div>
 
-</fieldset>
-</form>
-<jsp:include page="/resources/navbar/footer.jsp" />
+		</fieldset>
+	</form>
+	<jsp:include page="/resources/navbar/footer.jsp" />
 </body>
 
 </html>

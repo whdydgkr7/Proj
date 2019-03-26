@@ -128,7 +128,20 @@ background-color:#F2F3F2;
 								<c:forEach items="${lists }" var="row" varStatus="loop">
 									<!-- 리스트반복시작 -->
 									<tr >
-										<td class="text-center">${row.thumbnail }</td>
+																			
+											<c:choose>
+												<c:when test="${not empty row.thumbnail }">
+												<td class="text-center">
+													<img src="./resources/thumbnail/${row.thumbnail}"  width="200" height="200">
+												</td>	
+												</c:when>
+												<c:otherwise>	
+												<td class="text-center">
+													<img src="./resources/images/defaultimage.jpg" width="200" height="200">
+												</td>
+												</c:otherwise>		
+											</c:choose>			
+										</td>
 										<td class="text-center">${row.start_date }</td>
 										<td class="text-center">${row.end_date }</td>
 										<td class="text-center">

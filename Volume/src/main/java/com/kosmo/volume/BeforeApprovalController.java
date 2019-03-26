@@ -55,8 +55,8 @@ public class BeforeApprovalController {
 		System.out.println("totalRecordCount=" + totalRecordCount);
 
 		// 페이지 처리를 위한 설정값
-		int pageSize = 10;
-		int blockPage = 5;
+		int pageSize = 5;
+		int blockPage = 10;
 
 		int totalPage = (int) Math.ceil((double) totalRecordCount / pageSize);
 
@@ -87,6 +87,7 @@ public class BeforeApprovalController {
 		model.addAttribute("lists", lists);
 		return "BeforeApproval";
 	}
+	
 
 	// 상세보기
 	@RequestMapping("BeforeApprovalViewController.do")
