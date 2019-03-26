@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.servlet.ServletContext;
@@ -108,6 +109,62 @@ public class Dao {
 		}
 	}
 	
+	//전체 레코드 갯수 반환
+	public int getTotalRecordCount(Map map) {
+		int totalCount=0;
+		try {
+			String sql="SELECT COUNT(*) FROM users";
+			if (map.get("Word")!=null) {
+				sql+=" WHERE "+map.get("Column")+" LIKE '%"+map.get("Word")+"%'";
+			}
+			
+			psmt=con.prepareStatement(sql);
+			rs=psmt.executeQuery();
+			rs.next();
+			totalCount=rs.getInt(1);
+		} catch (Exception e) {
+			
+		}
+		return totalCount;
+	}
+	
+	//리스트 가져오기 - 페이지 처리 없음
+	public List<UserDTO> selectPaging(Map map){
+		List<UserDTO> list=new Vector<UserDTO>();
+		
+		String sql="SELECT * FROM ( " + 
+				"        SELECT Tb.*, ROWNUM rNum FROM ( " + 
+				"            SELECT * FROM users ";
+		
+				if (map.get("Word")!=null)
+					sql+="   WHERE "+map.get("Column")+" LIKE '%"+map.get("Word")+"%' ";
+				sql+="       ORDER BY regidate DESC " + 
+				"        )Tb " + 
+				" ) " + 
+				" WHERE rNum BETWEEN ? AND ? ";
+		try {
+			psmt=con.prepareStatement(sql);
+			psmt.setInt(1, Integer.parseInt(map.get("start").toString()));
+			psmt.setInt(2, Integer.parseInt(map.get("end").toString()));
+			rs=psmt.executeQuery();
+			while (rs.next()) {
+				UserDTO dto=new UserDTO();
+				dto.setId(rs.getString("id"));
+				dto.setName(rs.getString("name"));
+				dto.setRegidate(rs.getString("regidate"));
+				dto.setEmail(rs.getString("email"));
+				dto.setPoint(rs.getInt("point"));
+				dto.setEnabled(rs.getInt("enabled"));
+				dto.setAuthority(rs.getString("authority"));
+				dto.setUserType(rs.getString("userType"));
+				list.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	//유저 리스트 반환
 	public List<UserDTO> getUserList(){
 		String sql="SELECT id, name, to_char(regidate, 'yyyy\"년 \"MM\"월 \"dd\"일\" day'), email, point, enabled, authority, userType FROM users WHERE id != 'admin' ";
@@ -119,7 +176,7 @@ public class Dao {
 				UserDTO dto=new UserDTO();
 				dto.setId(rs.getString("id"));
 				dto.setName(rs.getString("name"));
-				dto.setRegidate(rs.getString("regidate"));
+				dto.setRegidate(rs.getString(3));
 				dto.setEmail(rs.getString("email"));
 				dto.setPoint(rs.getInt("point"));
 				dto.setEnabled(rs.getInt("enabled"));
@@ -141,7 +198,7 @@ public class Dao {
 		String sql = "SELECT id, name, to_char(regidate, 'yyyy\"년 \"MM\"월 \"dd\"일\" day'), email, point, enabled, authority, userType FROM users "
 			+ " WHERE id LIKE ? AND authority != 'ADMIN' "
 			+ " ORDER BY id ASC";
-		System.out.println(sql);
+		//System.out.println(sql);
 		try {
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1,"%"+id+"%");
@@ -178,10 +235,6 @@ public class Dao {
 			return 0;
 		}
 	}
-	
-	
-	
-	
 	
 	//관리자 추가
 	public boolean addAdmin(UserDTO dto) {
@@ -270,5 +323,24 @@ public class Dao {
 		}
 		
 		return list;
+	}
+	
+	//유저 정보 반환(1명)
+	public boolean getAdmin(String id, String pass) {
+		String sql = "SELECT id, pass, authority FROM users WHERE id=? AND pass=?";
+		try {
+			psmt=con.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setString(2, pass);
+			rs=psmt.executeQuery();
+			rs.next();
+			if(!rs.getString(1).equals(id)) return false;
+			else if(!rs.getString(2).equals(pass)) return false;
+			else if(!rs.getString(3).equals("ADMIN")) return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }
