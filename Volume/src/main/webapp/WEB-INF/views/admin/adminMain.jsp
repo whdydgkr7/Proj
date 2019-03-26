@@ -19,7 +19,7 @@ body {font-size:16px;}
 <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
   <div class="w3-container">
-    <h3 class="w3-padding-64"><b>Volume<br>관리자 페이지</b></h3>
+    <h3 class="w3-padding-64"><b>Volume<br>관리자 페이지 (VolumeAdmin 프로젝트에 jsp-selvet으로 구현했습니다)</b></h3>
   </div>
   <div class="w3-bar-block">
     <!-- <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">회원 관리</a>  -->

@@ -28,6 +28,6 @@
 	</bean>
 	<bean id = "googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
 		<property name="scope" value="https://www.googleapis.com/auth/plus.profile.emails.read"></property>
-		<property name="redirectUri" value="http://localhost:8080/volume/googleSignInCallback"/>
+		<property name="redirectUri" value="http://localhost:8080/Volume/googleSignInCallback"/>
 	</bean>
 </beans>

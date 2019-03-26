@@ -56,17 +56,19 @@ public class LoginController {
 		if (usersDTO==null) {
 			mv.addObject("loginCheck", "false");
 			mv.setViewName("login/login");
-			return mv;
 		}
 		else {
 			mv.addObject("loginCheck", "true");
 			session.setAttribute("login", usersDTO);
+			mv.setViewName("home");
 		}
-		
-		//로그인 후 페이지 이동
-		String backUrl=req.getParameter("backUrl");
-		mv.setViewName("home");
-		
+		/*String backUrl=req.getParameter("backUrl");
+		if (backUrl==null || backUrl.equals("")) {
+			mv.setViewName("home");
+		}
+		else {
+			mv.setViewName(backUrl);
+		}*/
 		return mv;
 	}
 	
@@ -101,7 +103,7 @@ public class LoginController {
 		
 		String result="";
 		int idOverlap=sqlSession.getMapper(UserImpl.class).idCheck(req.getParameter("id"));
-		System.out.println("idOverlap:"+idOverlap);
+		//System.out.println("idOverlap:"+idOverlap);
 		if(idOverlap == 0) result="true";
 		else  result="false";
 		
@@ -230,12 +232,6 @@ public class LoginController {
     
     //카카오 로그인 로그아웃
     private kakao_restapi kakao_restapi = new kakao_restapi();
-    
-/*    @RequestMapping(value = "/oauth", produces = "application/json", method = { RequestMethod.GET, RequestMethod.POST })
-    public String kakaoLogin(@RequestParam("code") String code) {
-        System.out.println(code);//access_token
-        return "home";
-    }*/
     
     @RequestMapping(value = "/oauth", produces = "application/json")
     public String kakaoLogin(@RequestParam("code") String code, Model model, HttpSession session) {

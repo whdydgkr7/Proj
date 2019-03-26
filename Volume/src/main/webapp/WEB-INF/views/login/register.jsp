@@ -58,7 +58,12 @@ function checkInputId(param) {
 	var idFLA=(param.toUpperCase()).charCodeAt(0);
 	
 	//A의 아스키코드 65, Z의 아스키 코드 90
-	if(!(idFLA>=65 && idFLA<=90)) {
+	if(param==""){
+		alert("아이디를 입력 해 주세요.");
+		regiFrm.id.focus();
+		return false;
+	}
+	else if(!(idFLA>=65 && idFLA<=90)) {
 		alert("아이디는 반드시 영문으로 시작해야 합니다");
 		regiFrm.id.focus();
 		return false;
@@ -73,12 +78,6 @@ function checkInputId(param) {
 		regiFrm.id.focus();
 		return false;
 	}
-	else if(param==""){
-		alert("아이디를 입력 해 주세요.");
-		regiFrm.id.focus();
-		return false;
-	}
-	
 		
 	return true;
 }
@@ -96,7 +95,7 @@ function isAlphaNumber(param){
       
 function idOverlap() {
   	if (regiFrm.id.value=="") {
-  		alert("아이디를 입력 후 중복확인을 누르삼");
+  		alert("아이디를 입력 후 중복확인을 누르세요");
   		regiFrm.id.focus();
   		return false;
   	}
