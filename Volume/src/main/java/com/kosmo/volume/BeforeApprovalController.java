@@ -1,6 +1,9 @@
 package com.kosmo.volume;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -11,10 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.oreilly.servlet.MultipartRequest;
 
-import common.FileUtil;
+
 import model.BeforeApprovalDTO;
 import model.BeforeApprovalImpl;
 import model.PagingUtil;
@@ -26,7 +31,8 @@ public class BeforeApprovalController {
 	@Autowired
 	SqlSession sqlSession;
 
-	@Autowired ServletContext servletContext;
+	@Autowired
+	ServletContext servletContext;
 
 	@RequestMapping("/BeforeApproval.do")
 	public String BeforeApproval(Model model, HttpServletRequest req) {
@@ -81,14 +87,15 @@ public class BeforeApprovalController {
 		model.addAttribute("lists", lists);
 		return "BeforeApproval";
 	}
-	//상세보기
+
+	// 상세보기
 	@RequestMapping("BeforeApprovalViewController.do")
 	public String PrjectBbsView(Model model, HttpServletRequest req) {
 		String idx = req.getParameter("idx");
 		BeforeApprovalDTO beforeApprovalDTO = new BeforeApprovalDTO();
-		
-		beforeApprovalDTO= sqlSession.getMapper(BeforeApprovalImpl.class).listView(idx);
-		model.addAttribute("beforeApprovalDTO",beforeApprovalDTO);
+
+		beforeApprovalDTO = sqlSession.getMapper(BeforeApprovalImpl.class).listView(idx);
+		model.addAttribute("beforeApprovalDTO", beforeApprovalDTO);
 
 		return "BeforeApprovalView";
 	}
@@ -106,45 +113,81 @@ public class BeforeApprovalController {
 
 	// 글쓰기처리
 	@RequestMapping("BeforeApprovalWriteAction.do")
-	public String BeforeApprovalWriteAction(Model model, HttpServletRequest req) {
-	
+	public String BeforeApprovalWriteAction(Model model,  MultipartHttpServletRequest req) {
 		
-		MultipartRequest mr = FileUtil.upload(req, 
-				servletContext.getRealPath("./resources/Upload"));
 		
-		int sucOrFail;
-		if(mr != null) {
+		MultipartFile mf = req.getFile("thumbnail"); //업로드 파라미터
+		String path = req.getRealPath("./resources/thumbnail"); // 저장될 위치
+		String thumbnail= mf.getOriginalFilename();//업로드 파일이름
+		File uploadfile = new File(path+"//"+thumbnail);//복사될 위치
+		
+		try {
+			mf.transferTo(uploadfile);//업로드
 			
 			
 		}
+		catch (IllegalStateException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+/*		String result = saveFile(thumbnail);
+
+		if (result != null) { // 파일 저장 성공
+			model.addAttribute("result", result);
+		} else { // 파일 저장 실패
+			model.addAttribute("result", "fail");
+		}*/
+		
+	
+				
 		BeforeApprovalDTO beforeApproval = new BeforeApprovalDTO();
 		beforeApproval.setId(req.getParameter("id"));
 		beforeApproval.setTitle(req.getParameter("title"));
 		beforeApproval.setContent(req.getParameter("content"));
-		beforeApproval.setThumbnail(req.getParameter("thumbnail"));
+		beforeApproval.setThumbnail(thumbnail);
 		beforeApproval.setP_limit(Integer.parseInt(req.getParameter("p_limit")));
 		beforeApproval.setStart_date(req.getParameter("start_date"));
 		beforeApproval.setEnd_date(req.getParameter("end_date"));
 		beforeApproval.setAddress(req.getParameter("address"));
-		
+
 		ServletContext application = this.servletContext;
 
 		sqlSession.getMapper(BeforeApprovalImpl.class).write(beforeApproval);
 
-		
-		
 		return "redirect:BeforeApproval.do";
 	}
-	
-	//추천하기
+
+/*	private String saveFile(MultipartFile file) {
+			
+		
+
+		final String UPLOAD_PATH =  "/Volume/src/main/webapp/resources/thumbnail";
+
+		UUID uuid = UUID.randomUUID();
+		String saveName = uuid + "_" + file.getOriginalFilename();
+
+		File saveFile = new File(UPLOAD_PATH, saveName); // 저장할 폴더이름, 저장할 파일 이름
+
+		try {
+			file.transferTo(saveFile); // 업로드 파일에 saveFile 이라는 껍데기 익힘
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return saveName;
+	}*/
+
+	// 추천하기
 	@RequestMapping("recommendAction.do")
 	public String recommendAction(Model model, HttpSession session, HttpServletRequest req) {
 		int idx = Integer.parseInt(req.getParameter("idx"));
-			System.out.println("propose_idx:"+idx);
+		System.out.println("propose_idx:" + idx);
 		sqlSession.getMapper(BeforeApprovalImpl.class).recommendAction(idx);
-		
-		return  "redirect:BeforeApproval.do";
+
+		return "redirect:BeforeApproval.do";
 	}
-	
-		
+
 }

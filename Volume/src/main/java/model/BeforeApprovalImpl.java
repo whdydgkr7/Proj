@@ -1,6 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -51,6 +54,10 @@ public interface BeforeApprovalImpl {
 	//추천하기
 	public void recommendAction(int idx);
 
+
+
+
+	
 
 
 

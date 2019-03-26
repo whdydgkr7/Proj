@@ -265,7 +265,7 @@ background-color:#F2F3F2;
                <i class="glyphicon glyphicon-pencil" style="font-size: 18px; font-weight: bold;">제안하기</i>
               </button>
         </div>
-   </div>
+  	  </div>
 
 </fieldset>
 </form>

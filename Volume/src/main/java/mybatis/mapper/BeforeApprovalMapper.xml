@@ -62,7 +62,7 @@
    	
     <insert id="write" parameterType="model.BeforeApprovalDTO">
 INSERT INTO PPROPOSE (PROPOSE_IDX,ID, CONTENT, POSTDATE, VISIT_COUNT, RECOMMEND, TITLE, START_DATE, END_DATE, P_LIMIT, THUMBNAIL, ATTACHEDFILE, ADDRESS, STATE, ADD_POINT) 
-VALUES (pPropose_seq.nextval,'${id}', '${content}',sysdate,0,0,'${title}',TO_DATE('${start_date}', 'YYYY-MM-DD'),TO_DATE('${end_date}', 'YYYY-MM-DD') ,150,0,0,'${address}','wait',10)
+VALUES (pPropose_seq.nextval,'${id}', '${content}',sysdate,0,0,'${title}',TO_DATE('${start_date}', 'YYYY-MM-DD'),TO_DATE('${end_date}', 'YYYY-MM-DD') ,'${p_limit}','${thumbnail}',0,'${address}','wait',10)
    	</insert>
 	
 	<update id="recommendAction" >

@@ -339,7 +339,7 @@ table.greenTable tbody td {
 								document.getElementById("Cmyp").className = "w3-text-green w3-animate-opacity";
 								document.getElementById("Cmyp").innerHTML = "참가 신청되었습니다.!";
 								alert("참가신청이 완료되었습니다.")
-								//location.href="lock";
+								//location.href="";
 							}
 						}
 					</script>

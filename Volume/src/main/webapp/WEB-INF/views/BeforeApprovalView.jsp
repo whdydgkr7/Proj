@@ -104,8 +104,10 @@ int propose_idx=beforeApprovalDTO.getPropose_idx();
 					style="margin: 0 -16px; border: solid white 1px; text-align: center;">
 					<div class="w3"
 						style="margin-left: 12%; width: 1000px; text-align: center;">
-						<img src="./resources/images/13.jpg" style="width: 700px;"
-							alt="Northern Lights" class="w3-margin-bottom"><br />
+						<img src="./resources/images/${beforeApprovalDTO.thumbnail}" 
+							>
+							${beforeApprovalDTO.thumbnail}
+							
 				<br>
 				
 				<h2>${beforeApprovalDTO.title }</h2>
