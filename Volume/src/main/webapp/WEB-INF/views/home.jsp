@@ -1,9 +1,10 @@
+<%@page import="user.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
-<title>W3.CSS Template</title>
+<title>Volume</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -18,13 +19,32 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
 </style>
 <body>
-<%if(session.getAttribute("login")!=null){ %>
-<div class="text-right" style="padding-top: 30px; padding-right: 30px;">
-	<button type="button" class="btn btn-primary">${login.id }(${login.name })</button>&nbsp;&nbsp;&nbsp;&nbsp;
-	<button type="button" onclick="location.href='MyPage'" class="btn btn-info">마이페이지</button>&nbsp;&nbsp;&nbsp;&nbsp;
-	<button type="button" onclick="location.href='logout'" class="btn btn-danger">로그아웃</button>&nbsp;&nbsp;&nbsp;&nbsp;
-	<span id="plusfriend-chat-button" data-plusfriend-id="_kxgxbkj" data-title="consult" data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true"></span>
+<div class="w3">
+  <div class="w3-bar w3-black w3-center-align w3-large">
+  	<div class="w3-right">
+		<%if(session.getAttribute("login")!=null) { 
+			if( !((UserDTO)session.getAttribute("login")).getAuthority().equals("ADMIN")) { %>
+				<button type="button" class="w3-white w3-bar-item w3-button" style="z-index:1;width:*;font-weight:bold;">${login.id }(${login.name }) 님 환영합니다.</button>
+				<button type="button" onclick="location.href='MyPage'" class="w3-bar-item w3-button" style="z-index:2;width:150px;font-weight:bold;">마이페이지</button>
+				<button type="button" onclick="location.href='logout'" class="w3-bar-item w3-button" style="z-index:3;width:150px;font-weight:bold;">로그아웃</button>
+				<span id="plusfriend-chat-button" data-plusfriend-id="_kxgxbkj" data-title="consult" data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true"></span>
+			<%} else {%>
+				<button type="button" onclick="location.href='http://localhost:8080/VolumeAdmin/admin/adminMain.jsp'" class="w3-bar-item w3-button" style="z-index:1;width:150px;font-weight:bold;">관리자페이지</button>
+				<button type="button" onclick="location.href='logout'" class="w3-bar-item w3-button" style="z-index:2;width:150px;font-weight:bold;">로그아웃</button>
+			<%} 
+		} 
+		else{%>
+			<button type="button" onclick="location.href='login'" class="w3-bar-item w3-button" style="z-index:1;width:150px;font-weight:bold;">로그인</button>
+			<%}
+		if(request.getParameter("logoutMsg")!=null) {%>
+		<script type="text/javascript">
+			alert('로그아웃 되었습니다.');
+		</script>
+		<%}%>
+		</div>
+	</div>
 </div>
+<<<<<<< HEAD
 <%} else{%>
 <div class="text-right" style="padding-top: 30px; padding-right: 30px;">
 	<a href="login"><button type="button" class="btn btn-primary">로그인</button></a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="http://localhost:8080/VolumeAdmin/admin/adminMain.jsp">관리자 페이지</a>
@@ -38,6 +58,8 @@ if(request.getParameter("logoutMsg")!=null) {%>
 </script>
 
 
+=======
+>>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
 <!-- 카카오 플러스친구 -->
 
 

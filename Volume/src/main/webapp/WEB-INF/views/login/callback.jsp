@@ -6,7 +6,7 @@
 <body>
 	<script>
 		//alert("네이버 로그인을 완료 했습니다.");
-		self.location = "/volume";
+		self.location = "/Volume";
 	</script>
 </body>
 

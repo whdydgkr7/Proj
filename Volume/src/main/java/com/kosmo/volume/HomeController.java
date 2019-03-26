@@ -47,7 +47,5 @@ public class HomeController {
 	public String adminMain(Model model) {
 		return "admin/adminMain";
 	}
-	
-	
 
 }

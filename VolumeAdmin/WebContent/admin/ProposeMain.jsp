@@ -95,7 +95,7 @@ function refusePropose() {
     <form name="updateInfo" target="parentForm">
     <input type="hidden" id="selectpBBS" />        
 	<div class="row">
-		<h2 style="text-align:center;">프로젝트 제안(<span style="color:red;">추천 수 - 100▲</span>)</h2>
+		<h2 style="text-align:center;">프로젝트 제안(<span style="color:red;">추천 수 - 30▲</span>)</h2>
 		<table class="table table-striped table-bordered table-hover">
 			<thead>
 			<tr class="info">

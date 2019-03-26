@@ -108,7 +108,7 @@ CREATE TABLE pEntry
 (
 	entry_idx number NOT NULL,
 	idx number NOT NULL,
-	id varchar2(100) NOT NULL,
+	id varchar2(100) NOT NULL UNIQUE,
 	regidate date DEFAULT sysdate,
 	result number DEFAULT 1,
 	PRIMARY KEY (entry_idx)
