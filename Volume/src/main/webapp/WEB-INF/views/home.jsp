@@ -183,8 +183,8 @@ if(request.getParameter("logoutMsg")!=null) {%>
 									</c:choose>
 									<div class="caption">
 										<p style="text-align: left;">
-											클래스명 :&nbsp; ${row.title } <br /> 수강날짜 :&nbsp;${row.start_date }<br /> 
-											수강인원:&nbsp; ${row.e_limit }
+											클래스명 :&nbsp; ${row.title } <br /> 수강날짜
+											:&nbsp;${row.start_date }<br /> 수강인원:&nbsp; ${row.e_limit }
 										</p>
 									</div>
 									</a>

@@ -92,7 +92,7 @@
 	
 	
 	<select id="mainpbbs" resultType="model.ProjectBbsDTO">
-		 SELECT * FROM pbbs ORDER BY idx DESC
+		 SELECT * FROM (SELECT * FROM pbbs ORDER BY idx DESC) WHERE ROWNUM<![CDATA[ < ]]>=4
 	</select>
          
    

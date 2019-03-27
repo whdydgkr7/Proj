@@ -48,10 +48,13 @@ public class HomeController {
 
 		model.addAttribute("serverTime", formattedDate );
 		
+		///
 		ArrayList<ProjectBbsDTO> projectBbsDTO = sqlSession.getMapper(ProjectBbsDAOImpl.class).mainpbbs();
 		
 		model.addAttribute("projectBbsDTO",projectBbsDTO);
 		
+		
+		/////
 		ArrayList<OnedayDTO> onedayDTO = sqlSession.getMapper(OnedayImpl.class).mainebbs();
 		
 		model.addAttribute("onedayDTO",onedayDTO);
