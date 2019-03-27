@@ -89,7 +89,11 @@
       <delete id="cdelete" parameterType="model.PcommentDTO">
          delete from pcomment where idx=#{0} and comment_idx=#{1}
       </delete>
-
+	
+	
+	<select id="mainpbbs" resultType="model.ProjectBbsDTO">
+		 SELECT * FROM pbbs ORDER BY idx DESC
+	</select>
          
    
 </mapper>   

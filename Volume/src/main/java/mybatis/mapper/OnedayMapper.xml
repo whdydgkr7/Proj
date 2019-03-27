@@ -66,4 +66,9 @@ VALUES (eBBS_seq.NEXTVAL,'${id}','${title}','${content}',sysdate,TO_DATE('${star
    	</insert>
 	
 	
+	<select id="mainebbs" resultType="model.OnedayDTO">
+		 SELECT * FROM ebbs ORDER BY idx DESC
+	</select>
+         
+	
 </mapper>   

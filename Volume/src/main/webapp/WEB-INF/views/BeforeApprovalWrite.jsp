@@ -105,7 +105,7 @@ html, body {
 	background-color: #F2F3F2;
 }
 </style>
-
+<jsp:include page="/resources/navbar/navbarTop.jsp" />
 <body>
 
 	<!-- Header -->
@@ -113,7 +113,7 @@ html, body {
 	<div class="w3-row">
 		<img src="./resources/images/10.jpg" alt="" />
 	</div>
-	<jsp:include page="/resources/navbar/navbarTop.jsp" />
+	
 
 	<!--///////////////////////////////////////////////  -->
 

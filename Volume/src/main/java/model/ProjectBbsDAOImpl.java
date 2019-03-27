@@ -58,5 +58,8 @@ public interface ProjectBbsDAOImpl {
    public ArrayList<ReviewDTO> reviewCount(String idx);
 
 
+public ArrayList<ProjectBbsDTO> mainpbbs();
+
+
    
 }

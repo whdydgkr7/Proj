@@ -74,14 +74,15 @@ html, body {
 	background-color: #F2F3F2;
 }
 </style>
+<jsp:include page="/resources/navbar/navbarTop.jsp" />
 <body>
 <div>
 	<div class="w3-row">
 		<img src="./resources/images/10.jpg" alt="" />
 	</div>
-	<jsp:include page="/resources/navbar/navbarTop.jsp" />
+	
 	<!-- First Grid -->
-	<div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 1200px; ">
+	<div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 1500px; ">
 		<h1 class="w3-text-BLACK" style="font-weight:bold;">원데이 클래스</h1>
 		<div class="w3-col l10 s6 w3-center">
 			  <form class="form-inline" name="searchFrm" onsubmit="return searchValidate(this);">

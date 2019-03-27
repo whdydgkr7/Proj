@@ -56,6 +56,10 @@ public interface OnedayImpl {
 
 
 
+	public ArrayList<OnedayDTO> mainebbs();
+
+
+
 	
 
 

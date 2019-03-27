@@ -85,11 +85,12 @@ html, body {
 	background-color: #F2F3F2;
 }
 </style>
+<jsp:include page="/resources/navbar/navbarTop.jsp" />
 <body>
 	<div>
 
 		<div class="w3-row">
-			<jsp:include page="/resources/navbar/navbarTop.jsp" />
+			
 			<img src="./resources/images/10.jpg" alt="" />
 		</div>
 

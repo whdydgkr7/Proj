@@ -66,7 +66,7 @@ table.greenTable tbody td {
 }
 </style>
 
-
+	<jsp:include page="/resources/navbar/navbarTop.jsp" />
 
 
 <body class="w3-theme-l5">
@@ -75,7 +75,7 @@ table.greenTable tbody td {
 	<div class="w3-row">
 		<img src="./resources/images/10.jpg" alt="" />
 	</div>
-	<jsp:include page="/resources/navbar/navbarTop.jsp" />
+
 
 
 	<!-- Page Container -->
