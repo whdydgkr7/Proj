@@ -14,9 +14,9 @@
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-<link rel="stylesheet" href="./resources/stars/fontawesome-stars.css">
-<script type="text/javascript"
-	src="./resources/stars/jquery.barrating.min.js"></script>
+<!-- <link rel="stylesheet" href="./resources/stars/fontawesome-stars.css"> -->
+<!-- <script type="text/javascript"
+	src="./resources/stars/jquery.barrating.min.js"></script> -->
 
 
 
@@ -66,22 +66,7 @@ table.greenTable tbody td {
 }
 </style>
 
-<script>
-	function openEx(evt, cityName) {
-		var i, x, tablinks;
-		x = document.getElementsByClassName("Ex");
-		for (i = 0; i < x.length; i++) {
-			x[i].style.display = "none";
-		}
-		tablinks = document.getElementsByClassName("tablink");
-		for (i = 0; i < x.length; i++) {
-			tablinks[i].className = tablinks[i].className.replace(
-					" w3-border-red", "");
-		}
-		document.getElementById(cityName).style.display = "block";
-		evt.currentTarget.firstElementChild.className += " w3-border-red";
-	}
-</script>
+
 
 
 <body class="w3-theme-l5">
@@ -170,8 +155,8 @@ table.greenTable tbody td {
 						<br>
 
 
-						<div class="w3-row-padding w3-margin-bottom">
-							<div class="w3-quarter">
+						<div class="w3-row-padding w3-margin-bottom" style="text-align: center;">
+							<div class="w3-col s4 ">
 								<div class="w3-container w3-red w3-padding-16">
 									<div class="w3-left">
 										<i class="fa fa-comment w3-xxxlarge"></i>
@@ -180,10 +165,10 @@ table.greenTable tbody td {
 										<h3><%=size%></h3>
 									</div>
 									<div class="w3-clear"></div>
-									<h4>댓글수</h4>
+									<h4>후기수</h4>
 								</div>
 							</div>
-							<div class="w3-quarter">
+							<div class="w3-col s4 ">
 								<div class="w3-container w3-blue w3-padding-16">
 									<div class="w3-left">
 										<i class="fa fa-eye w3-xxxlarge"></i>
@@ -195,19 +180,8 @@ table.greenTable tbody td {
 									<h4>조회수</h4>
 								</div>
 							</div>
-							<div class="w3-quarter">
-								<div class="w3-container w3-teal w3-padding-16">
-									<div class="w3-left">
-										<i class="fa fa-share-alt w3-xxxlarge"></i>
-									</div>
-									<div class="w3-right">
-										<h3>23</h3>
-									</div>
-									<div class="w3-clear"></div>
-									<h4>후기</h4>
-								</div>
-							</div>
-							<div class="w3-quarter">
+
+							<div class="w3-col s4 ">
 								<div class="w3-container w3-orange w3-text-white w3-padding-16">
 									<div class="w3-left">
 										<i class="fa fa-users w3-xxxlarge"></i>
@@ -224,8 +198,7 @@ table.greenTable tbody td {
 
 						<table class="greenTable">
 							<tbody>
-								<%-- <tr>
-<td>이미지:</td><td></td>${beforeApprovalDTO.thumbnail}</div></tr> --%>
+
 
 								<tr>
 									<td style="background-color: #F2F0E8;">프로젝트 시작일 :</td>
@@ -248,7 +221,11 @@ table.greenTable tbody td {
 								</tr>
 								<tr>
 									<td colspan="2"><div id="map"
-											style="width: 100%; height: 350px;"></div> <script
+											style="width: 100%; height: 350px;"></div>
+										<button onclick="zoomIn()" style="background-color: #DEE686;">지도레벨
+											- 1</button>
+										<button onclick="zoomOut()" style="background-color: #DEE686;">지도레벨
+											+ 1</button> <span id="maplevel"></span> <script
 											type="text/javascript"
 											src="//dapi.kakao.com/v2/maps/sdk.js?appkey=70a54cc4cc1852fb30a4ac2b3cd30ac3&libraries=services"></script>
 										<script>

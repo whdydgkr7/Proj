@@ -56,5 +56,7 @@ public interface ProjectBbsDAOImpl {
    //댓글수,리뷰수
    public ArrayList<PcommentDTO> pcCount(String idx);
    public ArrayList<ReviewDTO> reviewCount(String idx);
+
+
    
 }

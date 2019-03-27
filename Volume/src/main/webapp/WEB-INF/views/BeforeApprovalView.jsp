@@ -61,7 +61,7 @@ table.greenTable tbody td {
 	BeforeApprovalDTO beforeApprovalDTO = (BeforeApprovalDTO) request.getAttribute("beforeApprovalDTO");
 	int propose_idx = beforeApprovalDTO.getPropose_idx();
 	String thumbnail=beforeApprovalDTO.getThumbnail();
-%>
+%>	
 
 
 <body class="w3-theme-l5">
@@ -75,7 +75,7 @@ table.greenTable tbody td {
 
 	<!-- Page Container -->
 	<div class="w3-container w3-content"
-		style="max-width: 1400px; margin-top: 80px">
+		style="max-width: 1400px; margin-top: 80px; ">
 		<!-- The Grid -->
 		<div class="w3-row ">
 
@@ -85,7 +85,7 @@ table.greenTable tbody td {
 					<div class="w3-card w3-round w3-white"></div>
 				</div>
 			</div>
-			<div class="w3-container">
+			<div class="w3-container" st>
 				<header class="w3-container"
 					style="padding-top: 25px; font-weight: bold; font-size: 20px; text-align: center;">
 					<h1>

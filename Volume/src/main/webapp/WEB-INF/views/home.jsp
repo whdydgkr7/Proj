@@ -1,3 +1,6 @@
+<%@page import="java.sql.Date"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.ProjectBbsDTO"%>
 <%@page import="user.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -69,8 +72,88 @@ if(request.getParameter("logoutMsg")!=null) {%>
 
 </header>
 <!-- Navbar -->
-	
 
+
+	<table class="table table-success"style="width:90%; margin:10px;">
+					  <thead class="w3-lime">
+					    <th>이미지</th>
+					    <th>프로젝트시작일</th> 
+					    <th>프로젝트마감일</th>
+					    <th>프로젝트명</th>
+					    <th>프로젝트 내용</th>	
+					   	<th>추천수</th>	 				    
+					    <th>조회수</th>					    
+					    <th>작성일</th>
+					    <th>첨부파일</th>
+					  </thead>
+					 <tbody>
+						<c:choose>
+							<c:when test="${empty projectBbsDTO }">
+								<tr>
+									<td colspan="8" class="text-center">
+										등록된 프로젝트가 없습니다.
+									</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${projectBbsDTO }" var="row" varStatus="loop">
+									<!-- 리스트반복시작 -->									
+																			
+											<c:choose>
+												<c:when test=" ${not empty row.thumbnail }" >
+												<td class="text-center" > 
+													<img src="./resources/thumbnail/${row.thumbnail}"  width="200" height="200">
+												</td>	
+												</c:when>
+												<c:otherwise>	
+												<td class="text-center">
+													<img src="./resources/images/defaultimage.jpg" width="200" height="200">
+												</td>
+												</c:otherwise>		
+											</c:choose>			
+										
+										<td class="text-center">${row.start_date }</td>
+										<td class="text-center">${row.end_date }</td>
+										<td class="text-center">
+										<a href="./ProjectBbsViewController.do?idx=${row.idx}"> 
+											${row.title}</a></td>
+										<td class="text-left">
+										<a href="./ProjectBbsViewController.do?idx=${row.idx}">${row.content}</a>
+										</td>
+										<td class="text-center">${row.rec_count }</td>
+										<td class="text-center">${row.visit_count }</td>
+										<td class="text-center">${row.postdate }</td>
+										<td class="text-center"> 			
+											<c:if test="${not empty row.attachedfile }">
+												<span class="glyphicon glyphicon-paperclip"></span>					
+											</c:if>
+										</td>
+																																					
+<%-- 										<%
+										  String id =request.getAttribute("id").toString();
+										  String user_id="";
+										  if(session.getAttribute("id")!=null){
+											  user_id=session.getAttribute("id").toString();
+										  }
+										 if(id.equals(user_id)){		
+										%>  --%>
+								
+										<td class="text-center w3-text-lime"  style="font-size: 20px; color: #F2F3F2; ">
+										<i class="glyphicon glyphicon-edit" ></i>
+										</td>
+										<td class="text-center w3-text-lime" style="font-size: 20px; color: #F2F3F2;" >
+										<i class="glyphicon glyphicon-trash" ></i>
+										</td>
+
+						<%-- 			<%} %>	 --%>
+								
+									</tr>
+									<!-- 리스트반복끝 -->
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+			       </tbody>
+				</table>
 <!-- ---------------------------------------------------------------------------------- -->
 
 
@@ -80,7 +163,7 @@ if(request.getParameter("logoutMsg")!=null) {%>
   <div class="w3-row-padding w3-padding-16 w3-center" id="food">
     <div class="w3-quarter">
       <img src="./resources/images/13.jpg" alt="Sandwich" style="width:100%">
-      <h3>The Perfect Sandwich, A Real NYC Classic</h3>
+      <h3></h3>
       <p>Just some random text, lorem ipsum text praesent tincidunt ipsum lipsum.</p>
     </div>
     <div class="w3-quarter">

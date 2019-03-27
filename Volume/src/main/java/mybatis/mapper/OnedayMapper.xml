@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+    <mapper namespace="model.OnedayImpl">
+	
+	<select id="list" resultType="model.OnedayDTO">
+		SELECT * FROM ebbs ORDER BY idx DESC
+	</select>
+
+	
+	
+	<!-- 방명록 페이지 처리 -->
+	<!-- 전체 게시물수 카운트 -->
+	<select id="getTotalCount" resultType="int">
+		SELECT COUNT(*) FROM ebbs
+	</select>
+	
+	<select id="listPage" resultType="model.OnedayDTO">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM ebbs ORDER BY idx DESC
+			) Tb
+		)
+		WHERE rNum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	
+	<!-- 전체 게시물수 카운트 : 검색기능추가 -->
+	<select id="getTotalCountSearch" resultType="int" 
+		parameterType="model.ParamDTO">
+		SELECT COUNT(*) FROM ebbs
+		<if test="!keyString.equals('') and keyString!=null">
+			WHERE ${keyField} like '%'||#{keyString}||'%'
+	   	</if> 
+	</select> 
+
+	
+	<select id="listPageSearch" 
+		resultType="model.OnedayDTO" 
+		parameterType="model.ParamDTO">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM ebbs 
+				<if test="!keyString.equals('') and keyString!=null">
+					WHERE ${keyField} like '%'||#{keyString}||'%'
+			   	</if> 
+				ORDER BY idx DESC
+			) Tb
+		)
+		WHERE rNum BETWEEN ${start} AND ${end}
+	</select>
+	
+	<!-- 상세보기  -->
+	
+	<select id="exView" resultType="model.OnedayDTO">
+		SELECT * FROM ebbs WHERE IDX = #{0}
+	</select>
+
+    <insert id="write" parameterType="model.OnedayDTO">
+INSERT INTO ebbs (IDX,ID,TITLE ,CONTENT, POSTDATE,START_DATE,END_DATE, ADDRESS, VISIT_COUNT,T_METHOD,T_TIME,T_POINT,ATTACHEDFILE, THUMBNAIL,E_LIMIT,STATE, REPORT_COUNT) 
+VALUES (eBBS_seq.NEXTVAL,'${id}','${title}','${content}',sysdate,TO_DATE('${start_date}', 'YYYY-MM-DD'),'1999-10-10' ,'${address}',0,'${t_method}','${t_time}','${t_point}',0,'${thumbnail}','${e_limit}','${state}',0)
+   	</insert>
+	
+	
+</mapper>   

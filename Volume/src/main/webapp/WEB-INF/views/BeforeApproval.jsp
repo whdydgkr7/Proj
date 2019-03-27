@@ -3,6 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <title>W3.CSS Template</title>
@@ -93,7 +95,7 @@ html, body {
 
 		<!-- First Grid -->
 		<div class="w3-row-padding w3-padding-64 w3-container-fluid "
-			style="height: 1400px;">
+			style="height: 1500px;">
 			<h1 class="w3-text-BLACK" style="font-weight: bold;">승인 대기중인
 				PROjECT</h1>
 			<div class="w3-row">
@@ -135,7 +137,7 @@ html, body {
 					</div>
 				</form>
 
-				<table class="table table-success" style="width: 90%; margin: 10px;">
+				<table class="table table-success" style="width: 90%; margin: 10px; ">
 					<thead class="w3-lime">
 						<th>이미지</th>
 						<th>프로젝트시작일</th>
@@ -147,7 +149,7 @@ html, body {
 						<th>작성일</th>
 						<th>첨부파일</th>
 					</thead>
-					<tbody>
+					<tbody style="vertical-align: middle;">
 						<c:choose>
 							<c:when test="${empty lists }">
 								<tr>
@@ -157,11 +159,11 @@ html, body {
 							<c:otherwise>
 								<c:forEach items="${lists }" var="row" varStatus="loop">
 									<!-- 리스트반복시작 -->
-									<tr>
+	
 										
 											<c:choose>
 												<c:when test="${not empty row.thumbnail }">
-												<td class="text-center">
+												<td class="text-center" style="vertical-align: middle;"> 
 													<img src="./resources/thumbnail/${row.thumbnail}"  width="200" height="200">
 												</td>	
 												</c:when>
@@ -171,9 +173,9 @@ html, body {
 												</td>
 												</c:otherwise>		
 											</c:choose>			
-										</td>
-										<td class="text-center">${row.start_date }</td>
-										<td class="text-center">${row.end_date }</td>
+									
+										<td class="text-center">${fn:substring(row.start_date,0,11)}</td>
+										<td class="text-center">${fn:substring(row.end_date,0,11)}</td>
 										<td class="text-center"><a
 											href="./BeforeApprovalViewController.do?idx=${row.propose_idx}">
 												${row.title}</a></td>

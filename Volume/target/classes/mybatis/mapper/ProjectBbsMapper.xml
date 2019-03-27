@@ -89,6 +89,7 @@
       <delete id="cdelete" parameterType="model.PcommentDTO">
          delete from pcomment where idx=#{0} and comment_idx=#{1}
       </delete>
+
          
    
 </mapper>   

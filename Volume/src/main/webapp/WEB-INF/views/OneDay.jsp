@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <title>W3.CSS Template</title>
@@ -18,38 +19,60 @@
 
 
 <style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
-.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
-.fa-anchor,.fa-coffee {font-size:200px}
-
-button:hover{
-  background:#fff;
-  color:#1AAB8A;
+body, h1, h2, h3, h4, h5, h6 {
+	font-family: "Lato", sans-serif
 }
-button:before,button:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-  background: #1AAB8A;
-  transition:400ms ease all;
+.w3-bar, h1, button {
+	font-family: "Montserrat", sans-serif
 }
-button:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
-}
-button:hover:before,button:hover:after{
-  width:100%;
-  transition:800ms ease all;
+.fa-anchor, .fa-coffee {
+	font-size: 200px
 }
 
- html,body{
-background-color:#F2F3F2;
- }
+button {
+	background: #CDDB39;
+	color: black;
+	border: none;
+	position: relative;
+	height: 60px;
+	font-size: 1.6em;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
+}
+
+button:hover {
+	background: #fff;
+	color: #1AAB8A;
+}
+
+button:before, button:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #1AAB8A;
+	transition: 400ms ease all;
+}
+
+button:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+button:hover:before, button:hover:after {
+	width: 100%;
+	transition: 800ms ease all;
+}
+
+html, body {
+	background-color: #F2F3F2;
+}
 </style>
 <body>
 <div>
@@ -58,7 +81,7 @@ background-color:#F2F3F2;
 	</div>
 	<jsp:include page="/resources/navbar/navbarTop.jsp" />
 	<!-- First Grid -->
-	<div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 900px; ">
+	<div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 1200px; ">
 		<h1 class="w3-text-BLACK" style="font-weight:bold;">원데이 클래스</h1>
 		<div class="w3-col l10 s6 w3-center">
 			  <form class="form-inline" name="searchFrm" onsubmit="return searchValidate(this);">
@@ -86,15 +109,25 @@ background-color:#F2F3F2;
 							</button>
 						</div>
 					</div>
-			
+					<div class="input-group" style="margin-left: 50px;">
+						<div class="input-group-btn">
+							<button type="button"
+								style="height: 50px; width: 200px; border-radius: 15px;"
+								onclick="location.href='OnedayWriteController.do';">
+								<i class="glyphicon glyphicon-pencil"
+									style="font-size: 18px; font-weight: bold;">클래스생성</i>
+							</button>
+						</div>
+					</div>			
 			  </form>
 					  			  
 			  	<table class="table table-success"style="width:90%; margin:10px;">
 					  <thead class="w3-lime">
 					    <th>글번호</th>
-					    <th>시작시간</th> 
-					    <th>종료시간</th>
-					    <th>장소</th>
+					    <th>이미지</th>
+					    <th>수강날짜</th> 
+					    <th>수업명</th>
+					    <th>수업내용</th>
 					    <th>수업방식</th>	
 					   	<th>필요 포인트</th>	 				    
 					   	<th>인원수</th>	 				    
@@ -115,23 +148,40 @@ background-color:#F2F3F2;
 								<c:forEach items="${lists }" var="row" varStatus="loop">
 									<!-- 리스트반복시작 -->
 									<tr >
-										<td class="text-center">${row.thumbnail }</td>
-										<td class="text-center">${row.start_date }</td>
-										<td class="text-center">${row.end_date }</td>
+										
+										<td class="text-center">${row.idx }</td>
+																				
+											<c:choose>
+												<c:when test=" ${not empty row.thumbnail }">
+												<td class="text-center"> 
+													<img src="./resources/thumbnail/${row.thumbnail}"  width="200" height="200">
+												</td>	
+												</c:when>
+												<c:otherwise>	
+												<td class="text-center">
+													<img src="./resources/images/defaultimage.jpg" width="200" height="200">
+												</td>
+												</c:otherwise>		
+											</c:choose>		
+										<td class="text-center">${fn:substring(row.start_date,0,11)}</td>
+										
 										<td class="text-center">
-										<a href="./ProjectBbsViewController.do?idx=${row.idx}"> 
+										<a href="./OndayViewController.do?idx=${row.idx}"> 
 											${row.title}</a></td>
 										<td class="text-left">
-										<a href="./ProjectBbsViewController.do?idx=${row.idx}">${row.content}</a>
+										<a href="./OndayViewController.do?idx=${row.idx}">${row.content}</a>
 										</td>
-										<td class="text-center">${row.rec_count }</td>
+										<td class="text-center">${row.t_method }</td>
+										<td class="text-center">${row.t_point }</td>
+										<td class="text-center">${row.e_limit }</td>
 										<td class="text-center">${row.visit_count }</td>
 										<td class="text-center">${row.postdate }</td>
-										<td class="text-center"> 			
+										<td class="text-center">${row.state}</td>
+<%-- 										<td class="text-center"> 			
 											<c:if test="${not empty row.attachedfile }">
 												<span class="glyphicon glyphicon-paperclip"></span>					
 											</c:if>
-										</td>
+										</td> --%>
 																																					
 <%-- 										<%
 										  String id =request.getAttribute("id").toString();
@@ -167,7 +217,7 @@ background-color:#F2F3F2;
 			 
     	</div>
     	<div class="w3-col l2 s6 w3-center">
-    	<jsp:include page="../common/rightBar.jsp"></jsp:include>
+    	<jsp:include page="./common/rightBar.jsp"></jsp:include>
     	</div>
 	</div>
 </div>

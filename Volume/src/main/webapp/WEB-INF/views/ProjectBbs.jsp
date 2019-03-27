@@ -72,7 +72,7 @@ background-color:#F2F3F2;
 	
 	<!-- First Grid -->
 	<div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 900px; ">
-		<h1 class="w3-text-BLACK" style="font-weight:bold;">PROjECT</h1>
+		<h1 class="w3-text-BLACK" style="font-weight:bold;">진행중인 프로젝트</h1>
 		<div class="w3-row">
 			  
 					  <form class="form-inline" name="searchFrm" onsubmit="return searchValidate(this);">
@@ -126,12 +126,11 @@ background-color:#F2F3F2;
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${lists }" var="row" varStatus="loop">
-									<!-- 리스트반복시작 -->
-									<tr >
+									<!-- 리스트반복시작 -->									
 																			
 											<c:choose>
-												<c:when test="${not empty row.thumbnail }">
-												<td class="text-center">
+												<c:when test=" ${not empty row.thumbnail }" >
+												<td class="text-center" > 
 													<img src="./resources/thumbnail/${row.thumbnail}"  width="200" height="200">
 												</td>	
 												</c:when>
@@ -141,7 +140,7 @@ background-color:#F2F3F2;
 												</td>
 												</c:otherwise>		
 											</c:choose>			
-										</td>
+										
 										<td class="text-center">${row.start_date }</td>
 										<td class="text-center">${row.end_date }</td>
 										<td class="text-center">
