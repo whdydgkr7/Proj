@@ -40,7 +40,7 @@ window.onload=function() {
 		success: function(data) {
 			var str="";
 				str+="<tr>";
-				str+="<td class='text-center'>아이디&nbsp;&nbsp;</td><td><input type='text' value='"+data.id+"' id='id'/></td></tr><tr>";
+				str+="<td class='text-center'>아이디&nbsp;&nbsp;</td><td><input type='text' value='"+data.id+"' id='id' readonly='readonly'/></td></tr><tr>";
 				str+="<td class='text-center'>비밀번호&nbsp;&nbsp;</td><td><input type='text' value='"+data.pass+"' id='pass'/></td></tr><tr>";
 				str+="<td class='text-center'>이름&nbsp;&nbsp</td><td><input type='text' value='"+data.name+"' id='name'/></td></tr><tr>";
 				str+="<td class='text-center'>등록일&nbsp;&nbsp</td><td><input type='text' value='"+data.regidate+"' readonly='readonly' id='regidate'/></td></tr><tr>";

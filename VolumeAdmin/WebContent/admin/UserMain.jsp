@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
 <html lang="en">
-<title>관리자 페이지</title>
+<title>회원관리</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -16,7 +16,12 @@ body {font-size:16px;}
 .w3-half img:hover{opacity:1}
 </style>
 <body>
+<script src="../common/js/paging.js"></script>
 <script type="text/javascript">
+if('${sessionScope.authority}'!='ADMIN'){
+		alert("관리자 페이지입니다.\n관리자라면 로그인 후 이용 해 주세요.");
+		location.href='../index.jsp';
+}
 $(document).ready(user);
 function user() {
 	$.ajax({
@@ -38,13 +43,16 @@ function user() {
 						+"<th class='text-center'>가입일</th>"
 						+"<th class='text-center'>이메일</th>"
 						+"<th class='text-center'>포인트</th>"
-						+"<th class='text-center'>상태(1:정상/ 0:정지)</th>"
+						+"<th class='text-center'>계정상태</th>"
 						+"<th class='text-center'>권한</th>"
 						+"<th class='text-center'>가입경로</th>"
 					+"</tr>"
 				+"</thead>"
 				+"<tbody>";
 			$.each(responseData, function(index, data) {
+				var enabled=data.enabled;
+				if(enabled==1) enabled='정상';
+				else enabled='비승인';
 				str+="<tr id='"+data.id+"' style='background-color:white;' onmouseover=\"this.style.backgroundColor='#ffb0a5';\" onmouseout=\"this.style.backgroundColor='white';\">";
 				str+="<td class='text-center'><input type='radio' name='user' id='"+data.id+"' value='"+data.id+"' onClick='selectUser(this.value);'/></td>";
 				str+="<td class='text-center'>"+data.id+"</td>";
@@ -52,7 +60,7 @@ function user() {
 				str+="<td class='text-center'>"+data.regidate+"</td>";
 				str+="<td class='text-center'>"+data.email+"</td>";
 				str+="<td class='text-center'>"+data.point+"</td>";
-				str+="<td class='text-center'>"+data.enabled+"</td>";
+				str+="<td class='text-center'>"+enabled+"</td>";
 				str+="<td class='text-center'>"+data.authority+"</td>";
 				str+="<td class='text-center'>"+data.userType+"</td>";
 				str+="</tr>";
@@ -66,106 +74,16 @@ function user() {
 		}
 	});
 }
-//만들어진 테이블에 페이지 처리
-function page(){ 
-var reSortColors = function($table) {
-  $('tbody tr:odd td', $table).removeClass('even').removeClass('listtd').addClass('odd');
-  $('tbody tr:even td', $table).removeClass('odd').removeClass('listtd').addClass('even');
- };
- $('table.paginated').each(function() {
-  var pagesu = 10;  //페이지 번호 갯수
-  var currentPage = 0;
-  var numPerPage = 10;  //목록의 수
-  var $table = $(this);    
-  
-  //length로 원래 리스트의 전체길이구함
-  var numRows = $table.find('tbody tr').length;
-  //Math.ceil를 이용하여 반올림
-  var numPages = Math.ceil(numRows / numPerPage);
-  //리스트가 없으면 종료
-  if (numPages==0) return;
-  //pager라는 클래스의 div엘리먼트 작성
-  var $pager = $('<td align="center" id="remo" colspan="10"><div class="pager"></div></td>');
-  
-  var nowp = currentPage;
-  var endp = nowp+10;
-  
-  //페이지를 클릭하면 다시 셋팅
-  $table.bind('repaginate', function() {
-  //기본적으로 모두 감춘다, 현재페이지+1 곱하기 현재페이지까지 보여준다
-  
-   $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
-   $("#remo").html("");
-   
-   if (numPages > 1) {     // 한페이지 이상이면
-    if (currentPage < 5 && numPages-currentPage >= 5) {   // 현재 5p 이하이면
-     nowp = 0;     // 1부터 
-     endp = pagesu;    // 10까지
-    }else{
-     nowp = currentPage -5;  // 6넘어가면 2부터 찍고
-     endp = nowp+pagesu;   // 10까지
-     pi = 1;
-    }
-    
-    if (numPages < endp) {   // 10페이지가 안되면
-     endp = numPages;   // 마지막페이지를 갯수 만큼
-     nowp = numPages-pagesu;  // 시작페이지를   갯수 -10
-    }
-    if (nowp < 1) {     // 시작이 음수 or 0 이면
-     nowp = 0;     // 1페이지부터 시작
-    }
-   }else{       // 한페이지 이하이면
-    nowp = 0;      // 한번만 페이징 생성
-    endp = numPages;
-   }
-   // [처음]
-   $('<br /><span class="page-number" cursor: "pointer">[처음]</span>').bind('click', {newPage: page},function(event) {
-          currentPage = 0;   
-          $table.trigger('repaginate');  
-          $($(".page-number")[2]).addClass('active').siblings().removeClass('active');
-      }).appendTo($pager).addClass('clickable');
-    // [이전]
-      $('<span class="page-number" cursor: "pointer">&nbsp;&nbsp;&nbsp;[이전]&nbsp;</span>').bind('click', {newPage: page},function(event) {
-          if(currentPage == 0) return; 
-          currentPage = currentPage-1;
-    $table.trigger('repaginate'); 
-    $($(".page-number")[(currentPage-nowp)+2]).addClass('active').siblings().removeClass('active');
-   }).appendTo($pager).addClass('clickable');
-    // [1,2,3,4,5,6,7,8]
-   for (var page = nowp ; page < endp; page++) {
-    $('<span class="page-number" cursor: "pointer" style="margin-left: 8px;"></span>').text(page + 1).bind('click', {newPage: page}, function(event) {
-     currentPage = event.data['newPage'];
-     $table.trigger('repaginate');
-     $($(".page-number")[(currentPage-nowp)+2]).addClass('active').siblings().removeClass('active');
-     }).appendTo($pager).addClass('clickable');
-   } 
-    // [다음]
-      $('<span class="page-number" cursor: "pointer">&nbsp;&nbsp;&nbsp;[다음]&nbsp;</span>').bind('click', {newPage: page},function(event) {
-    if(currentPage == numPages-1) return;
-        currentPage = currentPage+1;
-    $table.trigger('repaginate'); 
-     $($(".page-number")[(currentPage-nowp)+2]).addClass('active').siblings().removeClass('active');
-   }).appendTo($pager).addClass('clickable');
-    // [끝]
-   $('<span class="page-number" cursor: "pointer">&nbsp;[끝]</span>').bind('click', {newPage: page},function(event) {
-           currentPage = numPages-1;
-           $table.trigger('repaginate');
-           $($(".page-number")[endp-nowp+1]).addClass('active').siblings().removeClass('active');
-   }).appendTo($pager).addClass('clickable');
-     
-     $($(".page-number")[2]).addClass('active');
-reSortColors($table);
-  });
-   $pager.insertAfter($table).find('span.page-number:first').next().next().addClass('active');   
-   $pager.appendTo($table);
-   $table.trigger('repaginate');
- });
-}
 function selectUser(param) {
 	document.getElementById("selectUser").value=param;
 }
 
 function deleteUser() {
+	var select=document.getElementById("selectUser").value
+	if (select=="" || select==null){
+		alert("삭제할 항목을 선택 해 주세요.");
+		return;
+	}
 	$.ajax({
 		url: "../admin/UserCtrl.do",
 		type: "get",
@@ -185,6 +103,11 @@ function deleteUser() {
 }
 
 function pauseUser() {
+	var select=document.getElementById("selectUser").value
+	if (select=="" || select==null){
+		alert("정지할 항목을 선택 해 주세요.");
+		return;
+	}
 	$.ajax({
 		url: "../admin/UserCtrl.do",
 		type: "get",
@@ -205,6 +128,11 @@ function pauseUser() {
 }
 
 function activateUser() {
+	var select=document.getElementById("selectUser").value
+	if (select=="" || select==null){
+		alert("활성화 할 항목을 선택 해 주세요.");
+		return;
+	}
 	$.ajax({
 		url: "../admin/UserCtrl.do",
 		type: "get",
@@ -224,7 +152,11 @@ function activateUser() {
 	});
 }
 function modifyUser() {
-	
+	var select=document.getElementById("selectUser").value
+	if (select=="" || select==null){
+		alert("수정할 항목을 선택 해 주세요.");
+		return;
+	}
 	window.name = "parentForm";
     window.open("UserUpdate.jsp?id="+document.getElementById("selectUser").value,
                 "replyForm", "width=350, height=600, resizable = no, scrollbars = no");
@@ -244,35 +176,15 @@ function modifyUser() {
     <div class="container">
 		<div class="row text-center">
 			<h2 style="text-align:center;">회원관리(<span style="color:red;">회원 찾기</span>)</h2>
-			<form>
+			<form class="text-right">
 				<input type="hidden" id="selectUser" />
 				<input type="text" id="searchId" placeholder="아이디 입력" onkeyup="user();"/>
-				<input type="button" onclick="user();" class="btn btn-info" value="실시간검색"/>
+				<input type="button" onclick="user();" class="btn btn-info" value="아이디 찾기"/>
 			</form>	
 		</div>
+		<br />
 		<div class="row">
-			<table class="table table-striped table-bordered table-hover paginated" id="ajaxTable">
-			<!-- <thead>
-				<tr class="info">
-					<th class="text-center">선택</th>
-					<th class="text-center">아이디</th>
-					<th class="text-center">이름</th>
-					<th class="text-center">가입일</th>
-					<th class="text-center">이메일</th>
-					<th class="text-center">포인트</th>
-					<th class="text-center">상태(1:정상/ 0:정지)</th>
-					<th class="text-center">권한</th>
-					<th class="text-center">가입경로</th>
-				</tr>
-			</thead>
-			<tbody id="ajaxTable"></tbody> -->
-			</table>
-			<%-- <div class="row text-center">
-				<!-- 페이지번호 부분 -->
-				<ul class="pagination">	
-					${pagingImg }
-				</ul>	
-			</div> --%>	
+			<table class="table table-striped table-bordered table-hover paginated" id="ajaxTable"></table>
 		</div>
 		<table>
 			<tr>
@@ -290,7 +202,7 @@ function modifyUser() {
 </div>
 
 <!-- W3.CSS Container -->
-<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">관리자 페이지 <a href="home" title="W3.CSS" target="_blank" class="w3-hover-opacity">Volume</a></p></div>
+<jsp:include page="../common/commonBottom.jsp"></jsp:include>
 
 <script>
 // Script to open and close sidebar
