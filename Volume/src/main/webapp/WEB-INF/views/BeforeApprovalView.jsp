@@ -3,6 +3,7 @@
 <%@page import="model.BeforeApprovalDTO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <title>W3.CSS Template</title>
@@ -59,6 +60,7 @@ table.greenTable tbody td {
 <%
 	BeforeApprovalDTO beforeApprovalDTO = (BeforeApprovalDTO) request.getAttribute("beforeApprovalDTO");
 	int propose_idx = beforeApprovalDTO.getPropose_idx();
+	String thumbnail=beforeApprovalDTO.getThumbnail();
 %>
 
 
@@ -102,19 +104,16 @@ table.greenTable tbody td {
 						style="margin-left: 12%; width: 1000px; text-align: center;">
 
 						<c:choose>
-							<c:when test="${not empty beforeApprovalDTO.thumbnail }">
-								<td class="text-center">
-								<img src="./resources/thumbnail/${beforeApprovalDTO.thumbnail}"></td>
+							<c:when test="${not empty thumbnail}" >
+								<td class="text-center"><img
+									src="./resources/thumbnail/${thumbnail}"></td>
 							</c:when>
 							<c:otherwise>
 								<td class="text-center"><img
 									src="./resources/images/defaultimage.jpg"></td>
 							</c:otherwise>
 						</c:choose>
-
-
 						<br>
-
 						<h2>${beforeApprovalDTO.title }</h2>
 						<br>
 						<div class="w3-row-padding w3-margin-bottom">
@@ -148,8 +147,7 @@ table.greenTable tbody td {
 
 						<table class="greenTable">
 							<tbody>
-								<%-- <tr>
-<td>이미지:</td><td></td>${beforeApprovalDTO.thumbnail}</div></tr> --%>
+
 
 								<tr>
 									<td style="background-color: #F2F0E8;">프로젝트 시작일 :</td>
@@ -172,54 +170,109 @@ table.greenTable tbody td {
 								</tr>
 								<tr>
 									<td colspan="2"><div id="map"
-											style="width: 100%; height: 350px;"></div> <script
+											style="width: 100%; height: 350px;"></div>
+																						<p>
+											    <button onclick="zoomIn()" style="background-color:#DEE686; ">지도레벨 - 1</button>
+											    <button onclick="zoomOut()"style="background-color:#DEE686; ">지도레벨 + 1</button>
+											    <span id="maplevel"></span>
+											    
+											    
+											    
+											    
+											</p>
+											 <script
 											type="text/javascript"
 											src="//dapi.kakao.com/v2/maps/sdk.js?appkey=70a54cc4cc1852fb30a4ac2b3cd30ac3&libraries=services"></script>
 										<script>
+											var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+											    mapOption = {
+											        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+											        level: 3 // 지도의 확대 레벨
+											    };  
+											var addstr = "";
+											var addstr = "";
+											// 지도를 생성합니다    
+											var map = new daum.maps.Map(mapContainer, mapOption); 
+											
+											// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+											var mapTypeControl = new daum.maps.MapTypeControl();
 
+											// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+											// daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+											map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+											
+											// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+											var zoomControl = new daum.maps.ZoomControl();
+											map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+											
+											
+											
+											
+											// 주소-좌표 변환 객체를 생성합니다
+											var geocoder = new daum.maps.services.Geocoder();
+											
+											// 주소로 좌표를 검색합니다
+											geocoder.addressSearch('${beforeApprovalDTO.address}', function(result, status) {
+											
+												
+												
+												
+											    // 정상적으로 검색이 완료됐으면 
+											     if (status === daum.maps.services.Status.OK) {
+											
+											        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+											
+											        // 결과값으로 받은 위치를 마커로 표시합니다
+											        var marker = new daum.maps.Marker({
+											            map: map,
+											            position: coords
+											        });
+											
+											        // 인포윈도우로 장소에 대한 설명을 표시합니다
+											        var infowindow = new daum.maps.InfoWindow({
+											            content: '<div style="width:150px;text-align:center;padding:6px 0;">프로젝트 위치</div>'
+											        });
+											        infowindow.open(map, marker);
+											
+											        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+											        map.setCenter(coords);
+											    } 
+											    
+											});    
+											
+											
+											displayLevel();
+											 
+											// 지도 레벨은 지도의 확대 수준을 의미합니다
+											// 지도 레벨은 1부터 14레벨이 있으며 숫자가 작을수록 지도 확대 수준이 높습니다
+											function zoomIn() {        
+											    // 현재 지도의 레벨을 얻어옵니다
+											    var level = map.getLevel();
+											    
+											    // 지도를 1레벨 내립니다 (지도가 확대됩니다)
+											    map.setLevel(level - 1);
+											    
+											    // 지도 레벨을 표시합니다
+											    displayLevel();
+											}    
 
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
-var addstr = "";
-var addstr = "";
-// 지도를 생성합니다    
-var map = new daum.maps.Map(mapContainer, mapOption); 
-
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new daum.maps.services.Geocoder();
-
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch('${beforeApprovalDTO.address}', function(result, status) {
-
-	
-	
-	
-    // 정상적으로 검색이 완료됐으면 
-     if (status === daum.maps.services.Status.OK) {
-
-        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new daum.maps.Marker({
-            map: map,
-            position: coords
-        });
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new daum.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">프로젝트 위치</div>'
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-    
-});    
-</script></td>
+											function zoomOut() {    
+											    // 현재 지도의 레벨을 얻어옵니다
+											    var level = map.getLevel(); 
+											    
+											    // 지도를 1레벨 올립니다 (지도가 축소됩니다)
+											    map.setLevel(level + 1);
+											    
+											    // 지도 레벨을 표시합니다
+											    displayLevel(); 
+											}    
+											 
+											function displayLevel(){
+											    var levelEl = document.getElementById('maplevel');
+											    levelEl.innerHTML = '현재 지도 레벨은 ' + map.getLevel() + ' 레벨 입니다.';
+											}
+											</script>
+</td>
 								</tr>
 
 							</tbody>
