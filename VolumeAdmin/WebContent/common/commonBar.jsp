@@ -7,10 +7,10 @@
     <h3 class="w3-padding-64"><b>Volume<br>관리자 페이지</b></h3>
   </div>
   <div class="w3-bar-block">
-    <a href="../admin/UserCtrl.do" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">회원 관리</a> 
-    <a href="#projectManagement" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">프로젝트 관리</a> 
-    <a href="#eManagement" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">원데이 클래스 관리</a> 
-	<a href="#admin" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">관리자 계정 설정</a> 
+    <a href="<%=request.getContextPath() %>/admin/UserMain.jsp" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">회원 관리</a> 
+    <a href="<%=request.getContextPath() %>/admin/ProposeMain.jsp" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">프로젝트 제안 관리</a> 
+    <a href="<%=request.getContextPath() %>/admin/OnedayMain.jsp" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">원데이 클래스 신고 관리</a> 
+	<a href="<%=request.getContextPath() %>/admin/adminMain.jsp" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">관리자 계정 설정</a> 
     <!-- <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a> -->
   </div>
 </nav>
