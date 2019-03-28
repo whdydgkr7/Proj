@@ -20,4 +20,25 @@
 	<select id="getUser" resultType="user.UserDTO" parameterType="String">
 		SELECT * FROM users WHERE id=#{0}
 	</select>
+	
+	<!-- 유저 인증키 난수로 업데이트 -->
+   <update id="GetKey" parameterType="Map">update users set temp=#{param2} where id=#{param1} </update>
+   <!-- 회원 인증키(난수) y로 변경 -->
+   <update id="alter_userKey" parameterType="Map"> update users set enabled=1 where id=#{param1} and temp=#{param2} </update>
+   
+   <!-- 0사용불가 1사용가능 -->
+   <select id="isAuth" resultType="int" parameterType="String">
+      select enabled from users
+         where id=#{0}
+   </select>
+   
+   <!-- 아이디 찾기 -->
+    <select id="findId" parameterType="String" resultType="String">
+    	SELECT id FROM users WHERE email = #{user_email} AND name = #{user_name}
+    </select>
+    <!-- 비밀번호 찾기 -->
+    <select id="findPass" parameterType="String" resultType="String">
+    	SELECT pass FROM users WHERE email = #{user_email}
+    </select>
+	
 </mapper>

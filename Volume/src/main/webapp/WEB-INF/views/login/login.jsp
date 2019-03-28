@@ -30,6 +30,8 @@ function inputValidate(f) {
 		return false;
 	}
 }
+
+
 </script>
 <div class="card bg-light">
 <article class="card-body mx-auto" style="max-width: 400px;">
@@ -55,9 +57,14 @@ function inputValidate(f) {
                                                                 
 </form>
 <hr />
+ <!-- <form action="findId"> -->
 <p class="divider-text" style="text-align: center;">
-       <span class="bg-light">또는</span>
+     
+      <button type="button" class="btn btn-primary" id="find_id_btn" onclick="location.href='findId';">아이디 찾기</button>
+      <button type="button" class="btn btn-primary" id="find_pass_btn" onclick="location.href='findPass';">비밀번호 찾기</button>
 </p>
+<!--  </form> -->
+
 <hr />
 <p class="text-center"> 
 	<a href="googleLogin"><img src="./resources/images/login_google.png" alt="" style="width: 100%;"/></a>

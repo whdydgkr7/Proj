@@ -3,12 +3,27 @@ package user;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserImpl {
-	//ë¡œê·¸ì¸ì²˜ë¦¬
+	// ·Î±×ÀÎÃ³¸®
 	public UserDTO login(String id, String pass);
-	//íšŒì›ê°€ì…ì²˜ë¦¬
+
+	// È¸¿ø°¡ÀÔÃ³¸®
 	public int regiUser(UserDTO usersDTO);
-	//ì•„ì´ë”” ì¤‘ë³µ ì²´í¬
+
+	// ¾ÆÀÌµğ Áßº¹ Ã¼Å©
 	public int idCheck(String id);
-	//íšŒì›ì •ë³´ ê°€ì ¸ì˜¤ê¸°
+
+	// È¸¿øÁ¤º¸ °¡Á®¿À±â
 	public UserDTO getUser(String id);
+
+	// È¸¿ø°¡ÀÔ ÀÌ¸ŞÀÏÀÎÁõ
+	public void GetKey(String id, String key);
+	public void alter_userKey(String id, String key);
+
+	//ÀÌ¸ŞÀÏ ÀÎÁõÈ®ÀÎÇÏ±â
+	public int isAuth(String parameter);
+	
+	//¾ÆÀÌµğ Ã£±â
+	public String findId(@Param("user_name")String user_name, @Param("user_email")String user_email);
+	//ºñ¹Ğ¹øÈ£ Ã£±â
+	public String findPass(@Param("user_email")String user_email);
 }

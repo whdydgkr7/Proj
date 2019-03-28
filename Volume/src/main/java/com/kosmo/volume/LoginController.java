@@ -5,12 +5,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.google.api.Google;
 import org.springframework.social.google.api.impl.GoogleTemplate;
@@ -34,278 +38,425 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import kakao.kakao_restapi;
 import naver.JsonParser;
 import naver.NaverLoginBO;
+import user.Temp;
 import user.UserDTO;
 import user.UserImpl;
 
 @Controller
 public class LoginController {
-	
+
 	@Autowired
 	private SqlSession sqlSession;
+	@Autowired
+    private JavaMailSenderImpl mailSender;
 
 	@RequestMapping("/login")
 	public String login(Model model) {
 		return "login/login";
 	}
-	
+
 	@RequestMapping("/loginAction")
 	public ModelAndView loginAction(Model model, HttpServletRequest req, HttpSession session) {
-		ModelAndView mv=new ModelAndView();
-		UserDTO usersDTO=sqlSession.getMapper(UserImpl.class).login(req.getParameter("id"), req.getParameter("pass"));
-
-		if (usersDTO==null) {
+		ModelAndView mv = new ModelAndView();
+		UserDTO usersDTO = sqlSession.getMapper(UserImpl.class).login(req.getParameter("id"), req.getParameter("pass"));
+		int auth= sqlSession.getMapper(UserImpl.class).isAuth(req.getParameter("id"));
+		
+		
+		
+		if(auth == 0) {
+			//auth==0ÀÏ½Ã ·Î±×ÀÎ¾ÈµÇ°í ÆäÀÌÁö¸¸ÀÌµ¿,  alert("³»¿ë") ÇØÁà¾ßÇÔ
 			mv.addObject("loginCheck", "false");
-			mv.setViewName("login/login");
-		}
-		else {
-			mv.addObject("loginCheck", "true");
-			session.setAttribute("login", usersDTO);
-			mv.setViewName("home");
-		}
-		/*String backUrl=req.getParameter("backUrl");
-		if (backUrl==null || backUrl.equals("")) {
 			mv.setViewName("home");
 		}
 		else {
-			mv.setViewName(backUrl);
-		}*/
+			if (usersDTO == null) {
+				mv.addObject("loginCheck", "false");
+				mv.setViewName("login/login");
+			} else {
+				mv.addObject("loginCheck", "true");
+				session.setAttribute("login", usersDTO);
+				mv.setViewName("home");
+			}
+		}
+
 		return mv;
 	}
+	//¾ÆÀÌµğ ºñ¹øÃ£±â
+	//¾ÆÀÌµğ Ã£±â Æû
+  	@RequestMapping(value = "/findId")
+  	public String find_id_form() throws Exception{
+  		
+  		return "idpassFind/find_id_form";
+  		
+  		
+  	}
+  	
+     // ¾ÆÀÌµğ Ã£±â
+     @RequestMapping(value = "/idFind.do", method = RequestMethod.POST)
+     @ResponseBody
+     public String userIdSearch(@RequestParam("user_name") String  user_name, 
+           @RequestParam("user_email") String user_email) {
+    	 System.out.println(user_name);
+    	 System.out.println(user_email);
+        
+        String result = sqlSession.getMapper(UserImpl.class).findId(user_name, user_email);  //searchService.userIdSearch(user_name, user_email);
+    	System.out.println("user_name="+user_name);
+        System.out.println("user_email="+user_email);
+        return result;
+     }
+     
+   //ºñ¹ø Ã£±â Æû
+   	@RequestMapping(value = "/findPass")
+   	public String find_pass_form() throws Exception{
+   		
+   		return "idpassFind/find_Pass_form";
+   		
+   		
+   	}
+     
+     //ºñ¹Ğ¹øÈ£ Ã£±â
+     @RequestMapping(value = "/passFind.do", method = RequestMethod.POST)
+     @ResponseBody
+     public String userpassSearch(@RequestParam("user_email") String user_email) {
+    	System.out.println(user_email);
+        
+        String result = sqlSession.getMapper(UserImpl.class).findPass(user_email);  //searchService.userIdSearch(user_name, user_email);
+    	System.out.println("user_email="+user_email);
+        return result;
+        
+     }
+     
+
+
+ 	@RequestMapping("/EmailSend.do")
+ 	public String EmailSend(HttpServletRequest req, Model model) {
+ 		final String fromEmail = "sz_toss@naver.com";
+ 		final String toEmail = req.getParameter("email");
+ 		final String subject = "¾È³çÇÏ¼¼¿ä °í°´´Ô volume ÀÔ´Ï´Ù. ";
+ 		final String contents = ""+"¿äÃ»ÇÏ½Å ºñ¹Ğ¹øÈ£´Â"+req.getParameter("data")+"ÀÔ´Ï´Ù.";//req.getParameter("contents").replace("\r\n", "<br/>");
+ 		System.out.println(req.getParameter("data"));
+ 		System.out.println(req.getParameter("email"));
+ 	
+ 		final MimeMessagePreparator preparator = new MimeMessagePreparator() {			
+ 			@Override
+ 			public void prepare(MimeMessage mimeMessage) throws Exception {
+
+ 				final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+ 				helper.setFrom(fromEmail); 
+ 				helper.setTo(toEmail); 
+ 				helper.setSubject(subject);  
+ 				/*
+ 				 * http://localhost:8080/SpringSMTP/emailAuth.do?id=nakja&pass=1234&user_auth=1
+ 				 * 
+ 				 * <a href='http://localhost:8080/SpringSMTP/emailAuth.do?id=nakja&pass=1234&rndNum=112635489874'>¿©±â¸¦Å¬¸¯ÇÏ¸éÀÎÁõµÊ</a>
+ 				 * 
+ 				 * */
+ 				helper.setText(contents, true); 
+ 			}
+ 		};
+ 		
+ 		try {
+ 			mailSender.send(preparator);
+ 			model.addAttribute("mailResult","¸ŞÀÏÀÌ Á¤»ó¹ß¼Û µÇ¾ú½À´Ï´Ù");
+ 		}
+ 		catch (Exception e) {
+ 			System.out.println("¿¹¿Ü¹ß»ı");
+ 			model.addAttribute("mailResult","¸ŞÀÏ¹ß¼Û¿À·ù");
+ 			e.printStackTrace();
+ 		}
+ 		
+ 		return "idpassFind/emailSend";
+ 	}
 	
+
+	// È¸¿ø°¡ÀÔ
 	@RequestMapping("/register")
 	public String register(Model model) {
 		return "login/register";
-	}
-	
+	}  
+
 	@RequestMapping("/registerAction")
 	public ModelAndView regiUserAction(Model model, HttpServletRequest req, HttpSession session) {
-		ModelAndView mv=new ModelAndView();
-		
-		UserDTO dto=new UserDTO();
+		ModelAndView mv = new ModelAndView();
+
+		// ±¸±Û,Ä«Ä«¿Àµî ¿¬µ¿·Î±×ÀÎ½ÃÇÊ¿ä
+		// String isNaver = req.getParameter("hiddenPw1");
+		// String iskakao = req.getParameter("hiddenPw2");
+		// String isgoogle = req.getParameter("hiddenPw3");
+
+		UserDTO dto = new UserDTO();
 		dto.setId(req.getParameter("id"));
 		dto.setPass(req.getParameter("pass"));
 		dto.setName(req.getParameter("name"));
 		dto.setEmail(req.getParameter("email"));
 		dto.setAuthority("USER");
 		dto.setUserType("user");
-				
+		
+		System.out.println("È¸¿ø°¡ÀÔ");
+		// È¸¿ø°¡ÀÔÇÏ±â
 		sqlSession.getMapper(UserImpl.class).regiUser(dto);
+
+		// ³­¼ö»ı¼º
+		System.out.println("³­¼ö»ı¼ºÇÔ");
+		Temp temp = new Temp();
+		String key = temp.getKey(false, 20);
+		
+
+		final String fromEmail = "sz_toss@naver.com";
+		final String email = req.getParameter("email");
+		final String id = req.getParameter("id");
+		final String title = id + "´Ô¿¡°Ô(VOLUME¿Ã¸²)";
+		final String htmlStr = "<div>" + id + "´Ô, ÀúÈñ ¼­ºñ½º¸¦ ÀÌ¿ëÇØÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù" + "VOLUME ÀÌ¿ëÀ» À§ÇØ °í°´´ÔÀÇ ÀÌ¸ŞÀÏÀ» ÀÎÁõÇØÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.<br/>"
+				+ "ÀÌ¸ŞÀÏ ÀÎÁõÀÌ ¿Ï·áµÇ¸é Á¤»óÀûÀ¸·Î »çÀÌÆ® ÀÌ¿ëÀÌ °¡´ÉÇÕ´Ï´Ù.<br/>" + "<a href='http://localhost:8080" + req.getContextPath()
+				+ "/user/key_alter?id=" + id + "&key=" + key + "'>ÀÎÁõÇÏ±â</a><br/>"
+				+ "(È¤½Ã Àß¸ø Àü´ŞµÈ ¸ŞÀÏÀÌ¶ó¸é ÀÌ ÀÌ¸ŞÀÏÀ» ¹«½ÃÇÏ¼Åµµ µË´Ï´Ù) <br/>" + "<hr/>" + "VOLUME" + "</div>";
+		sqlSession.getMapper(UserImpl.class).GetKey(id, key);
+
+		final MimeMessagePreparator preparator = new MimeMessagePreparator() {
+			@Override
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+
+				final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+				helper.setFrom(fromEmail);
+				helper.setTo(email);
+				helper.setSubject(title);
+				helper.setText(htmlStr, true);
+			}
+		};
+
+		try {
+			mailSender.send(preparator);
+			model.addAttribute("mailResult", "¸ŞÀÏÀÌ Á¤»ó¹ß¼Û µÇ¾ú½À´Ï´Ù");
+		} catch (Exception e) {
+			System.out.println("¿¹¿Ü¹ß»ı");
+			model.addAttribute("mailResult", "¸ŞÀÏ¹ß¼Û¿À·ù");
+			e.printStackTrace();
+		}
+
 		session.setAttribute("login", dto);
-		
 		mv.setViewName("home");
-		
+
 		return mv;
 	}
-	
+
+	// ÀÌ¸ŞÀÏ ÀÎÁõ ÄÁÆ®·Ñ·¯('1·Î¹Ù²Ş')
+	@RequestMapping(value = "/user/key_alter", method = RequestMethod.GET)
+	public String key_alterConfirm(@RequestParam("id") String id, @RequestParam("key") String key) {
+
+		sqlSession.getMapper(UserImpl.class).alter_userKey(id, key);
+
+		return "home";
+	}
+
 	@RequestMapping("/idCheck.do")
 	@ResponseBody
 	public String idCheck(HttpServletRequest req) {
-		
-		String result="";
-		int idOverlap=sqlSession.getMapper(UserImpl.class).idCheck(req.getParameter("id"));
-		//System.out.println("idOverlap:"+idOverlap);
-		if(idOverlap == 0) result="true";
-		else  result="false";
-		
+
+		String result = "";
+		int idOverlap = sqlSession.getMapper(UserImpl.class).idCheck(req.getParameter("id"));
+		// System.out.println("idOverlap:"+idOverlap);
+		if (idOverlap == 0)
+			result = "true";
+		else
+			result = "false";
+
 		return result;
 	}
-	
-	
-	//------------------------------------- ì†Œì…œ ë¡œê·¸ì¸      ----------------------------------------
-	
-	NaverLoginBO naverLoginBO=new NaverLoginBO();
-	
+
+	// ------------------------------------- ¼Ò¼È ·Î±×ÀÎ
+	// ----------------------------------------
+
+	NaverLoginBO naverLoginBO = new NaverLoginBO();
+
 	@RequestMapping(value = "/naverLogin", method = RequestMethod.GET)
 	public ModelAndView naverLogin(HttpSession session) {
-		/* ë„¤ì•„ë¡œ ì¸ì¦ URLì„ ìƒì„±í•˜ê¸° ìœ„í•˜ì—¬ getAuthorizationUrlì„ í˜¸ì¶œ */
+		/* ³×¾Æ·Î ÀÎÁõ URLÀ» »ı¼ºÇÏ±â À§ÇÏ¿© getAuthorizationUrlÀ» È£Ãâ */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 
 		return new ModelAndView("login/naverLogin", "url", naverAuthUrl);
 	}
 
 	@RequestMapping(value = "/callback", method = RequestMethod.GET)
-	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session, Model model, UserDTO userDTO) throws Exception {
-		/* ë„¤ì•„ë¡œ ì¸ì¦ì´ ì„±ê³µì ìœ¼ë¡œ ì™„ë£Œë˜ë©´ code íŒŒë¼ë¯¸í„°ê°€ ì „ë‹¬ë˜ë©° ì´ë¥¼ í†µí•´ access tokenì„ ë°œê¸‰ */
+	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session, Model model,
+			UserDTO userDTO) throws Exception {
+		/* ³×¾Æ·Î ÀÎÁõÀÌ ¼º°øÀûÀ¸·Î ¿Ï·áµÇ¸é code ÆÄ¶ó¹ÌÅÍ°¡ Àü´ŞµÇ¸ç ÀÌ¸¦ ÅëÇØ access tokenÀ» ¹ß±Ş */
 
 		JsonParser json = new JsonParser();
 
 		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		String apiResult = naverLoginBO.getUserProfile(oauthToken);
-		userDTO = json.changeJson(apiResult); // dtoì— userEmailì €ì¥
+		userDTO = json.changeJson(apiResult); // dto¿¡ userEmailÀúÀå
 		System.out.println("User Uid : " + userDTO.getEmail().substring(0, userDTO.getEmail().indexOf("@")));
-        System.out.println("User Name : " + userDTO.getName());
-        System.out.println("User Email : " + userDTO.getEmail());
-				
-		//sqlSession.getMapper(UserImpl.class).regiUser(userDTO);
-		session.setAttribute("login", inputSocialUser(userDTO.getEmail().substring(0, userDTO.getEmail().indexOf("@")), userDTO.getName(), userDTO.getEmail(), "naver"));
+		System.out.println("User Name : " + userDTO.getName());
+		System.out.println("User Email : " + userDTO.getEmail());
+
+		// sqlSession.getMapper(UserImpl.class).regiUser(userDTO);
+		session.setAttribute("login", inputSocialUser(userDTO.getEmail().substring(0, userDTO.getEmail().indexOf("@")),
+				userDTO.getName(), userDTO.getEmail(), "naver"));
 
 		return "login/callback";
 	}
-    
-    @Autowired
-    private GoogleConnectionFactory googleConnectionFactory;
-    @Autowired
-    private OAuth2Parameters googleOAuth2Parameters;
- 
-    private org.springframework.social.oauth2.OAuth2Operations oauthOperations;
- 
-    // íšŒì› ê°€ì… í˜ì´ì§€
-    @RequestMapping(value = "/googleLogin", method = { RequestMethod.GET, RequestMethod.POST })
-    public String join(HttpServletResponse response, Model model) {
- 
-        oauthOperations = googleConnectionFactory.getOAuthOperations();
-        String url = ((org.springframework.social.oauth2.OAuth2Operations) oauthOperations).buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-        System.out.println("/googleLogin, url : " + url);
-        model.addAttribute("google_url", url);
- 
-        return "login/googleLogin";
-    }
- 
- 
-    // ------------------------------------ êµ¬ê¸€ ì½œë°± ----------------------------------------
-    
-    @RequestMapping(value = "/googleSignInCallback", method = { RequestMethod.GET, RequestMethod.POST })
-    public String doSessionAssignActionPage(HttpServletRequest request, HttpSession session) throws Exception {
- 
-        String code = request.getParameter("code");
- 
-        oauthOperations = googleConnectionFactory.getOAuthOperations();
-        AccessGrant accessGrant = oauthOperations.exchangeForAccess(code, googleOAuth2Parameters.getRedirectUri(),
-                null);
- 
-        String accessToken = accessGrant.getAccessToken();
-        Long expireTime = accessGrant.getExpireTime();
- 
-        if (expireTime != null && expireTime < System.currentTimeMillis()) {
-            accessToken = accessGrant.getRefreshToken();
-            System.out.printf("accessToken is expired. refresh token = {}", accessToken);
- 
-        }
- 
-        Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
-        Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
-        System.out.println(connection);
- 
-        PlusOperations plusOperations = google.plusOperations();
-        Person profile = plusOperations.getGoogleProfile();
-        System.out.println("User Uid : " + profile.getId());
-        System.out.println("User Name : " + profile.getDisplayName());
-        System.out.println("User Email : " + profile.getAccountEmail());
-        System.out.println("User Profile : " + profile.getImageUrl());
- 
 
-        
-       /* UserDTO userDTO=new UserDTO();
-        userDTO.setId(profile.getId());
-        userDTO.setName(profile.getDisplayName());
-        userDTO.setEmail(profile.getAccountEmail());
-        userDTO.setPass(profile.getAccountEmail());
-        userDTO.setUserType("google");
-        sqlSession.getMapper(UserImpl.class).regiUser(userDTO);*/
-        String id=profile.getAccountEmail().substring(0,profile.getAccountEmail().indexOf("@"));
-        session.setAttribute("login",  inputSocialUser(id, id,profile.getAccountEmail(), "google"));
-        
-        // Access Token ì·¨ì†Œ
-        try {
-            System.out.println("Closing Token....");
-            String revokeUrl = "https://accounts.google.com/o/oauth2/revoke?token=" + accessToken + "";
-            URL url = new URL(revokeUrl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setDoOutput(true);
- 
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-        } catch (Exception e) {
- 
-            e.printStackTrace();
-        }
-        return "redirect:/";
- 
-    }
-    
-    
-    //ì¹´ì¹´ì˜¤ ë¡œê·¸ì¸ ë¡œê·¸ì•„ì›ƒ
-    private kakao_restapi kakao_restapi = new kakao_restapi();
-    
-    @RequestMapping(value = "/oauth", produces = "application/json")
-    public String kakaoLogin(@RequestParam("code") String code, Model model, HttpSession session) {
-        System.out.println("ë¡œê·¸ì¸ í• ë•Œ ì„ì‹œ ì½”ë“œê°’");
-        //ì¹´ì¹´ì˜¤ í™ˆí˜ì´ì§€ì—ì„œ ë°›ì€ ê²°ê³¼ ì½”ë“œ
-        System.out.println(code);
-        System.out.println("ë¡œê·¸ì¸ í›„ ê²°ê³¼ê°’");
-        
-        //ì¹´ì¹´ì˜¤ rest api ê°ì²´ ì„ ì–¸
-        kakao_restapi kr = new kakao_restapi();
-        //ê²°ê³¼ê°’ì„ nodeì— ë‹´ì•„ì¤Œ
-        JsonNode node = kr.getAccessToken(code);
-        //ê²°ê³¼ê°’ ì¶œë ¥
-        System.out.println(node);
-        //ë…¸ë“œ ì•ˆì— ìˆëŠ” access_tokenê°’ì„ êº¼ë‚´ ë¬¸ìì—´ë¡œ ë³€í™˜
-        String token = node.get("access_token").toString();
-        //ì„¸ì…˜ì— ë‹´ì•„ì¤€ë‹¤.
-        session.setAttribute("token", token);
-        
-        // access_tokenì„ í†µí•´ ì‚¬ìš©ì ì •ë³´ ìš”ì²­
-        JsonNode userInfo = kakao_restapi.getKakaoUserInfo(node.get("access_token"));
- 
-        // Get id
-        String id = userInfo.path("id").asText();
-        String name = null;
-        String email = null;
- 
-        // ìœ ì €ì •ë³´ ì¹´ì¹´ì˜¤ì—ì„œ ê°€ì ¸ì˜¤ê¸° Get properties
-        JsonNode properties = userInfo.path("properties");
-        JsonNode kakao_account = userInfo.path("kakao_account");
- 
-        name = properties.path("nickname").asText();
-        email = kakao_account.path("email").asText();
- 
-        System.out.println("id : " + id);
-        System.out.println("name : " + name);
-        System.out.println("email : " + email);
-        
-        session.setAttribute("login",  inputSocialUser(email.substring(0, email.indexOf("@")),name,email,"kakao"));
-        
-        return "redirect:/";
-    }
-    
-    @RequestMapping("/logout")
-    public String logout(Model model, HttpSession session) {
-    	session.removeAttribute("login");
-    	model.addAttribute("logoutMsg", " ");
-    	
-    	return "redirect:/";
-    }
-    /*@RequestMapping(value = "/logout", produces = "application/json")
-    public String Logout(HttpSession session) {
-        //kakao restapi ê°ì²´ ì„ ì–¸
-        kakao_restapi kr = new kakao_restapi();
-        //ë…¸ë“œì— ë¡œê·¸ì•„ì›ƒí•œ ê²°ê³¼ê°’ìŒ ë‹´ì•„ì¤Œ ë§¤ê°œë³€ìˆ˜ëŠ” ì„¸ì…˜ì— ì‡ëŠ” tokenì„ ê°€ì ¸ì™€ ë¬¸ìì—´ë¡œ ë³€í™˜
-        JsonNode node = kr.Logout(session.getAttribute("token").toString());
-        //ê²°ê³¼ ê°’ ì¶œë ¥
-        System.out.println("ë¡œê·¸ì¸ í›„ ë°˜í™˜ë˜ëŠ” ì•„ì´ë”” : " + node.get("id"));
-        return "redirect:/";
-    }*/
-    
-    public UserDTO inputSocialUser(String id, String name, String email, String userType) {
-        UserDTO userDTO=new UserDTO();
-        if(sqlSession.getMapper(UserImpl.class).idCheck(id)==0) {
-            userDTO.setId(id);
-            userDTO.setName(name);
-            userDTO.setEmail(email);
-            userDTO.setPass(email);
-            userDTO.setAuthority("USER");
-            userDTO.setUserType(userType);
-    		sqlSession.getMapper(UserImpl.class).regiUser(userDTO);
-        }
-        else userDTO=sqlSession.getMapper(UserImpl.class).getUser(id);
-        
-        return userDTO;
-    }
+	@Autowired
+	private GoogleConnectionFactory googleConnectionFactory;
+	@Autowired
+	private OAuth2Parameters googleOAuth2Parameters;
+
+	private org.springframework.social.oauth2.OAuth2Operations oauthOperations;
+
+	// È¸¿ø °¡ÀÔ ÆäÀÌÁö
+	@RequestMapping(value = "/googleLogin", method = { RequestMethod.GET, RequestMethod.POST })
+	public String join(HttpServletResponse response, Model model) {
+
+		oauthOperations = googleConnectionFactory.getOAuthOperations();
+		String url = ((org.springframework.social.oauth2.OAuth2Operations) oauthOperations)
+				.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+		System.out.println("/googleLogin, url : " + url);
+		model.addAttribute("google_url", url);
+
+		return "login/googleLogin";
+	}
+
+	// ------------------------------------ ±¸±Û Äİ¹é
+	// ----------------------------------------
+
+	@RequestMapping(value = "/googleSignInCallback", method = { RequestMethod.GET, RequestMethod.POST })
+	public String doSessionAssignActionPage(HttpServletRequest request, HttpSession session) throws Exception {
+
+		String code = request.getParameter("code");
+
+		oauthOperations = googleConnectionFactory.getOAuthOperations();
+		AccessGrant accessGrant = oauthOperations.exchangeForAccess(code, googleOAuth2Parameters.getRedirectUri(),
+				null);
+
+		String accessToken = accessGrant.getAccessToken();
+		Long expireTime = accessGrant.getExpireTime();
+
+		if (expireTime != null && expireTime < System.currentTimeMillis()) {
+			accessToken = accessGrant.getRefreshToken();
+			System.out.printf("accessToken is expired. refresh token = {}", accessToken);
+
+		}
+
+		Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
+		Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
+		System.out.println(connection);
+
+		PlusOperations plusOperations = google.plusOperations();
+		Person profile = plusOperations.getGoogleProfile();
+		System.out.println("User Uid : " + profile.getId());
+		System.out.println("User Name : " + profile.getDisplayName());
+		System.out.println("User Email : " + profile.getAccountEmail());
+		System.out.println("User Profile : " + profile.getImageUrl());
+
+		/*
+		 * UserDTO userDTO=new UserDTO(); userDTO.setId(profile.getId());
+		 * userDTO.setName(profile.getDisplayName());
+		 * userDTO.setEmail(profile.getAccountEmail());
+		 * userDTO.setPass(profile.getAccountEmail()); userDTO.setUserType("google");
+		 * sqlSession.getMapper(UserImpl.class).regiUser(userDTO);
+		 */
+		String id = profile.getAccountEmail().substring(0, profile.getAccountEmail().indexOf("@"));
+		session.setAttribute("login", inputSocialUser(id, id, profile.getAccountEmail(), "google"));
+
+		// Access Token Ãë¼Ò
+		try {
+			System.out.println("Closing Token....");
+			String revokeUrl = "https://accounts.google.com/o/oauth2/revoke?token=" + accessToken + "";
+			URL url = new URL(revokeUrl);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setDoOutput(true);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return "redirect:/";
+
+	}
+
+	// Ä«Ä«¿À ·Î±×ÀÎ ·Î±×¾Æ¿ô
+	private kakao_restapi kakao_restapi = new kakao_restapi();
+
+	@RequestMapping(value = "/oauth", produces = "application/json")
+	public String kakaoLogin(@RequestParam("code") String code, Model model, HttpSession session) {
+		System.out.println("·Î±×ÀÎ ÇÒ¶§ ÀÓ½Ã ÄÚµå°ª");
+		// Ä«Ä«¿À È¨ÆäÀÌÁö¿¡¼­ ¹ŞÀº °á°ú ÄÚµå
+		System.out.println(code);
+		System.out.println("·Î±×ÀÎ ÈÄ °á°ú°ª");
+
+		// Ä«Ä«¿À rest api °´Ã¼ ¼±¾ğ
+		kakao_restapi kr = new kakao_restapi();
+		// °á°ú°ªÀ» node¿¡ ´ã¾ÆÁÜ
+		JsonNode node = kr.getAccessToken(code);
+		// °á°ú°ª Ãâ·Â
+		System.out.println(node);
+		// ³ëµå ¾È¿¡ ÀÖ´Â access_token°ªÀ» ²¨³» ¹®ÀÚ¿­·Î º¯È¯
+		String token = node.get("access_token").toString();
+		// ¼¼¼Ç¿¡ ´ã¾ÆÁØ´Ù.
+		session.setAttribute("token", token);
+
+		// access_tokenÀ» ÅëÇØ »ç¿ëÀÚ Á¤º¸ ¿äÃ»
+		JsonNode userInfo = kakao_restapi.getKakaoUserInfo(node.get("access_token"));
+
+		// Get id
+		String id = userInfo.path("id").asText();
+		String name = null;
+		String email = null;
+
+		// À¯ÀúÁ¤º¸ Ä«Ä«¿À¿¡¼­ °¡Á®¿À±â Get properties
+		JsonNode properties = userInfo.path("properties");
+		JsonNode kakao_account = userInfo.path("kakao_account");
+
+		name = properties.path("nickname").asText();
+		email = kakao_account.path("email").asText();
+
+		System.out.println("id : " + id);
+		System.out.println("name : " + name);
+		System.out.println("email : " + email);
+
+		session.setAttribute("login", inputSocialUser(email.substring(0, email.indexOf("@")), name, email, "kakao"));
+
+		return "redirect:/";
+	}
+
+	@RequestMapping("/logout")
+	public String logout(Model model, HttpSession session) {
+		session.removeAttribute("login");
+		model.addAttribute("logoutMsg", " ");
+
+		return "redirect:/";
+	}
+	/*
+	 * @RequestMapping(value = "/logout", produces = "application/json") public
+	 * String Logout(HttpSession session) { //kakao restapi °´Ã¼ ¼±¾ğ kakao_restapi kr =
+	 * new kakao_restapi(); //³ëµå¿¡ ·Î±×¾Æ¿ôÇÑ °á°ú°ªÀ½ ´ã¾ÆÁÜ ¸Å°³º¯¼ö´Â ¼¼¼Ç¿¡ ÀÕ´Â tokenÀ» °¡Á®¿Í ¹®ÀÚ¿­·Î º¯È¯
+	 * JsonNode node = kr.Logout(session.getAttribute("token").toString()); //°á°ú °ª
+	 * Ãâ·Â System.out.println("·Î±×ÀÎ ÈÄ ¹İÈ¯µÇ´Â ¾ÆÀÌµğ : " + node.get("id")); return
+	 * "redirect:/"; }
+	 */
+
+	public UserDTO inputSocialUser(String id, String name, String email, String userType) {
+		UserDTO userDTO = new UserDTO();
+		if (sqlSession.getMapper(UserImpl.class).idCheck(id) == 0) {
+			userDTO.setId(id);
+			userDTO.setName(name);
+			userDTO.setEmail(email);
+			userDTO.setPass(email);
+			userDTO.setAuthority("USER");
+			userDTO.setUserType(userType);
+			sqlSession.getMapper(UserImpl.class).regiUser(userDTO);
+		} else
+			userDTO = sqlSession.getMapper(UserImpl.class).getUser(id);
+
+		return userDTO;
+	}
 }
