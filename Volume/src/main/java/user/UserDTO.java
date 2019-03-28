@@ -10,6 +10,14 @@ public class UserDTO {
 	private String enabled;
 	private String authority;
 	private String userType;
+	private String temp;
+	
+	public String getTemp() {
+		return temp;
+	}
+	public void setTemp(String temp) {
+		this.temp = temp;
+	}
 	public String getUserType() {
 		return userType;
 	}
