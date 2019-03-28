@@ -107,7 +107,7 @@ public class ProjectController {
     }
    
    
-   //페이지이동(댓글뿌리기) 조회수증가
+   //상세보기이동(댓글뿌리기) 조회수증가
       @RequestMapping("ProjectBbsViewController.do")
       public String PrjectBbsView(Model model , HttpServletRequest req) {
          String idx= req.getParameter("idx");
@@ -148,15 +148,32 @@ public class ProjectController {
       }
       
       //참가신청완료
-      @RequestMapping("/lock")
-      public String lock(HttpServletRequest req) {
-          String idx= req.getParameter("idx");
+      @RequestMapping("/join")
+      public String join(HttpServletRequest req,Model model) {
           String id= req.getParameter("id");
+          String idx= req.getParameter("idx");
+          String joinMessage="";
+          int canjoin =sqlSession.getMapper(ProjectBbsDAOImpl.class).cofirmjoin(idx,id);
+          System.out.println("canjoin:"+canjoin);
+          if(canjoin==0) {
+        	  sqlSession.getMapper(ProjectBbsDAOImpl.class).join(idx,id);
+        	  joinMessage="참가신청되었습니다.";
+        	  model.addAttribute("joinMessage", joinMessage);
+        	  return "redirect:ProjectBbsViewController.do?idx="+idx;
+          }
+          else {
+        	  joinMessage="이미 신청완료하셨습니다.";
+        	  model.addAttribute("joinMessage",joinMessage);
+          return "redirect:ProjectBbsViewController.do?idx="+idx;
           
+          }
          
-         return "redirect:ProjectBbsViewController.do?idx="+idx;
+         
+         
          
       }
+      
+      
    
       
       

@@ -65,7 +65,12 @@ INSERT INTO PPROPOSE (PROPOSE_IDX,ID, CONTENT, POSTDATE, VISIT_COUNT, RECOMMEND,
 VALUES (pPropose_seq.nextval,'${id}', '${content}',sysdate,0,0,'${title}',TO_DATE('${start_date}', 'YYYY-MM-DD'),TO_DATE('${end_date}', 'YYYY-MM-DD') ,'${p_limit}','${thumbnail}',0,'${address}','wait',10)
    	</insert>
 	
+	<update id="visitcount" >
+	UPDATE PPROPOSE set visit_count=visit_count+1 WHERE PROPOSE_IDX=#{idx}
+	</update>
+	
 	<update id="recommendAction" >
 	UPDATE PPROPOSE set recommend=recommend+1 WHERE PROPOSE_IDX=#{idx}
 	</update>
+
 </mapper>   

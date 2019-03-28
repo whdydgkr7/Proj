@@ -24,6 +24,7 @@ import model.BeforeApprovalDTO;
 import model.BeforeApprovalImpl;
 import model.PagingUtil;
 import model.ParamDTO;
+import model.ProjectBbsDAOImpl;
 
 @Controller
 public class BeforeApprovalController {
@@ -84,6 +85,8 @@ public class BeforeApprovalController {
 			dto.setContent(temp);
 
 		}
+
+	
 		model.addAttribute("lists", lists);
 		return "BeforeApproval";
 	}
@@ -96,8 +99,10 @@ public class BeforeApprovalController {
 		BeforeApprovalDTO beforeApprovalDTO = new BeforeApprovalDTO();
 
 		beforeApprovalDTO = sqlSession.getMapper(BeforeApprovalImpl.class).listView(idx);
+		sqlSession.getMapper(BeforeApprovalImpl.class).visitcount(idx);
 		model.addAttribute("beforeApprovalDTO", beforeApprovalDTO);
-
+		//조회수 증가
+		
 		return "BeforeApprovalView";
 	}
 

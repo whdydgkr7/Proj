@@ -66,7 +66,7 @@ table.greenTable tbody td {
 }
 </style>
 
-	<jsp:include page="/resources/navbar/navbarTop.jsp" />
+<jsp:include page="/resources/navbar/navbarTop.jsp" />
 
 
 <body class="w3-theme-l5">
@@ -95,17 +95,21 @@ table.greenTable tbody td {
 				String title = null;
 				String address = null;
 				String thumbnail=null;
-
+				int idx=0;
+	
+										
 				for (ProjectBbsDTO dt : dto) {
 					title = dt.getTitle();
-					id = dt.getTitle().toString();
+					id = dt.getId().toString();
 					sdate = dt.getStart_date();
 					edate = dt.getEnd_date();
 					visitcount = dt.getVisit_count();
 					content = dt.getContent();
 					m_limits = dt.getM_limit();
 					thumbnail=dt.getThumbnail();
+					idx=dt.getIdx();
 				}
+
 			%>
 			<%
 				ArrayList<PcommentDTO> pcdt = (ArrayList<PcommentDTO>) request.getAttribute("pcomment");
@@ -126,11 +130,12 @@ table.greenTable tbody td {
 				<header class="w3-container"
 					style="padding-top: 25px; font-weight: bold; font-size: 20px; text-align: center;">
 					<h1>
-						<b>프로젝트 상세보기</b>
+						<b>프로젝트 상세보기 </b>
 					</h1>
 				</header>
+				
 			</div>
-
+			<form action="<c:url value="join"/>">
 			<div class="w3-container w3-card w3-white w3-round w3-margin"
 				style="border: solid white 1px; text-align: center;">
 
@@ -151,11 +156,12 @@ table.greenTable tbody td {
 							</c:otherwise>
 						</c:choose>
 						<br>
-						<h2><%=title%></h2>
+						<h2><%=title%><input type="hidden" name="id" value="<%=id%>"><input type="hidden" name="idx" value="<%=idx%>"> </h2>
 						<br>
 
 
-						<div class="w3-row-padding w3-margin-bottom" style="text-align: center;">
+						<div class="w3-row-padding w3-margin-bottom"
+							style="text-align: center;">
 							<div class="w3-col s4 ">
 								<div class="w3-container w3-red w3-padding-16">
 									<div class="w3-left">
@@ -340,8 +346,9 @@ table.greenTable tbody td {
 						<p id="Cmyp">참가하기를 클릭해주세요</p>
 
 						<!-- 한번 신청하면 더이상신청안되게하기 -->
-						<button class="w3-button w3-lime" onclick="move();">참가하기</button>
+						<button class="w3-button w3-lime" type="submit" onclick="move();">참가하기</button>
 					</div>
+				
 					<hr>
 					<script>
 						function move() {
@@ -356,14 +363,14 @@ table.greenTable tbody td {
 								width += 1;
 								elem.style.width = width + '%';
 								var num = parseInt(elem.style.width);
+								
 								num = num.toFixed(0)
 								document.getElementById("demo").innerHTML = num;
-								document.getElementById("Cmyp").className = "w3-text-green w3-animate-opacity";
-								document.getElementById("Cmyp").innerHTML = "참가 신청되었습니다.!";
-								alert("참가신청이 완료되었습니다.")
-								//location.href="";
+								var joinMessage="${joinMessage}";
+								alert(joinMessage);
 							}
 						}
+						
 					</script>
 
 
@@ -387,6 +394,7 @@ table.greenTable tbody td {
 					</script>
 
 					<!-- 댓글달기s -->
+					</form>
 					<h5>댓글</h5>
 
 					<form action="./DataComment.do" method="post" name="commentFrm"

@@ -48,7 +48,8 @@ public interface BeforeApprovalImpl {
 	//글쓰기
 	public void write(BeforeApprovalDTO beforeApproval);
 
-
+	//조회수증가
+	public void visitcount(String idx);
 
 
 	//추천하기
