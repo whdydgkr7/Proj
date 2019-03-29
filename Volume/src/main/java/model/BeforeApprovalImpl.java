@@ -53,7 +53,15 @@ public interface BeforeApprovalImpl {
 
 
 	//추천하기
-	public void recommendAction(int idx);
+
+	public int recommendproc(String idx);
+
+
+	//추천중복확인
+	public int confirmrec(String idx, String id);
+
+
+
 
 
 

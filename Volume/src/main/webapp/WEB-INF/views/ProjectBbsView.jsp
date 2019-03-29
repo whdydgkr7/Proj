@@ -348,18 +348,15 @@ table.greenTable tbody td {
 
 
 					<div class="w3-container">
-						<h2 style="font-weight: bold;'">프로젝트 참가인원</h2>
+						<h2 style="font-weight: bold; font-size: 40px;">프로젝트 참가인원</h2>
 
-						<div class="w3-light-grey">
-							<div id="myBar" class="w3-container w3-green"
-								style="height: 24px; width: 0px"></div>
-						</div>
+	
 
-						<p id="myP">
+						<p id="myP" style="font-size: 25px; font-weight: bold;">
 							현재 인원 <span id="demo"></span>${num } 명 / 총 <%=m_limits%> 명
 							
 						</p>
-						<p id="Cmyp">참가하기를 클릭해주세요</p>
+
 
 						<!-- 한번 신청하면 더이상신청안되게하기 -->
 						<button class="w3-button w3-lime" type="submit" onclick="move();">참가하기</button>
@@ -369,20 +366,7 @@ table.greenTable tbody td {
 
 					<script>
 						function move() {
-							var elem = document.getElementById("myBar");
-							var width = 0;
-							width = parseInt(elem.style.width);
 
-							if (width >= 100) {
-								clearInterval(id);
-								alert("정원초과입니다");
-							} else {
-								width += 1;
-								elem.style.width = width + '%';
-								var num = parseInt(elem.style.width);
-
-								num = num.toFixed(0)
-								document.getElementById("demo").innerHTML = num;
 
 								$.ajax({
 									//요청할 서버의 페이지 경로(form의 action과 동일)
@@ -408,7 +392,7 @@ table.greenTable tbody td {
 												+ e.statusText);
 									}
 								});
-							}
+							
 
 						}
 					</script>
