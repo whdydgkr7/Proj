@@ -1,14 +1,18 @@
 package com.kosmo.volume;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.PagingUtil;
@@ -17,6 +21,7 @@ import model.PcommentDTO;
 import model.ProjectBbsDAOImpl;
 import model.ProjectBbsDTO;
 import model.ReviewDTO;
+
 
 @Controller
 public class ProjectController {
@@ -77,6 +82,11 @@ public class ProjectController {
       dto.setContent(temp);   
       
       }
+      
+      
+
+      
+      
       model.addAttribute("lists",lists);
       return "ProjectBbs";
    }   
@@ -106,19 +116,32 @@ public class ProjectController {
         return list;
     }
    
+   //
+   
+
+   
+   
    
    //상세보기이동(댓글뿌리기) 조회수증가
       @RequestMapping("ProjectBbsViewController.do")
       public String PrjectBbsView(Model model , HttpServletRequest req) {
          String idx= req.getParameter("idx");
+
+
          ArrayList<ProjectBbsDTO> lists = sqlSession.getMapper(ProjectBbsDAOImpl.class).listView(idx);
          ArrayList<PcommentDTO> pcomment= sqlSession.getMapper(ProjectBbsDAOImpl.class).viewcommend(idx);
          sqlSession.getMapper(ProjectBbsDAOImpl.class).visitcount(idx);
-         //ArrayList<ReviewDTO> reviewCount= sqlSession.getMapper(ProjectBbsDAOImpl.class).reviewCount(idx);
          
-        model.addAttribute("pcomment",pcomment);
-         model.addAttribute("lists",lists);
+         String num = sqlSession.getMapper(ProjectBbsDAOImpl.class).selectbbs(idx);
+         if(!(num==null || num.equals(""))) {
+        	 model.addAttribute("num",num);
+         }
 
+        
+        model.addAttribute("pcomment",pcomment);
+        model.addAttribute("lists",lists);
+       
+        
          return "ProjectBbsView";
       }
       //http://localhost:8080/Volume/ProjectBbsViewController.do?idx=2
@@ -148,23 +171,27 @@ public class ProjectController {
       }
       
       //참가신청완료
-      @RequestMapping("/join")
-      public String join(HttpServletRequest req,Model model) {
-          String id= req.getParameter("id");
-          String idx= req.getParameter("idx");
+      @RequestMapping("join")
+      @ResponseBody
+      public void join(@RequestParam("idx") String idx,@RequestParam("id") String id, HttpServletResponse resp) throws IOException {
+    	  resp.setContentType("text/html;charset=UTF-8");
+    	  System.out.println("id:"+id);
+    	  System.out.println("id:"+idx);
+    	  
           String joinMessage="";
-          int canjoin =sqlSession.getMapper(ProjectBbsDAOImpl.class).cofirmjoin(idx,id);
+          int canjoin =sqlSession.getMapper(ProjectBbsDAOImpl.class).confirmjoin(idx,id);
+       
           System.out.println("canjoin:"+canjoin);
           if(canjoin==0) {
         	  sqlSession.getMapper(ProjectBbsDAOImpl.class).join(idx,id);
-        	  joinMessage="참가신청되었습니다.";
-        	  model.addAttribute("joinMessage", joinMessage);
-        	  return "redirect:ProjectBbsViewController.do?idx="+idx;
+	        	  resp.getWriter().println("참가신청되었습니다.");
+	        	  
+        	  
           }
           else {
-        	  joinMessage="이미 신청완료하셨습니다.";
-        	  model.addAttribute("joinMessage",joinMessage);
-          return "redirect:ProjectBbsViewController.do?idx="+idx;
+        	  resp.getWriter().println("이미 참가신청하셨습니다.");
+        	  //return joinMessage;
+          
           
           }
          
