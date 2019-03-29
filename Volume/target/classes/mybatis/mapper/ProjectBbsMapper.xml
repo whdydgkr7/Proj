@@ -96,10 +96,15 @@
 	</select>
      
      <!--참가중복확인 -->
-     <select id="cofirmjoin" resultType="int">
+     <select id="confirmjoin" resultType="int">
      	SELECT count(*) FROM pEntry WHERE idx=#{0} AND id=#{1}
      </select>
      
+     <select id="selectbbs" resultType="String">
+		 SELECT COUNT(*) FROM pentry  WHERE idx=#{0}
+	 </select>
+
+
      
      <!--참가하기  -->
      <insert id="join">

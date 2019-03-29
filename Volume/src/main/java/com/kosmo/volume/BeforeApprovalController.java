@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -123,7 +126,7 @@ public class BeforeApprovalController {
 		
 		
 		MultipartFile mf = req.getFile("thumbnail"); //업로드 파라미터
-		String path = req.getRealPath("./resources/thumbnail"); // 저장될 위치
+		String path = req.getRealPath("../resources/thumbnail"); // 저장될 위치
 		String thumbnail= mf.getOriginalFilename();//업로드 파일이름
 		File uploadfile = new File(path+"//"+thumbnail);//복사될 위치
 		
@@ -166,34 +169,29 @@ public class BeforeApprovalController {
 		return "redirect:BeforeApproval.do";
 	}
 
-/*	private String saveFile(MultipartFile file) {
-			
-		
 
-		final String UPLOAD_PATH =  "/Volume/src/main/webapp/resources/thumbnail";
-
-		UUID uuid = UUID.randomUUID();
-		String saveName = uuid + "_" + file.getOriginalFilename();
-
-		File saveFile = new File(UPLOAD_PATH, saveName); // 저장할 폴더이름, 저장할 파일 이름
-
-		try {
-			file.transferTo(saveFile); // 업로드 파일에 saveFile 이라는 껍데기 익힘
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-		return saveName;
-	}*/
 
 	// 추천하기
-	@RequestMapping("recommendAction.do")
-	public String recommendAction(Model model, HttpSession session, HttpServletRequest req) {
-		int idx = Integer.parseInt(req.getParameter("idx"));
-		System.out.println("propose_idx:" + idx);
-		sqlSession.getMapper(BeforeApprovalImpl.class).recommendAction(idx);
+	@RequestMapping("recommendAction")
+	@ResponseBody
+	public void recommendAction(@RequestParam("idx") String idx,@RequestParam("id") String id, HttpServletResponse resp) throws IOException {
 
-		return "redirect:BeforeApproval.do";
+		
+		System.out.println("propose_idx:" + idx);
+		System.out.println("propose_idx:" + id);
+		
+		int recommend=sqlSession.getMapper(BeforeApprovalImpl.class).confirmrec(idx,id);
+		System.out.println("recommend:"+recommend);
+		
+		if(recommend==0) {
+			sqlSession.getMapper(BeforeApprovalImpl.class).recommendproc(idx);
+			resp.getWriter().println("추천되었습니다.");
+			
+		}
+		else {
+			resp.getWriter().println("이미 추천하셨습니다.");
+			
+		}
 	}
 
 }

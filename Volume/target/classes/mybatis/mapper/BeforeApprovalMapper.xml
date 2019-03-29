@@ -69,7 +69,15 @@ VALUES (pPropose_seq.nextval,'${id}', '${content}',sysdate,0,0,'${title}',TO_DAT
 	UPDATE PPROPOSE set visit_count=visit_count+1 WHERE PROPOSE_IDX=#{idx}
 	</update>
 	
-	<update id="recommendAction" >
+   <!--추천중복확인 -->
+        <select id="confirmrec" resultType="int">
+        SELECT count(*) FROM pproposeEntry WHERE idx=#{0} AND id=#{1}
+     </select>
+     
+     
+	
+	
+	<update id="recommendproc" >
 	UPDATE PPROPOSE set recommend=recommend+1 WHERE PROPOSE_IDX=#{idx}
 	</update>
 

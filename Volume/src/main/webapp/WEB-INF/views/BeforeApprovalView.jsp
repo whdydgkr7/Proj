@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Set"%>
 <%@page import="model.BeforeApprovalDTO"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -15,7 +15,7 @@
 	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
 
-
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet"
@@ -93,7 +93,8 @@ table.greenTable tbody td {
 					</h1>
 				</header>
 			</div>
-
+			<input type="hidden" id="idx" value="${beforeApprovalDTO.propose_idx}">
+			<input type="hidden" id="id" value="${beforeApprovalDTO.id}">
 			<div class="w3-container w3-card w3-white w3-round w3-margin"
 				style="border: solid white 1px; text-align: center;">
 
@@ -289,15 +290,38 @@ table.greenTable tbody td {
 						<button class="w3-button w3-lime" onclick="move();">추천하기</button>
 					</div>
 					<hr>
-					<script>
-					function move() {
-						  document.getElementById("Cmyp").className = "w3-text-green w3-animate-opacity";
-						  document.getElementById("Cmyp").innerHTML = "추천 되었습니다.!";
-						alert("추천하기가 완료되었습니다.");
-						location.href='./recommendAction.do?idx=<%=propose_idx%>';
-				}
-					</script>
+									<script>
+						function move() {
 
+
+								$.ajax({
+									//요청할 서버의 페이지 경로(form의 action과 동일)
+									url : "recommendAction",
+									//응답결과의 데이터 형식 (jsonm xml, html 등)
+									dataType : "html",
+									//전송방식
+									type : "get",
+									data : {
+										id : $('#id').val(),
+										idx : $('#idx').val()
+									},
+									//서버로 전송시의 컨텐츠 타입
+									contentType : "text.html;charset:utf-8",
+
+									//요청 성공 시 콜백 메소드
+									success : function(data) {
+										alert(data);
+									},
+									//요청 실패 시 콜백 메소드
+									error : function(e) {
+										alert("오류발생:" + e.status + ":"
+												+ e.statusText);
+									}
+								});
+							
+
+						}
+					</script>
 				</div>
 			</div>
 		</div>

@@ -165,7 +165,7 @@ html, body {
 											<c:choose>
 												<c:when test="${not empty row.thumbnail }">
 												<td class="text-center" style="vertical-align: middle;"> 
-													<img src="./resources/thumbnail/${row.thumbnail}"  width="200" height="200">
+													<img src="../resources/thumbnail/${row.thumbnail}"  width="200" height="200">
 												</td>	
 												</c:when>
 												<c:otherwise>	
@@ -186,9 +186,7 @@ html, body {
 										<td class="text-center">${row.recommend }</td>
 										<td class="text-center">${row.visit_count }</td>
 										<td class="text-center">${row.postdate }</td>
-										<td class="text-center"><c:if test="${not empty row.attachedfile }">
-												<span class="glyphicon glyphicon-paperclip"></span>
-											</c:if></td>
+
 
 									</tr>
 									<!-- 리스트반복끝 -->

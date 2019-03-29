@@ -1,3 +1,4 @@
+
 <%@page import="model.PcommentDTO"%>
 <%@page import="java.sql.Date"%>
 <%@page import="java.util.ArrayList"%>
@@ -5,6 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <title>W3.CSS Template</title>
@@ -72,6 +74,7 @@ table.greenTable tbody td {
 <body class="w3-theme-l5">
 
 	<!-- Navbar -->
+
 	<div class="w3-row">
 		<img src="./resources/images/10.jpg" alt="" />
 	</div>
@@ -94,10 +97,9 @@ table.greenTable tbody td {
 				int m_limits = 0;
 				String title = null;
 				String address = null;
-				String thumbnail=null;
-				int idx=0;
-	
-										
+				String thumbnail = null;
+				int idx = 0;
+
 				for (ProjectBbsDTO dt : dto) {
 					title = dt.getTitle();
 					id = dt.getId().toString();
@@ -106,10 +108,9 @@ table.greenTable tbody td {
 					visitcount = dt.getVisit_count();
 					content = dt.getContent();
 					m_limits = dt.getM_limit();
-					thumbnail=dt.getThumbnail();
-					idx=dt.getIdx();
+					thumbnail = dt.getThumbnail();
+					idx = dt.getIdx();
 				}
-
 			%>
 			<%
 				ArrayList<PcommentDTO> pcdt = (ArrayList<PcommentDTO>) request.getAttribute("pcomment");
@@ -126,6 +127,8 @@ table.greenTable tbody td {
 					<div class="w3-card w3-round w3-white"></div>
 				</div>
 			</div>
+
+
 			<div class="w3-container">
 				<header class="w3-container"
 					style="padding-top: 25px; font-weight: bold; font-size: 20px; text-align: center;">
@@ -133,9 +136,9 @@ table.greenTable tbody td {
 						<b>프로젝트 상세보기 </b>
 					</h1>
 				</header>
-				
+
 			</div>
-			<form action="<c:url value="join"/>">
+
 			<div class="w3-container w3-card w3-white w3-round w3-margin"
 				style="border: solid white 1px; text-align: center;">
 
@@ -156,7 +159,10 @@ table.greenTable tbody td {
 							</c:otherwise>
 						</c:choose>
 						<br>
-						<h2><%=title%><input type="hidden" name="id" value="<%=id%>"><input type="hidden" name="idx" value="<%=idx%>"> </h2>
+						<h2><%=title%>
+							<input type="hid-den" id="id" name="id" value="<%=id%>">
+							<input type="hid-den" id="idx" name="idx" value="<%=idx%>">
+						</h2>
 						<br>
 
 
@@ -263,66 +269,75 @@ table.greenTable tbody td {
 											var geocoder = new daum.maps.services.Geocoder();
 											
 											// 주소로 좌표를 검색합니다
-											geocoder.addressSearch('<%=address%>', function(result, status) {
-											
-												
-												
-												
-											    // 정상적으로 검색이 완료됐으면 
-											     if (status === daum.maps.services.Status.OK) {
-											
-											        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-											
-											        // 결과값으로 받은 위치를 마커로 표시합니다
-											        var marker = new daum.maps.Marker({
-											            map: map,
-											            position: coords
-											        });
-											
-											        // 인포윈도우로 장소에 대한 설명을 표시합니다
-											        var infowindow = new daum.maps.InfoWindow({
-											            content: '<div style="width:150px;text-align:center;padding:6px 0;">프로젝트 위치</div>'
-											        });
-											        infowindow.open(map, marker);
-											
-											        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-											        map.setCenter(coords);
-											    } 
-											    
-											});    
-											
-											
+											geocoder.addressSearch('<%=address%>',
+															function(result,
+																	status) {
+
+																// 정상적으로 검색이 완료됐으면 
+																if (status === daum.maps.services.Status.OK) {
+
+																	var coords = new daum.maps.LatLng(
+																			result[0].y,
+																			result[0].x);
+
+																	// 결과값으로 받은 위치를 마커로 표시합니다
+																	var marker = new daum.maps.Marker(
+																			{
+																				map : map,
+																				position : coords
+																			});
+
+																	// 인포윈도우로 장소에 대한 설명을 표시합니다
+																	var infowindow = new daum.maps.InfoWindow(
+																			{
+																				content : '<div style="width:150px;text-align:center;padding:6px 0;">프로젝트 위치</div>'
+																			});
+																	infowindow
+																			.open(
+																					map,
+																					marker);
+
+																	// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+																	map
+																			.setCenter(coords);
+																}
+
+															});
+
 											displayLevel();
-											 
+
 											// 지도 레벨은 지도의 확대 수준을 의미합니다
 											// 지도 레벨은 1부터 14레벨이 있으며 숫자가 작을수록 지도 확대 수준이 높습니다
-											function zoomIn() {        
-											    // 현재 지도의 레벨을 얻어옵니다
-											    var level = map.getLevel();
-											    
-											    // 지도를 1레벨 내립니다 (지도가 확대됩니다)
-											    map.setLevel(level - 1);
-											    
-											    // 지도 레벨을 표시합니다
-											    displayLevel();
-											}    
+											function zoomIn() {
+												// 현재 지도의 레벨을 얻어옵니다
+												var level = map.getLevel();
 
-											function zoomOut() {    
-											    // 현재 지도의 레벨을 얻어옵니다
-											    var level = map.getLevel(); 
-											    
-											    // 지도를 1레벨 올립니다 (지도가 축소됩니다)
-											    map.setLevel(level + 1);
-											    
-											    // 지도 레벨을 표시합니다
-											    displayLevel(); 
-											}    
-											 
-											function displayLevel(){
-											    var levelEl = document.getElementById('maplevel');
-											    levelEl.innerHTML = '현재 지도 레벨은 ' + map.getLevel() + ' 레벨 입니다.';
+												// 지도를 1레벨 내립니다 (지도가 확대됩니다)
+												map.setLevel(level - 1);
+
+												// 지도 레벨을 표시합니다
+												displayLevel();
 											}
-											</script></td>
+
+											function zoomOut() {
+												// 현재 지도의 레벨을 얻어옵니다
+												var level = map.getLevel();
+
+												// 지도를 1레벨 올립니다 (지도가 축소됩니다)
+												map.setLevel(level + 1);
+
+												// 지도 레벨을 표시합니다
+												displayLevel();
+											}
+
+											function displayLevel() {
+												var levelEl = document
+														.getElementById('maplevel');
+												levelEl.innerHTML = '현재 지도 레벨은 '
+														+ map.getLevel()
+														+ ' 레벨 입니다.';
+											}
+										</script></td>
 								</tr>
 							</tbody>
 						</table>
@@ -333,44 +348,53 @@ table.greenTable tbody td {
 
 
 					<div class="w3-container">
-						<h2 style="font-weight: bold;'">프로젝트 참가인원</h2>
+						<h2 style="font-weight: bold; font-size: 40px;">프로젝트 참가인원</h2>
 
-						<div class="w3-light-grey">
-							<div id="myBar" class="w3-container w3-green"
-								style="height: 24px; width: 0%"></div>
-						</div>
+	
 
-						<p id="myP">
-							현재 인원 <span id="demo">0</span> / 총 100 명
+						<p id="myP" style="font-size: 25px; font-weight: bold;">
+							현재 인원 <span id="demo"></span>${num } 명 / 총 <%=m_limits%> 명
+							
 						</p>
-						<p id="Cmyp">참가하기를 클릭해주세요</p>
+
 
 						<!-- 한번 신청하면 더이상신청안되게하기 -->
 						<button class="w3-button w3-lime" type="submit" onclick="move();">참가하기</button>
 					</div>
-				
+
 					<hr>
+
 					<script>
 						function move() {
-							var elem = document.getElementById("myBar");
-							var width = 0;
-							width = parseInt(elem.style.width);
 
-							if (width >= 100) {
-								clearInterval(id);
-								alert("정원초과입니다");
-							} else {
-								width += 1;
-								elem.style.width = width + '%';
-								var num = parseInt(elem.style.width);
-								
-								num = num.toFixed(0)
-								document.getElementById("demo").innerHTML = num;
-								var joinMessage="${joinMessage}";
-								alert(joinMessage);
-							}
+
+								$.ajax({
+									//요청할 서버의 페이지 경로(form의 action과 동일)
+									url : "join",
+									//응답결과의 데이터 형식 (jsonm xml, html 등)
+									dataType : "html",
+									//전송방식
+									type : "get",
+									data : {
+										id : $('#id').val(),
+										idx : $('#idx').val()
+									},
+									//서버로 전송시의 컨텐츠 타입
+									contentType : "text.html;charset:utf-8",
+
+									//요청 성공 시 콜백 메소드
+									success : function(data) {
+										alert(data);
+									},
+									//요청 실패 시 콜백 메소드
+									error : function(e) {
+										alert("오류발생:" + e.status + ":"
+												+ e.statusText);
+									}
+								});
+							
+
 						}
-						
 					</script>
 
 
@@ -394,7 +418,7 @@ table.greenTable tbody td {
 					</script>
 
 					<!-- 댓글달기s -->
-					</form>
+
 					<h5>댓글</h5>
 
 					<form action="./DataComment.do" method="post" name="commentFrm"

@@ -64,7 +64,7 @@ public class LoginController {
 		
 		
 		if(auth == 0) {
-			//auth==0ÀÏ½Ã ·Î±×ÀÎ¾ÈµÇ°í ÆäÀÌÁö¸¸ÀÌµ¿,  alert("³»¿ë") ÇØÁà¾ßÇÔ
+			//auth==0ï¿½Ï½ï¿½ ï¿½Î±ï¿½ï¿½Î¾ÈµÇ°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½,  alert("ï¿½ï¿½ï¿½ï¿½") ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			mv.addObject("loginCheck", "false");
 			mv.setViewName("home");
 		}
@@ -81,8 +81,8 @@ public class LoginController {
 
 		return mv;
 	}
-	//¾ÆÀÌµð ºñ¹øÃ£±â
-	//¾ÆÀÌµð Ã£±â Æû
+	//ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½Ã£ï¿½ï¿½
+	//ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½
   	@RequestMapping(value = "/findId")
   	public String find_id_form() throws Exception{
   		
@@ -91,7 +91,7 @@ public class LoginController {
   		
   	}
   	
-     // ¾ÆÀÌµð Ã£±â
+     // ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½
      @RequestMapping(value = "/idFind.do", method = RequestMethod.POST)
      @ResponseBody
      public String userIdSearch(@RequestParam("user_name") String  user_name, 
@@ -105,7 +105,7 @@ public class LoginController {
         return result;
      }
      
-   //ºñ¹ø Ã£±â Æû
+   //ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½
    	@RequestMapping(value = "/findPass")
    	public String find_pass_form() throws Exception{
    		
@@ -114,7 +114,7 @@ public class LoginController {
    		
    	}
      
-     //ºñ¹Ð¹øÈ£ Ã£±â
+     //ï¿½ï¿½Ð¹ï¿½È£ Ã£ï¿½ï¿½
      @RequestMapping(value = "/passFind.do", method = RequestMethod.POST)
      @ResponseBody
      public String userpassSearch(@RequestParam("user_email") String user_email) {
@@ -132,8 +132,8 @@ public class LoginController {
  	public String EmailSend(HttpServletRequest req, Model model) {
  		final String fromEmail = "sz_toss@naver.com";
  		final String toEmail = req.getParameter("email");
- 		final String subject = "¾È³çÇÏ¼¼¿ä °í°´´Ô volume ÀÔ´Ï´Ù. ";
- 		final String contents = ""+"¿äÃ»ÇÏ½Å ºñ¹Ð¹øÈ£´Â"+req.getParameter("data")+"ÀÔ´Ï´Ù.";//req.getParameter("contents").replace("\r\n", "<br/>");
+ 		final String subject = "ï¿½È³ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ volume ï¿½Ô´Ï´ï¿½. ";
+ 		final String contents = ""+"ï¿½ï¿½Ã»ï¿½Ï½ï¿½ ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½"+req.getParameter("data")+"ï¿½Ô´Ï´ï¿½.";//req.getParameter("contents").replace("\r\n", "<br/>");
  		System.out.println(req.getParameter("data"));
  		System.out.println(req.getParameter("email"));
  	
@@ -148,7 +148,7 @@ public class LoginController {
  				/*
  				 * http://localhost:8080/SpringSMTP/emailAuth.do?id=nakja&pass=1234&user_auth=1
  				 * 
- 				 * <a href='http://localhost:8080/SpringSMTP/emailAuth.do?id=nakja&pass=1234&rndNum=112635489874'>¿©±â¸¦Å¬¸¯ÇÏ¸éÀÎÁõµÊ</a>
+ 				 * <a href='http://localhost:8080/SpringSMTP/emailAuth.do?id=nakja&pass=1234&rndNum=112635489874'>ï¿½ï¿½ï¿½â¸¦Å¬ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</a>
  				 * 
  				 * */
  				helper.setText(contents, true); 
@@ -157,11 +157,11 @@ public class LoginController {
  		
  		try {
  			mailSender.send(preparator);
- 			model.addAttribute("mailResult","¸ÞÀÏÀÌ Á¤»ó¹ß¼Û µÇ¾ú½À´Ï´Ù");
+ 			model.addAttribute("mailResult","ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½");
  		}
  		catch (Exception e) {
- 			System.out.println("¿¹¿Ü¹ß»ý");
- 			model.addAttribute("mailResult","¸ÞÀÏ¹ß¼Û¿À·ù");
+ 			System.out.println("ï¿½ï¿½ï¿½Ü¹ß»ï¿½");
+ 			model.addAttribute("mailResult","ï¿½ï¿½ï¿½Ï¹ß¼Û¿ï¿½ï¿½ï¿½");
  			e.printStackTrace();
  		}
  		
@@ -169,7 +169,7 @@ public class LoginController {
  	}
 	
 
-	// È¸¿ø°¡ÀÔ
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping("/register")
 	public String register(Model model) {
 		return "login/register";
@@ -179,7 +179,7 @@ public class LoginController {
 	public ModelAndView regiUserAction(Model model, HttpServletRequest req, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 
-		// ±¸±Û,Ä«Ä«¿Àµî ¿¬µ¿·Î±×ÀÎ½ÃÇÊ¿ä
+		// ï¿½ï¿½ï¿½ï¿½,Ä«Ä«ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½Î½ï¿½ï¿½Ê¿ï¿½
 		// String isNaver = req.getParameter("hiddenPw1");
 		// String iskakao = req.getParameter("hiddenPw2");
 		// String isgoogle = req.getParameter("hiddenPw3");
@@ -192,12 +192,12 @@ public class LoginController {
 		dto.setAuthority("USER");
 		dto.setUserType("user");
 		
-		System.out.println("È¸¿ø°¡ÀÔ");
-		// È¸¿ø°¡ÀÔÇÏ±â
+		System.out.println("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+		// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		sqlSession.getMapper(UserImpl.class).regiUser(dto);
 
-		// ³­¼ö»ý¼º
-		System.out.println("³­¼ö»ý¼ºÇÔ");
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		Temp temp = new Temp();
 		String key = temp.getKey(false, 20);
 		
@@ -205,11 +205,11 @@ public class LoginController {
 		final String fromEmail = "sz_toss@naver.com";
 		final String email = req.getParameter("email");
 		final String id = req.getParameter("id");
-		final String title = id + "´Ô¿¡°Ô(VOLUME¿Ã¸²)";
-		final String htmlStr = "<div>" + id + "´Ô, ÀúÈñ ¼­ºñ½º¸¦ ÀÌ¿ëÇØÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù" + "VOLUME ÀÌ¿ëÀ» À§ÇØ °í°´´ÔÀÇ ÀÌ¸ÞÀÏÀ» ÀÎÁõÇØÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.<br/>"
-				+ "ÀÌ¸ÞÀÏ ÀÎÁõÀÌ ¿Ï·áµÇ¸é Á¤»óÀûÀ¸·Î »çÀÌÆ® ÀÌ¿ëÀÌ °¡´ÉÇÕ´Ï´Ù.<br/>" + "<a href='http://localhost:8080" + req.getContextPath()
-				+ "/user/key_alter?id=" + id + "&key=" + key + "'>ÀÎÁõÇÏ±â</a><br/>"
-				+ "(È¤½Ã Àß¸ø Àü´ÞµÈ ¸ÞÀÏÀÌ¶ó¸é ÀÌ ÀÌ¸ÞÀÏÀ» ¹«½ÃÇÏ¼Åµµ µË´Ï´Ù) <br/>" + "<hr/>" + "VOLUME" + "</div>";
+		final String title = id + "ï¿½Ô¿ï¿½ï¿½ï¿½(VOLUMEï¿½Ã¸ï¿½)";
+		final String htmlStr = "<div>" + id + "ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ñ½º¸ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ï¿½Ö¼Å¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½" + "VOLUME ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö½Ã±ï¿½ ï¿½Ù¶ï¿½ï¿½Ï´ï¿½.<br/>"
+				+ "ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.<br/>" + "<a href='http://localhost:8080" + req.getContextPath()
+				+ "/user/key_alter?id=" + id + "&key=" + key + "'>ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½</a><br/>"
+				+ "(È¤ï¿½ï¿½ ï¿½ß¸ï¿½ ï¿½ï¿½ï¿½Þµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼Åµï¿½ ï¿½Ë´Ï´ï¿½) <br/>" + "<hr/>" + "VOLUME" + "</div>";
 		sqlSession.getMapper(UserImpl.class).GetKey(id, key);
 
 		final MimeMessagePreparator preparator = new MimeMessagePreparator() {
@@ -226,10 +226,10 @@ public class LoginController {
 
 		try {
 			mailSender.send(preparator);
-			model.addAttribute("mailResult", "¸ÞÀÏÀÌ Á¤»ó¹ß¼Û µÇ¾ú½À´Ï´Ù");
+			model.addAttribute("mailResult", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½");
 		} catch (Exception e) {
-			System.out.println("¿¹¿Ü¹ß»ý");
-			model.addAttribute("mailResult", "¸ÞÀÏ¹ß¼Û¿À·ù");
+			System.out.println("ï¿½ï¿½ï¿½Ü¹ß»ï¿½");
+			model.addAttribute("mailResult", "ï¿½ï¿½ï¿½Ï¹ß¼Û¿ï¿½ï¿½ï¿½");
 			e.printStackTrace();
 		}
 
@@ -239,7 +239,7 @@ public class LoginController {
 		return mv;
 	}
 
-	// ÀÌ¸ÞÀÏ ÀÎÁõ ÄÁÆ®·Ñ·¯('1·Î¹Ù²Þ')
+	// ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½('1ï¿½Î¹Ù²ï¿½')
 	@RequestMapping(value = "/user/key_alter", method = RequestMethod.GET)
 	public String key_alterConfirm(@RequestParam("id") String id, @RequestParam("key") String key) {
 
@@ -263,14 +263,14 @@ public class LoginController {
 		return result;
 	}
 
-	// ------------------------------------- ¼Ò¼È ·Î±×ÀÎ
+	// ------------------------------------- ï¿½Ò¼ï¿½ ï¿½Î±ï¿½ï¿½ï¿½
 	// ----------------------------------------
 
 	NaverLoginBO naverLoginBO = new NaverLoginBO();
 
 	@RequestMapping(value = "/naverLogin", method = RequestMethod.GET)
 	public ModelAndView naverLogin(HttpSession session) {
-		/* ³×¾Æ·Î ÀÎÁõ URLÀ» »ý¼ºÇÏ±â À§ÇÏ¿© getAuthorizationUrlÀ» È£Ãâ */
+		/* ï¿½×¾Æ·ï¿½ ï¿½ï¿½ï¿½ï¿½ URLï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ getAuthorizationUrlï¿½ï¿½ È£ï¿½ï¿½ */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 
 		return new ModelAndView("login/naverLogin", "url", naverAuthUrl);
@@ -279,13 +279,13 @@ public class LoginController {
 	@RequestMapping(value = "/callback", method = RequestMethod.GET)
 	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session, Model model,
 			UserDTO userDTO) throws Exception {
-		/* ³×¾Æ·Î ÀÎÁõÀÌ ¼º°øÀûÀ¸·Î ¿Ï·áµÇ¸é code ÆÄ¶ó¹ÌÅÍ°¡ Àü´ÞµÇ¸ç ÀÌ¸¦ ÅëÇØ access tokenÀ» ¹ß±Þ */
+		/* ï¿½×¾Æ·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Ç¸ï¿½ code ï¿½Ä¶ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ÞµÇ¸ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ access tokenï¿½ï¿½ ï¿½ß±ï¿½ */
 
 		JsonParser json = new JsonParser();
 
 		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		String apiResult = naverLoginBO.getUserProfile(oauthToken);
-		userDTO = json.changeJson(apiResult); // dto¿¡ userEmailÀúÀå
+		userDTO = json.changeJson(apiResult); // dtoï¿½ï¿½ userEmailï¿½ï¿½ï¿½ï¿½
 		System.out.println("User Uid : " + userDTO.getEmail().substring(0, userDTO.getEmail().indexOf("@")));
 		System.out.println("User Name : " + userDTO.getName());
 		System.out.println("User Email : " + userDTO.getEmail());
@@ -304,7 +304,7 @@ public class LoginController {
 
 	private org.springframework.social.oauth2.OAuth2Operations oauthOperations;
 
-	// È¸¿ø °¡ÀÔ ÆäÀÌÁö
+	// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/googleLogin", method = { RequestMethod.GET, RequestMethod.POST })
 	public String join(HttpServletResponse response, Model model) {
 
@@ -317,7 +317,7 @@ public class LoginController {
 		return "login/googleLogin";
 	}
 
-	// ------------------------------------ ±¸±Û ÄÝ¹é
+	// ------------------------------------ ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¹ï¿½
 	// ----------------------------------------
 
 	@RequestMapping(value = "/googleSignInCallback", method = { RequestMethod.GET, RequestMethod.POST })
@@ -359,7 +359,7 @@ public class LoginController {
 		String id = profile.getAccountEmail().substring(0, profile.getAccountEmail().indexOf("@"));
 		session.setAttribute("login", inputSocialUser(id, id, profile.getAccountEmail(), "google"));
 
-		// Access Token Ãë¼Ò
+		// Access Token ï¿½ï¿½ï¿½
 		try {
 			System.out.println("Closing Token....");
 			String revokeUrl = "https://accounts.google.com/o/oauth2/revoke?token=" + accessToken + "";
@@ -383,28 +383,28 @@ public class LoginController {
 
 	}
 
-	// Ä«Ä«¿À ·Î±×ÀÎ ·Î±×¾Æ¿ô
+	// Ä«Ä«ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Î±×¾Æ¿ï¿½
 	private kakao_restapi kakao_restapi = new kakao_restapi();
 
 	@RequestMapping(value = "/oauth", produces = "application/json")
 	public String kakaoLogin(@RequestParam("code") String code, Model model, HttpSession session) {
-		System.out.println("·Î±×ÀÎ ÇÒ¶§ ÀÓ½Ã ÄÚµå°ª");
-		// Ä«Ä«¿À È¨ÆäÀÌÁö¿¡¼­ ¹ÞÀº °á°ú ÄÚµå
+		System.out.println("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ò¶ï¿½ ï¿½Ó½ï¿½ ï¿½Úµå°ª");
+		// Ä«Ä«ï¿½ï¿½ È¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Úµï¿½
 		System.out.println(code);
-		System.out.println("·Î±×ÀÎ ÈÄ °á°ú°ª");
+		System.out.println("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½");
 
-		// Ä«Ä«¿À rest api °´Ã¼ ¼±¾ð
+		// Ä«Ä«ï¿½ï¿½ rest api ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 		kakao_restapi kr = new kakao_restapi();
-		// °á°ú°ªÀ» node¿¡ ´ã¾ÆÁÜ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ nodeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 		JsonNode node = kr.getAccessToken(code);
-		// °á°ú°ª Ãâ·Â
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		System.out.println(node);
-		// ³ëµå ¾È¿¡ ÀÖ´Â access_token°ªÀ» ²¨³» ¹®ÀÚ¿­·Î º¯È¯
+		// ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½Ö´ï¿½ access_tokenï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 		String token = node.get("access_token").toString();
-		// ¼¼¼Ç¿¡ ´ã¾ÆÁØ´Ù.
+		// ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 		session.setAttribute("token", token);
 
-		// access_tokenÀ» ÅëÇØ »ç¿ëÀÚ Á¤º¸ ¿äÃ»
+		// access_tokenï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
 		JsonNode userInfo = kakao_restapi.getKakaoUserInfo(node.get("access_token"));
 
 		// Get id
@@ -412,7 +412,7 @@ public class LoginController {
 		String name = null;
 		String email = null;
 
-		// À¯ÀúÁ¤º¸ Ä«Ä«¿À¿¡¼­ °¡Á®¿À±â Get properties
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Get properties
 		JsonNode properties = userInfo.path("properties");
 		JsonNode kakao_account = userInfo.path("kakao_account");
 
@@ -437,10 +437,10 @@ public class LoginController {
 	}
 	/*
 	 * @RequestMapping(value = "/logout", produces = "application/json") public
-	 * String Logout(HttpSession session) { //kakao restapi °´Ã¼ ¼±¾ð kakao_restapi kr =
-	 * new kakao_restapi(); //³ëµå¿¡ ·Î±×¾Æ¿ôÇÑ °á°ú°ªÀ½ ´ã¾ÆÁÜ ¸Å°³º¯¼ö´Â ¼¼¼Ç¿¡ ÀÕ´Â tokenÀ» °¡Á®¿Í ¹®ÀÚ¿­·Î º¯È¯
-	 * JsonNode node = kr.Logout(session.getAttribute("token").toString()); //°á°ú °ª
-	 * Ãâ·Â System.out.println("·Î±×ÀÎ ÈÄ ¹ÝÈ¯µÇ´Â ¾ÆÀÌµð : " + node.get("id")); return
+	 * String Logout(HttpSession session) { //kakao restapi ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ kakao_restapi kr =
+	 * new kakao_restapi(); //ï¿½ï¿½å¿¡ ï¿½Î±×¾Æ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½Õ´ï¿½ tokenï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
+	 * JsonNode node = kr.Logout(session.getAttribute("token").toString()); //ï¿½ï¿½ï¿½ ï¿½ï¿½
+	 * ï¿½ï¿½ï¿½ System.out.println("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ : " + node.get("id")); return
 	 * "redirect:/"; }
 	 */
 

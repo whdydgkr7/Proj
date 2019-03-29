@@ -61,10 +61,19 @@ public interface ProjectBbsDAOImpl {
 public ArrayList<ProjectBbsDTO> mainpbbs();
 
 //참가가능여부 확인(아이디,아이디엑스 확인)
-public int cofirmjoin(String idx, String id);
+public int confirmjoin(String idx, String id);
 
 //참가하기
 public void join(String idx, String id);
+
+
+public int procjoin();
+
+public String selectbbs(String idx);//dddddddd
+
+
+
+
 
 
 
