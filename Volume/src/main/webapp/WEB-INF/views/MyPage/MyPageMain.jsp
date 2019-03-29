@@ -96,125 +96,107 @@ window.onload= function() {
 		});
 }
 </script>
+
+<!-- <script type="text/javascript">
+	
+	function changeView(value){
+		
+		if(value == "0"){
+			location.href="MyInfo.do";
+			
+		}
+		else if(value == "1"){
+			location.href="MyTakeProject.do";
+		}
+		else if(value == "2"){
+			location.href="MyOfferProject.do";
+		}
+		else if(value == "3"){
+			location.href="MyOneDayClass.do";
+		}
+		else if(value == "4"){
+			location.href="MyProjectLatter.do";
+		}
+	}
+
+</script> -->
 <body>
 <div>
-	<div class="w3-row">
-		<img src="../../../resources/images/10.jpg" alt="" />
-	</div>
 	<jsp:include page="../../../resources/navbar/navbarTop.jsp" />
 	<!-- First Grid -->
 	<div class="w3-row-padding w3-padding-64 w3-container-fluid"> <!--  " style="height: 900px;  -->
-		<h1 class="w3-text-BLACK" style="font-weight:bold;">개인정보 수정하기</h1>
-		<div class="w3-row">	
-			<table class="table table-success"style="width:90%; margin:10px;">
-				  <thead class="w3-lime">
-				    <th>이미지</th>
-				    <th>프로젝트시작일</th> 
-				    <th>프로젝트마감일</th>
-				    <th>프로젝트명</th>
-				    <th>프로젝트 내용</th>	
-				   	<th>추천수</th>	 				    
-				    <th>조회수</th>					    
-				    <th>작성일</th>
-				    <th>첨부파일</th>
-				  </thead>
-				 <tbody id="ajaxUser">
-					<!-- c:choose문 들어갔던 자리 -->
-		       	</tbody>
-			</table>
-    	</div>
 	
 	
-		<br /><br /><br /><br />
-		<h1 class="w3-text-BLACK" style="font-weight:bold;">내가 참여한 프로젝트</h1>
-		<div class="w3-row">
-			<!-- 검색, 셀렉트박스 들어갔던 자리 -->
-		
-		  	<table class="table table-success"style="width:90%; margin:10px;">
-				  <thead class="w3-lime">
-				    <th>이미지</th>
-				    <th>프로젝트시작일</th> 
-				    <th>프로젝트마감일</th>
-				    <th>프로젝트명</th>
-				    <th>프로젝트 내용</th>	
-				   	<th>추천수</th>	 				    
-				    <th>조회수</th>					    
-				    <th>작성일</th>
-				    <th>첨부파일</th>
-				  </thead>
-				 <tbody id="ajaxProj">
-					<!-- c:choose문 들어갔던 자리 -->
-		       	</tbody>
-			</table>
-			<!-- 페이징 처리 부분 -->
-		</div>
-			
-			
-		<br /><br /><br /><br />
-		<h1 class="w3-text-BLACK" style="font-weight:bold;">내 프로젝트 제안</h1>
-		<div class="w3-row">	
-			<table class="table table-success"style="width:90%; margin:10px;">
-				  <thead class="w3-lime">
-				    <th>이미지</th>
-				    <th>프로젝트시작일</th> 
-				    <th>프로젝트마감일</th>
-				    <th>프로젝트명</th>
-				    <th>프로젝트 내용</th>	
-				   	<th>추천수</th>	 				    
-				    <th>조회수</th>					    
-				    <th>작성일</th>
-				    <th>첨부파일</th>
-				  </thead>
-				 <tbody id="ajaxPropose">
-					<!-- c:choose문 들어갔던 자리 -->
-		       	</tbody>
-			</table>
-    	</div>
-    	
-    	
-    	<br /><br /><br /><br />
-		<h1 class="w3-text-BLACK" style="font-weight:bold;">나의 원데이 클래스</h1>
-		<div class="w3-row">	
-			<table class="table table-success"style="width:90%; margin:10px;">
-				  <thead class="w3-lime">
-				    <th>이미지</th>
-				    <th>프로젝트시작일</th> 
-				    <th>프로젝트마감일</th>
-				    <th>프로젝트명</th>
-				    <th>프로젝트 내용</th>	
-				   	<th>추천수</th>	 				    
-				    <th>조회수</th>					    
-				    <th>작성일</th>
-				    <th>첨부파일</th>
-				  </thead>
-				 <tbody id="ajaxOneday">
-					<!-- c:choose문 들어갔던 자리 -->
-		       	</tbody>
-			</table>
-    	</div>
-    	
-    	
-    	<br /><br /><br /><br />
-		<h1 class="w3-text-BLACK" style="font-weight:bold;">내가 작성한 후기</h1>
-		<div class="w3-row">	
-			<table class="table table-success"style="width:90%; margin:10px;">
-				  <thead class="w3-lime">
-				    <th>이미지</th>
-				    <th>프로젝트시작일</th> 
-				    <th>프로젝트마감일</th>
-				    <th>프로젝트명</th>
-				    <th>프로젝트 내용</th>	
-				   	<th>추천수</th>	 				    
-				    <th>조회수</th>					    
-				    <th>작성일</th>
-				    <th>첨부파일</th>
-				  </thead>
-				 <tbody id="ajaxReview">
-					<!-- c:choose문 들어갔던 자리 -->
-		       	</tbody>
-			</table>
-    	</div>
 	</div>
+	
+	<div class="container">    
+	  <div class="row">
+	    
+	    <a href="MyInfo.do">
+	    <div class="col-sm-4">
+	      <div class="panel panel-success">
+	        <div class="panel-heading">개인정보 수정하기</div>
+	        <div class="panel-body"><img src="../../../resources/images/my1.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+	      </div>
+	    </div>
+	    </a>
+	    
+	    <a href="MyTakeProject.do">
+	    <div class="col-sm-4"> 
+	      <div class="panel panel-success">
+	        <div class="panel-heading">내가 참여한 프로젝트</div>
+	        <div class="panel-body"><img src="../../../resources/images/my2.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+	      </div>
+	    </div>
+	    </a>
+	    
+	    <a href="MyOfferProject.do">
+		    <div class="col-sm-4"> 
+		      <div class="panel panel-success">
+		        <div class="panel-heading">내 프로젝트 제안</div>
+		        <div class="panel-body"><img src="../../../resources/images/my3.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+		      </div>
+		    </div>
+	    </a>
+	  
+	  </div>
+	</div><br>
+	
+	<div class="container">    
+	  <div class="row">
+	    <a href="MyOneDayClass.do">
+		    <div class="col-sm-4">
+		      <div class="panel panel-success">
+		        <div class="panel-heading">나의 원데이 클래스</div>
+		        <div class="panel-body"><img src="../../../resources/images/my4.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+		      </div>
+		    </div>
+	    </a>
+	    
+	     <a href="MyProjectLatter.do">
+		    <div class="col-sm-4"> 
+		      <div class="panel panel-success">
+		        <div class="panel-heading">내가 작성한 후기</div>
+		        <div class="panel-body"><img src="../../../resources/images/my5.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+		      </div>
+		    </div>
+	    </a>
+	    
+	    <a href="MyInfo.do">
+		    <div class="col-sm-4"> 
+		      <div class="panel panel-success">
+		        <div class="panel-heading">MyPoint</div>
+		        <div class="panel-body"><img src="../../../resources/images/my6.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+		      </div>
+		    </div>
+	    </a>
+	  </div>
+	</div><br><br>
+	
+	
+	
+	
+	
 	<jsp:include page="../../../resources/navbar/footer.jsp" />
 </div>
 </body>

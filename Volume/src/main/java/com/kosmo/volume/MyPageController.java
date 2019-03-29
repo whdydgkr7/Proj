@@ -34,4 +34,29 @@ public class MyPageController {
 		ArrayList<ProjectBbsDTO> list=sqlSession.getMapper(MyPageImpl.class).ViewProj(req.getParameter("id"));
 		return list;
 	}
+	
+	@RequestMapping("/MyInfo.do")
+	public String MyInfo(Model model) {
+		return "MyPage/MyInformodifi";
+	}
+	
+	@RequestMapping("/MyTakeProject.do")
+	public String MyTakeProject(Model model) {
+		return "MyPage/MyTakeProject";
+	}
+	
+	@RequestMapping("/MyOfferProject.do")
+	public String MyOfferProject(Model model) {
+		return "MyPage/MyOfferProject";
+	}
+	@RequestMapping("/MyOneDayClass.do")
+	public String MyOneDayClass(Model model) {
+		return "MyPage/MyOneDayClass";
+	}
+	@RequestMapping("/MyProjectLatter.do")
+	public String MyProjectLatter(Model model) {
+		return "MyPage/MyProjectLatter";
+	}
+	
+	
 }
