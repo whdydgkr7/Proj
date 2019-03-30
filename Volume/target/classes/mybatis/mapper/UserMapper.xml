@@ -40,7 +40,7 @@
     <select id="findPass" parameterType="String" resultType="String">
        SELECT pass FROM users WHERE email = #{user_email}
     </select>
-<<<<<<< HEAD
+
     
     <!-- 임시 비번 업데이트 -->
 	<update id="randomPassUpdate" parameterType="String">
@@ -55,7 +55,4 @@
 
 	
 </mapper>
-=======
-   
-</mapper>
->>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
+

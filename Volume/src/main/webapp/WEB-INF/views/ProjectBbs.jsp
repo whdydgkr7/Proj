@@ -160,14 +160,7 @@ background-color:#F2F3F2;
 											</c:if>
 										</td>
 																																					
-<%-- 										<%
-										  String id =request.getAttribute("id").toString();
-										  String user_id="";
-										  if(session.getAttribute("id")!=null){
-											  user_id=session.getAttribute("id").toString();
-										  }
-										 if(id.equals(user_id)){		
-										%>  --%>
+
 								
 										<td class="text-center w3-text-lime"  style="font-size: 20px; color: #F2F3F2; ">
 										<i class="glyphicon glyphicon-edit" ></i>
@@ -175,8 +168,6 @@ background-color:#F2F3F2;
 										<td class="text-center w3-text-lime" style="font-size: 20px; color: #F2F3F2;" >
 										<i class="glyphicon glyphicon-trash" ></i>
 										</td>
-
-						<%-- 			<%} %>	 --%>
 								
 									</tr>
 									<!-- 리스트반복끝 -->
