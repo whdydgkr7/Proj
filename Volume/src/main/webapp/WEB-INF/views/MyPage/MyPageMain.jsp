@@ -64,6 +64,7 @@ button:hover:before,button:hover:after{
 background-color:#F2F3F2;
  }
 </style>
+
 <script type="text/javascript">
 window.onload= function() {
 	$.ajax({
@@ -137,7 +138,7 @@ window.onload= function() {
 	    <div class="col-sm-4">
 	      <div class="panel panel-success">
 	        <div class="panel-heading">개인정보 수정하기</div>
-	        <div><img src="./resources/images/my1.jpg"  style="width:100%" height="200"></div>
+	        <div class="panel-body"><img src="./resources/images/my1.jpg"  style="width:100%" height="200"></div>
 	      </div>
 	    </div>
 	    </a>
