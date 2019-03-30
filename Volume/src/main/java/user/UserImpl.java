@@ -3,27 +3,30 @@ package user;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserImpl {
-	// ·Î±×ÀÎÃ³¸®
+	// ï¿½Î±ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 	public UserDTO login(String id, String pass);
 
-	// È¸¿ø°¡ÀÔÃ³¸®
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 	public int regiUser(UserDTO usersDTO);
 
-	// ¾ÆÀÌµğ Áßº¹ Ã¼Å©
+	// ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ßºï¿½ Ã¼Å©
 	public int idCheck(String id);
 
-	// È¸¿øÁ¤º¸ °¡Á®¿À±â
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public UserDTO getUser(String id);
 
-	// È¸¿ø°¡ÀÔ ÀÌ¸ŞÀÏÀÎÁõ
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void GetKey(String id, String key);
 	public void alter_userKey(String id, String key);
 
-	//ÀÌ¸ŞÀÏ ÀÎÁõÈ®ÀÎÇÏ±â
+	//ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ï¿½Ï±ï¿½
 	public int isAuth(String parameter);
 	
-	//¾ÆÀÌµğ Ã£±â
+	//ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½
 	public String findId(@Param("user_name")String user_name, @Param("user_email")String user_email);
-	//ºñ¹Ğ¹øÈ£ Ã£±â
+	//ï¿½ï¿½Ğ¹ï¿½È£ Ã£ï¿½ï¿½
 	public String findPass(@Param("user_email")String user_email);
+	
+	//ë¹„ë°€ë²ˆí˜¸ì°¾ê¸° - ì„ì‹œë¹„ë²ˆìƒì„±í›„ ì—…ë°ì´íŠ¸
+	public int randomPassUpdate(String userEmail, String randomStr);
 }

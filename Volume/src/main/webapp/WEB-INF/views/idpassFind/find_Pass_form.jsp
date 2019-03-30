@@ -11,37 +11,34 @@
 <br />
 <hr>
 <script type="text/javascript">
-	
-	//아이디 & 스토어 값 저장하기 위한 변수
-	var idV = "";
-	//아이디 값 받고 출력하는 ajax
+//아이디 & 스토어 값 저장하기 위한 변수
+var idV = "";
+//아이디 값 받고 출력하는 ajax
 
-	function passFindclick(){
-		 $.ajax({
-		    type:"post",
-		    url: "passFind.do",
-		    data:{
-		    	user_email: $('#user_email').val()
-		    },
-		    dataType: "text",
-		 	contentType: "application/x-www-form-urlencoded;charset:utf-8",
-		    success: function(data){
-		       /* if(!data){
-		          $('#id_value').text("회원 정보를 확인해주세요!");
-		       } else { */
-		          // 아이디값 별도로 저장
-		          idV = data;
-		       var email = document.getElementById("user_email").value;
-		       alert("회원님의 비밀번호는 입력하신 메일로 발송했습니다" );
-		       location.href='EmailSend.do?data='+data+"&email="+email;
-		       
-		    },
-		    error: function(e) {
-				alert("오류발생:"+e.status+":"+e.statusText);
+function passFindclick(){
+	 $.ajax({
+	    type:"post",
+	    url: "passFind.do",
+	    data:{
+	    	user_email: $('#user_email').val()
+	    },
+	    dataType: "html",
+	 	contentType: "application/x-www-form-urlencoded;charset:utf-8",
+	    success: function(data){
+			//alert(data);
+			if(data=='success'){
+				alert("임시 비밀번호를 발송했습니다. 이메일을 확인해주세요. 로그인 페이지로 이동합니다.");
+				location.href="./login";
 			}
-		 });
-	}
-	
+			else if(data=='fail'){
+				alert("임시 비밀번호 발송에 실패했습니다.");
+			}
+	    },
+	    error: function(e) {
+			alert("오류발생:"+e.status+":"+e.statusText);
+		}
+	 });
+}
 </script>
 <div class="card bg-light">
 <article class="card-body mx-auto" style="max-width: 400px;">

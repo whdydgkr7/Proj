@@ -10,6 +10,8 @@
 <div class="w3">
  	   <div class="w3-right w3-bar w3-white">
 		<%if(session.getAttribute("login")!=null) { 
+			if( !((UserDTO)session.getAttribute("login")).getAuthority().equals("ADMIN")) { %>
+				<button type="button" class="w3-white w3-bar-item w3-button" style="z-index:1;width:160;;font-weight:bold;">${login.id }(${login.name }) 님 환영합니다.</button>
 			if( !((UserDTO)session.getAttribute("login")).getAuthority().equals("ADMIN")) { %>ㅋ
 				<button type="button" class="w3-white w3-bar-item w3-button" style="z-index:1;width:*;font-weight:bold;">${login.id }(${login.name }) 님 환영합니다.</button>
 				<button type="button" onclick="location.href='MyPage'" class="w3-bar-item w3-button" style="z-index:2;width:160px;font-weight:bold;">마이페이지</button>
@@ -21,7 +23,7 @@
 			<%} 
 		} 
 		else{%>
-			<button type="button" onclick="location.href='login'" class="w3-bar-item w3-button" style="z-index:1;width:150px;font-weight:bold; margin-left: 1700px;">로그인</button>
+			<button type="button" onclick="location.href='login'" class="w3-bar-item w3-button" style="z-index:1;width:160px;font-weight:bold; margin-left: 1700px;">로그인</button>
 			<%}
 		if(request.getParameter("logoutMsg")!=null) {%>
 		<script type="text/javascript">
@@ -31,22 +33,22 @@
 		</div>
  
  
-  <div class="w3-bar w3-black w3-card w3-center-align w3-large" >
+  <div class="w3-bar w3-lime w3-card w3-center-align w3-large" >
   	
   	
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="/Volume" class="w3-bar-item w3-button w3-padding-large w3-black" style="z-index:1;width:340px;font-weight:bold;">HOME(VOLUME)</a>
-    <a href="ProjectController.do" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-black" style="z-index:2;width:340px;font-weight:bold;">진행중인 프로젝트</a>
-    <a href="BeforeApproval.do" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-black" style="z-index:3;width:340px;font-weight:bold;">프로젝트 제안하기</a>
-    <a href="oneDay" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-black" style="z-index:4;width:340px;font-weight:bold;">원데이 클래스</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-black" style="z-index:5;width:340px;font-weight:bold;">REVIEW</a>
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-large w3-lime w3-hover-pale-yellow " href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="/Volume" class="w3-bar-item w3-button w3-padding-large w3-lime w3-hover-pale-yellow" style="z-index:1;width:340px;font-weight:bold;">HOME(VOLUME)</a>
+    <a href="ProjectController.do" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-lime w3-hover-pale-yellow" style="z-index:2;width:340px;font-weight:bold;">진행중인 프로젝트</a>
+    <a href="BeforeApproval.do" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-lime w3-hover-pale-yellow" style="z-index:3;width:340px;font-weight:bold;">프로젝트 제안하기</a>
+    <a href="oneDay" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-lime w3-hover-pale-yellow" style="z-index:4;width:340px;font-weight:bold;">원데이 클래스</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-lime w3-hover-pale-yellow" style="z-index:5;width:340px;font-weight:bold;">REVIEW</a>
 
     
   
   </div>
 
   <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
     <a href="ProjectController.do" class="w3-bar-item w3-button w3-padding-large">진행중인 프로젝트</a>
     <a href="BeforeApproval.do" class="w3-bar-item w3-button w3-padding-large">프로젝트 제안하기</a>
     <a href="#" class="w3-bar-item w3-button w3-padding-large">원데이 클래스</a>

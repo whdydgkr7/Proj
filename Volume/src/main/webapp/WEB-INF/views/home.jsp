@@ -21,6 +21,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+	
 <style>
 body, h1, h2, h3, h4, h5, h6 {
 	font-family: "Lato", sans-serif
@@ -34,10 +36,12 @@ body, h1, h2, h3, h4, h5, h6 {
 	font-size: 200px
 }
 </style>
-<jsp:include page="/resources/navbar/navbarTop.jsp" /></div>
+<div>
+<jsp:include page="/resources/navbar/navbarTop.jsp" />
+</div>
 <body>
-	<div class="w3">
-		<div class="w3-bar w3-black w3-center-align w3-large">
+	<!-- <div class="w3">
+		<div class="w3-bar w3-black w3-center-align w3-large"> -->
 			<%--   	<div class="w3-right">
 		<%if(session.getAttribute("login")!=null) { 
 			if( !((UserDTO)session.getAttribute("login")).getAuthority().equals("ADMIN")) { %>
@@ -59,8 +63,8 @@ body, h1, h2, h3, h4, h5, h6 {
 		</script>
 		<%}%>
 		</div> --%>
-		</div>
-	</div>
+	 	<!-- </div>
+	</div> -->
 	<%-- <%} else {%>
 <div class="text-right" style="padding-top: 30px; padding-right: 30px;">
 	<a href="login"><button type="button" class="btn btn-primary">로그인</button></a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="http://localhost:8080/VolumeAdmin/admin/adminMain.jsp">관리자 페이지</a>

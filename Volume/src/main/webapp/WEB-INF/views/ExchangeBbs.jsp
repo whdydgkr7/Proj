@@ -25,9 +25,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <body>
 
 	<jsp:include page="/resources/navbar/navbarTop.jsp" />
-	<div class="w3-row">
+	<!-- <div class="w3-row">
 		<img src="./resources/images/10.jpg" alt="" />
-	</div>
+	</div> -->
 
 <div class="w3-container">	
 <!-- Contents부분 -->
