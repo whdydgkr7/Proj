@@ -106,6 +106,7 @@ public class ProjectController {
       ArrayList<ProjectBbsDTO> list = new ArrayList<ProjectBbsDTO>();
       
       ArrayList<ProjectBbsDTO> clist= sqlSession.getMapper(ProjectBbsDAOImpl.class).clist();
+      
 
       if(clist==null) {
       }

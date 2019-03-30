@@ -17,6 +17,8 @@
    <div id="calendar" style="width: 100%;"></div>
    <div id="dataArea" style="height: 500px;"></div>
    <script>
+   
+  
    $(document).ready(function name() {
       $("#calendar").fullCalendar({
          header: {
@@ -33,16 +35,20 @@
                  success: function(data){
                     console.log(data);
                     var events= [];
+                   
                     
                     $.each(data, function (index,value) {
                       events.push({
                          id: value['id'],
                          title: value['title'],
                          start: value['start_date'],
-                         end: value['end_date']
+                         end: value['end_date'],
+                         idx: value['idx']
                       });
+                      
                       console.log(value);
                   });
+                    
                     callback(events);
                 },
                 error: function (e) {
@@ -51,7 +57,8 @@
             });
          },
          eventClick: function(event) {
-            
+        	 location.href="./ProjectBbsViewController.do?idx="+event.idx;
+        	 //alert(event.idx);
          }
          
       });
