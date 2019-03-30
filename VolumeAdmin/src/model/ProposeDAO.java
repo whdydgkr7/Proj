@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
 
@@ -13,7 +14,7 @@ public class ProposeDAO {
 	private PreparedStatement psmt;
 	private ResultSet rs;
 	
-	private ProposeDAO() {
+	public ProposeDAO() {
 		try {
 			//java파일에서 web.xml의 초기화 파라미터를 가져옴
 			Class.forName("oracle.jdbc.OracleDriver");
@@ -40,7 +41,7 @@ public class ProposeDAO {
 	
 	//제안 거절
 	public boolean refusePropose(int propose_idx) {
-		String sql="DELETE FROM pPropose WHERE propose_idx=?";
+		String sql="DELETE FROM pbbs WHERE idx=?";
 		int result=0;
 		try {
 			psmt=con.prepareStatement(sql);
@@ -52,28 +53,28 @@ public class ProposeDAO {
 		return result==1? true:false;
 	}
 	
-	//추천수 100이 넘는 프로젝트 제안서 불러오기
-	public List<ProposeDTO> highRecommandPropose() {
-		String sql="SELECT * FROM pbbs WHERE recommend >= 30 ORDER BY recommend DESC";
-		List<ProposeDTO> list=new Vector<ProposeDTO>();
+	//추천수 30이 넘는 프로젝트 제안서 불러오기
+	public List<ProjectBbsDTO> highRecommandPropose() {
+		String sql="SELECT * FROM pbbs WHERE recommend >= 30 and endbbs='진행중' ORDER BY recommend DESC";
+		List<ProjectBbsDTO> list=new Vector<ProjectBbsDTO>();
 		try {
 			psmt=con.prepareStatement(sql);
 			rs=psmt.executeQuery();
 			while (rs.next()) {
-				ProposeDTO dto=new ProposeDTO();
-				dto.setPropose_idx(rs.getInt(1));
-				dto.setId(rs.getString(2));
-				dto.setContent(rs.getString(3));
-				dto.setPostdate(rs.getDate(4));
-				dto.setVisit_count(rs.getInt(5));
-				dto.setRecommend(rs.getInt(6));
-				dto.setTitle(rs.getString(7));
-				dto.setStart_date(rs.getDate(8));
-				dto.setEnd_date(rs.getDate(9));
-				dto.setP_limit(rs.getInt(10));
-				dto.setThumbnail(rs.getString(11));
-				dto.setAttachedfile(rs.getString(12));
-				dto.setAddress(rs.getString(13));
+				ProjectBbsDTO dto=new ProjectBbsDTO();
+				dto.setIdx(rs.getInt("idx"));
+				dto.setId(rs.getString("id"));
+				dto.setContent(rs.getString("content"));
+				dto.setPostdate(rs.getDate("postdate").toString());
+				dto.setVisit_count(rs.getInt("visit_count"));
+				dto.setRecommend(rs.getInt("recommend"));
+				dto.setTitle(rs.getString("title"));
+				dto.setStart_date(rs.getDate("start_date").toString());
+				dto.setEnd_date(rs.getDate("end_date").toString());
+				dto.setM_limit(rs.getInt("m_limit"));
+				dto.setThumbnail(rs.getString("thumbnail"));
+				dto.setAttachedfile(rs.getString("attachedfile"));
+				dto.setAddress(rs.getString("address"));
 				list.add(dto);
 			}
 		} catch (Exception e) {
@@ -84,25 +85,25 @@ public class ProposeDAO {
 	}
 	
 	//프로젝트 제안 테이블에서 하나 가져오기
-	public ProposeDTO getPropose(int propose_idx) {
-		String sql="SELECT * FROM pPropose WHERE propose_idx=?";
-		ProposeDTO dto=null;
+	public ProjectBbsDTO getPropose(int idx) {
+		String sql="SELECT * FROM pbbs WHERE idx=?";
+		ProjectBbsDTO dto=null;
 		try {
 			psmt=con.prepareStatement(sql);
-			psmt.setInt(1, propose_idx);
+			psmt.setInt(1, idx);
 			rs=psmt.executeQuery();
 			rs.next();
-			dto=new ProposeDTO();
-			dto.setPropose_idx(rs.getInt(1));
+			dto=new ProjectBbsDTO();
+			dto.setIdx(rs.getInt(1));
 			dto.setId(rs.getString(2));
 			dto.setContent(rs.getString(3));
-			dto.setPostdate(rs.getDate(4));
+			dto.setPostdate(rs.getDate(4).toString());
 			dto.setVisit_count(rs.getInt(5));
 			dto.setRecommend(rs.getInt(6));
 			dto.setTitle(rs.getString(7));
-			dto.setStart_date(rs.getDate(8));
-			dto.setEnd_date(rs.getDate(9));
-			dto.setP_limit(rs.getInt(10));
+			dto.setStart_date(rs.getDate(8).toString());
+			dto.setEnd_date(rs.getDate(9).toString());
+			dto.setM_limit(rs.getInt(10));
 			dto.setThumbnail(rs.getString(11));
 			dto.setAttachedfile(rs.getString(12));
 			dto.setAddress(rs.getString(13));
@@ -114,28 +115,17 @@ public class ProposeDAO {
 	
 	
 	//프로젝트 제안 승인
-	public boolean submitPropose(ProposeDTO dto) {
-		String sql="INSERT INTO pBBS (idx, id, title, content, postdate, start_date, end_date, address, attachedfile, thumbnail, m_limit) "
-			+ " VALUES (pBBs_seq.nextval,?,?,?,?,?, ?,?,?,?,?)";
-		int result=0;
+	public void submitPropose(int idx) {
+		String sql="UPDATE pbbs SET endbbs='종료' where idx= ?";
+		
 		try {
-			psmt=con.prepareStatement(sql);
-			psmt.setString(1, dto.getId());
-			psmt.setString(2, dto.getTitle());
-			psmt.setString(3, dto.getContent());
-			psmt.setDate(4, dto.getPostdate());
-			psmt.setDate(5, dto.getStart_date());
-			psmt.setDate(6, dto.getEnd_date());
-			psmt.setString(7, dto.getAddress());
-			psmt.setString(8, dto.getAttachedfile());
-			psmt.setString(9, dto.getThumbnail());
-			psmt.setInt(10, dto.getP_limit());
-			result=psmt.executeUpdate();
-		} catch (Exception e) {
+			psmt= con.prepareStatement(sql);
+			psmt.setInt(1, idx);
+			rs=psmt.executeQuery();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		refusePropose(dto.getPropose_idx());
-		return result==1? true:false;
+		
 	}
 	
 }

@@ -32,6 +32,7 @@ window.onload=function() {
 		dataType: "json",
 		contentType: "text/html;charset:utf-8;",
 		success: function(responseData) {
+			var idx= 0;
 			var str="";
 			str+="<thead>";
 				str+="<tr class='info'>";
@@ -53,8 +54,10 @@ window.onload=function() {
 			str+="</thead>";
 			str+"<tbody>";
 			$.each(responseData, function(index, data) {
+				
+				idx= data.idx;
 				str+="<tr onclick='pBbsClicked();' style='background-color:white;' onmouseover=\"this.style.backgroundColor='#ffb0a5';\" onmouseout=\"this.style.backgroundColor='white';\">";
-				str+="<td class='text-center'><input type='radio' name='pBBS' value='"+data.propose_idx+"' onClick='FselectpBBS(this.value);'/></td>";
+				str+="<td class='text-center'><input type='radio' name='pBBS' value='"+data.idx+"' onclick='FselectpBBS("+data.idx+");'/></td>";
 				str+="<td class='text-center'>"+data.recommend+"</td>";
 				//str+="<td class='text-center'>"+data.propose_idx+"</td>";
 				str+="<td class='text-center'>"+data.id+"</td>";
@@ -64,10 +67,7 @@ window.onload=function() {
 				//str+="<td class='text-center'>"+data.visit_count+"</td>";
 				str+="<td class='text-center'>"+data.start_date+"</td>";
 				str+="<td class='text-center'>"+data.end_date+"</td>";
-				str+="<td class='text-center'>"+data.p_limit+"</td>";
-				//str+="<td class='text-center'>"+data.thumbnail+"</td>";
-				//str+="<td class='text-center'>"+data.attachedfile+"</td>";
-				//str+="<td class='text-center'>"+data.address+"</td>";
+				str+="<td class='text-center'>"+data.m_limit+"</td>";
 				str+="</tr>";
 			});
 			str+="</tbody>";
@@ -95,7 +95,7 @@ function submitPropose() {
 		url: "../admin/ProposeCtrl.do",
 		type: "get",
 		data: {
-			propose_idx: $("#selectpBBS").val(),
+			idx: $("#selectpBBS").val(),
 			menu: "submit"
 		},
 		dataType: "text",
@@ -119,7 +119,7 @@ function refusePropose() {
 		url: "../admin/ProposeCtrl.do",
 		type: "get",
 		data: {
-			propose_idx: $("#selectpBBS").val(),
+			idx: $("#selectpBBS").val(),
 			menu: "refuse"
 		},
 		dataType: "text",
@@ -146,7 +146,7 @@ function refusePropose() {
 	    <hr style="width:50px;border:5px solid red" class="w3-round">
 		<div class="container">
 		    <form name="updateInfo" target="parentForm">
-		    <input type="hidden" id="selectpBBS" />        
+		    <input type="hidden" id="selectpBBS"/>        
 			<div class="row">
 				<h2 style="text-align:center;">프로젝트 제안(<span style="color:red;">추천 수 - 30▲</span>)</h2>
 				<table class="table table-striped table-bordered table-hover paginated" id="ajaxTable"></table>
