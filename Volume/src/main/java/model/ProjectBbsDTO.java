@@ -16,7 +16,6 @@ public class ProjectBbsDTO {
    private String thumbnail;
    private int m_limit;
    private int add_point;
-   private int rec_count;
    private String endbbs;
    private String state;
    private int recommend;
@@ -26,7 +25,7 @@ public class ProjectBbsDTO {
 
    public ProjectBbsDTO(int idx, String id, String title, String content, String postdate, String start_date,
          String end_date, String address, int visit_count, String attachedfile, String thumbnail, int m_limit,
-         int add_point, int rec_count, String endbbs, String state, int recommend) {
+         int add_point, String endbbs, String state, int recommend) {
       super();
       this.idx = idx;
       this.id = id;
@@ -41,7 +40,6 @@ public class ProjectBbsDTO {
       this.thumbnail = thumbnail;
       this.m_limit = m_limit;
       this.add_point = add_point;
-      this.rec_count = rec_count;
       this.endbbs = endbbs;
       this.state = state;
       this.recommend = recommend;
@@ -80,19 +78,6 @@ public class ProjectBbsDTO {
    public void setState(String state) {
       this.state = state;
    }
-
-   public int getRec_count() {
-      return rec_count;
-   }
-
-
-
-   public void setRec_count(int rec_count) {
-      this.rec_count = rec_count;
-   }
-
-
-
 
 
 

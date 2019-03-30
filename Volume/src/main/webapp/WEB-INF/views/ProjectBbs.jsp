@@ -151,7 +151,7 @@ background-color:#F2F3F2;
 										<td class="text-left">
 										<a href="./ProjectBbsViewController.do?idx=${row.idx}">${row.content}</a>
 										</td>
-										<td class="text-center">${row.rec_count }</td>
+										<td class="text-center">${row.recommend }</td>
 										<td class="text-center">${row.visit_count }</td>
 										<td class="text-center">${row.postdate }</td>
 										<td class="text-center"> 			

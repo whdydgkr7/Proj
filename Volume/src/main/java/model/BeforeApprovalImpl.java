@@ -15,7 +15,7 @@ public interface BeforeApprovalImpl {
 
    
    //수정하기폼
-   public BeforeApprovalDTO view(String idx, String id);
+   public ProjectBbsDTO view(String idx, String id);
    
    //수정처리
    /*public int modify(String idx, String name, 

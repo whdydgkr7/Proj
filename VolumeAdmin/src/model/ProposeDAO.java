@@ -54,7 +54,7 @@ public class ProposeDAO {
 	
 	//추천수 100이 넘는 프로젝트 제안서 불러오기
 	public List<ProposeDTO> highRecommandPropose() {
-		String sql="SELECT * FROM ppropose WHERE recommend >= 100 ORDER BY recommend DESC";
+		String sql="SELECT * FROM pbbs WHERE recommend >= 30 ORDER BY recommend DESC";
 		List<ProposeDTO> list=new Vector<ProposeDTO>();
 		try {
 			psmt=con.prepareStatement(sql);
