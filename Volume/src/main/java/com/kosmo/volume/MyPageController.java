@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.json.simple.JSONArray;
@@ -22,11 +23,6 @@ public class MyPageController {
 
 	@Autowired
 	private SqlSession sqlSession;
-
-	@RequestMapping("/MyPage")
-	public String Mypage(Model model) {
-		return "MyPage/MyPageMain";
-	}
 	
 	@RequestMapping("/MyPageProjView")
 	@ResponseBody
@@ -35,13 +31,32 @@ public class MyPageController {
 		return list;
 	}
 	
+
+	@RequestMapping("MyPage")
+	public String Mypage(Model model) {
+		return "MyPage/MyPageMain";
+		
+	}
+	
+
+	
 	@RequestMapping("/MyInfo.do")
 	public String MyInfo(Model model) {
 		return "MyPage/MyInformodifi";
 	}
 	
 	@RequestMapping("/MyTakeProject.do")
-	public String MyTakeProject(Model model) {
+	public String MyTakeProject(Model model, HttpSession session ) {
+		String id=(String) session.getAttribute("login.id");
+		
+		ArrayList<ProjectBbsDTO> list=sqlSession.getMapper(MyPageImpl.class).ViewMyProj(id);
+		
+		model.addAttribute("list",list);
+		
+		
+		
+		
+		
 		return "MyPage/MyTakeProject";
 	}
 	

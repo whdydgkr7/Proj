@@ -1,4 +1,5 @@
 
+<%@page import="user.UserDTO"%>
 <%@page import="model.PcommentDTO"%>
 <%@page import="java.sql.Date"%>
 <%@page import="java.util.ArrayList"%>
@@ -70,7 +71,13 @@ table.greenTable tbody td {
 
 <jsp:include page="/resources/navbar/navbarTop.jsp" />
 
+<% 
+UserDTO login = (UserDTO)session.getAttribute("login");
 
+
+
+
+%>
 <body class="w3-theme-l5">
 
 	<!-- Navbar -->
@@ -162,6 +169,7 @@ table.greenTable tbody td {
 						<h2><%=title%>
 							<input type="hidden" id="id" name="id" value="<%=id%>">
 							<input type="hidden" id="idx" name="idx" value="<%=idx%>">
+							<input type="hidden" id="sessionid" name="sessionid" value="${login.id }">
 						</h2>
 						<br>
 
@@ -377,7 +385,7 @@ table.greenTable tbody td {
 									//전송방식
 									type : "get",
 									data : {
-										id : $('#id').val(),
+										sessionid : $('#sessionid').val(),
 										idx : $('#idx').val()
 									},
 									//서버로 전송시의 컨텐츠 타입

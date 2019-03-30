@@ -3,20 +3,12 @@
 
 <mapper namespace="myPage.MyPageImpl">
 	<!-- 목록 전부 가져오기 -->
-	<select id="ViewProj" resultType="model.ProjectBbsDTO" parameterType="String">
-		SELECT * FROM pbbs WHERE id=#{0} ORDER BY idx DESC
-	</select>
-	<!-- 전체 게시물수 카운트 -->
-	<!-- <select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM pbbs
-	</select>
+
+	   <select id="ViewProj" resultType="model.ProjectBbsDTO" parameterType="String">
+      SELECT * FROM pbbs WHERE id=#{0} ORDER BY idx DESC
+   </select>
 	
-	<select id="listPage" resultType="model.ProjectBbsDTO">
-		SELECT * FROM (
-			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM pbbs ORDER BY idx DESC
-			) Tb
-		)
-		WHERE rNum BETWEEN #{param1} AND #{param2}
-	</select> -->
+	<select id="ViewMyProj" resultType="model.ProjectBbsDTO">
+		SELECT * FROM pEntry INNER JOIN pbbs on pEntry.idx=pbbs.idx WHERE pEntry.id=#{0}
+   </select>
 </mapper>

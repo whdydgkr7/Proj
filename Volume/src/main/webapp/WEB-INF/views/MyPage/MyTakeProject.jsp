@@ -69,22 +69,62 @@ background-color:#F2F3F2;
 		<div class="w3-row">
 			<!-- 검색, 셀렉트박스 들어갔던 자리 -->
 		
-		  	<table class="table table-success"style="width:90%; margin:10px;">
-				  <thead class="w3-lime">
-				    <th>이미지</th>
-				    <th>프로젝트시작일</th> 
-				    <th>프로젝트마감일</th>
-				    <th>프로젝트명</th>
-				    <th>프로젝트 내용</th>	
-				   	<th>추천수</th>	 				    
-				    <th>조회수</th>					    
-				    <th>작성일</th>
-				    <th>첨부파일</th>
-				  </thead>
-				 <tbody id="ajaxProj">
-					<!-- c:choose문 들어갔던 자리 -->
-		       	</tbody>
-			</table>
+	           <table class="table table-success" style="width: 90%; margin: 10px; ">
+               <thead class="w3-lime">
+                  <th>이미지</th>
+                  <th>프로젝트시작일</th>
+                  <th>프로젝트마감일</th>
+                  <th>프로젝트명</th>
+                  <th>프로젝트 내용</th>
+                  <th>추천수</th>
+                  <th>조회수</th>
+                  <th>작성일</th>
+               </thead>
+               <tbody style="vertical-align: middle;">
+                  <c:choose>
+                     <c:when test="${empty lists }">
+                        <tr>
+                           <td colspan="8" class="text-center">참가한 프로젝트가 없습니다.</td>
+                        </tr>
+                     </c:when>
+                     <c:otherwise>
+                        <c:forEach items="${lists }" var="row" varStatus="loop">
+                           <!-- 리스트반복시작 -->
+   
+                              
+                                 <c:choose>
+                                    <c:when test="${not empty row.thumbnail }">
+                                    <td class="text-center" style="vertical-align: middle;"> 
+                                       <img src="../resources/thumbnail/${row.thumbnail}"  width="200" height="200">
+                                    </td>   
+                                    </c:when>
+                                    <c:otherwise>   
+                                    <td class="text-center">
+                                       <img src="./resources/images/defaultimage.jpg" width="200" height="200">
+                                    </td>
+                                    </c:otherwise>      
+                                 </c:choose>         
+                           
+                              <td class="text-center"></td>
+                              <td class="text-center"></td>
+                              <td class="text-center"><a
+                                 href="./BeforeApprovalViewController.do?idx=${row.idx}">
+                                    ${row.title}</a></td>
+                              <td class="text-left"><a
+                                 href="./BeforeApprovalViewController.do?idx=${row.idx}">${row.content}</a>
+                              </td>
+                              <td class="text-center"></td>
+                              <td class="text-center"></td>
+                              <td class="text-center"></td>
+
+
+                           </tr>
+                           <!-- 리스트반복끝 -->
+                        </c:forEach>
+                     </c:otherwise>
+                  </c:choose>
+               </tbody>
+            </table>
 			<!-- 페이징 처리 부분 -->
 		</div>
 
