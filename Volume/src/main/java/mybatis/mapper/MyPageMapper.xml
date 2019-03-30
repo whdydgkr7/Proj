@@ -8,7 +8,7 @@
       SELECT * FROM pbbs WHERE id=#{0} ORDER BY idx DESC
    </select>
 	
-	<select id="ViewMyProj" resultType="model.ProjectBbsDTO">
-		SELECT * FROM pEntry INNER JOIN pbbs on pEntry.idx=pbbs.idx WHERE pEntry.id=#{0}
+	<select id="ViewMyProj" resultType="model.ProjectBbsDTO" parameterType="String">
+		SELECT * FROM pEntry INNER JOIN pbbs on pEntry.idx=pbbs.idx WHERE pEntry.id=#{param1}
    </select>
 </mapper>

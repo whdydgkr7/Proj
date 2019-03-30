@@ -28,12 +28,6 @@ public class MyPageController {
 	private SqlSession sqlSession;
 
 	
-	@RequestMapping("/MyPageProjView")
-	@ResponseBody
-	public ArrayList<ProjectBbsDTO> myPageProjView(Model model, HttpServletRequest req) {
-		ArrayList<ProjectBbsDTO> list=sqlSession.getMapper(MyPageImpl.class).ViewProj(req.getParameter("id"));
-		return list;
-	}
 	
 
 	@RequestMapping("MyPage")
@@ -72,10 +66,7 @@ public class MyPageController {
 		String email=req.getParameter("email");
 		String name=req.getParameter("name");
 		
-		System.out.println("1"+id);
-		System.out.println("2"+pass);
-		System.out.println("3"+email);
-		System.out.println("4"+name);
+
 		
 		
 		sqlSession.getMapper(UserImpl.class).Modifi(name, email, pass, id);
@@ -86,16 +77,13 @@ public class MyPageController {
 	
 	
 	@RequestMapping("/MyTakeProject.do")
-	public String MyTakeProject(Model model, HttpSession session ) {
-		String id=(String) session.getAttribute("login.id");
-		
-		ArrayList<ProjectBbsDTO> list=sqlSession.getMapper(MyPageImpl.class).ViewMyProj(id);
-		
-		model.addAttribute("list",list);
-		
-		
-		
-		
+	public String MyTakeProject(Model model, HttpServletRequest req) {
+		String id= req.getParameter("id");
+		System.out.println("id"+id);
+		ArrayList<ProjectBbsDTO> lists=sqlSession.getMapper(MyPageImpl.class).ViewMyProj(id);
+		System.out.println(lists.size());
+		model.addAttribute("lists",lists);
+
 		
 		return "MyPage/MyTakeProject";
 	}

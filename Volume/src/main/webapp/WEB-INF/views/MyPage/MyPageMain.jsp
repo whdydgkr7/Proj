@@ -143,7 +143,7 @@ window.onload= function() {
 	    </div>
 	    </a>
 	    
-	    <a href="MyTakeProject.do">
+	    <a href="MyTakeProject.do?id=${login.id}">
 	    <div class="col-sm-4"> 
 	      <div class="panel panel-success">
 	        <div class="panel-heading">내가 참여한 프로젝트</div>
