@@ -75,9 +75,9 @@ table.greenTable tbody td {
 
 	<!-- Navbar -->
 
-	<div class="w3-row">
+	<!-- <div class="w3-row">
 		<img src="./resources/images/10.jpg" alt="" />
-	</div>
+	</div> -->
 
 
 
@@ -91,8 +91,8 @@ table.greenTable tbody td {
 				ArrayList<ProjectBbsDTO> dto = (ArrayList<ProjectBbsDTO>) request.getAttribute("lists");
 				String id = "";
 				int visitcount = 0;
-				Date sdate = null;
-				Date edate = null;
+				String sdate = null;
+				String edate = null;
 				String content = "";
 				int m_limits = 0;
 				String title = null;

@@ -6,79 +6,75 @@
     
     
     <mapper namespace="model.BeforeApprovalImpl">
-	
-	<select id="list" resultType="model.BeforeApprovalDTO">
-		SELECT * FROM ppropose ORDER BY idx DESC
-	</select>
+   
+   
+   
+   <!-- 방명록 페이지 처리 -->
+   <!-- 전체 게시물수 카운트 -->
+   <select id="getTotalCount" resultType="int">
+      SELECT COUNT(*) FROM pbbs
+   </select>
+   
+   <select id="listPage" resultType="model.ProjectBbsDTO">
+      SELECT * FROM (
+         SELECT Tb.*, rownum rNum FROM (
+            SELECT * FROM pbbs ORDER BY idx DESC
+         ) Tb
+      )
+      WHERE rNum BETWEEN #{param1} AND #{param2}
+   </select>
+   
+   
+   <!-- 전체 게시물수 카운트 : 검색기능추가 -->
+   <select id="getTotalCountSearch" resultType="int" 
+      parameterType="model.ParamDTO">
+      SELECT COUNT(*) FROM pbbs
+      <if test="!keyString.equals('') and keyString!=null">
+         WHERE ${keyField} like '%'||#{keyString}||'%'
+         </if> 
+   </select> 
 
-	
-	
-	<!-- 방명록 페이지 처리 -->
-	<!-- 전체 게시물수 카운트 -->
-	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM ppropose
-	</select>
-	
-	<select id="listPage" resultType="model.BeforeApprovalDTO">
-		SELECT * FROM (
-			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM ppropose ORDER BY propose_idx DESC
-			) Tb
-		)
-		WHERE rNum BETWEEN #{param1} AND #{param2}
-	</select>
-	
-	
-	<!-- 전체 게시물수 카운트 : 검색기능추가 -->
-	<select id="getTotalCountSearch" resultType="int" 
-		parameterType="model.ParamDTO">
-		SELECT COUNT(*) FROM ppropose
-		<if test="!keyString.equals('') and keyString!=null">
-			WHERE ${keyField} like '%'||#{keyString}||'%'
-	   	</if> 
-	</select> 
-
-	
-	<select id="listPageSearch" 
-		resultType="model.BeforeApprovalDTO" 
-		parameterType="model.ParamDTO">
-		SELECT * FROM (
-			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM ppropose 
-				<if test="!keyString.equals('') and keyString!=null">
-					WHERE ${keyField} like '%'||#{keyString}||'%'
-			   	</if> 
-				ORDER BY propose_idx DESC
-			) Tb
-		)
-		WHERE rNum BETWEEN ${start} AND ${end}
-	</select>
+   
+   <select id="listPageSearch" 
+      resultType="model.ProjectBbsDTO" 
+      parameterType="model.ParamDTO">
+      SELECT * FROM (
+         SELECT Tb.*, rownum rNum FROM (
+            SELECT * FROM pbbs 
+            <if test="!keyString.equals('') and keyString!=null">
+               WHERE ${keyField} like '%'||#{keyString}||'%' 
+               </if> 
+            ORDER BY idx DESC
+         ) Tb
+      )
+      WHERE rNum BETWEEN ${start} AND ${end} and endbbs='진행중'
+   </select>
 
 
-	
-	<select id="listView" resultType="model.BeforeApprovalDTO">
-      SELECT * FROM ppropose WHERE propose_idx=#{idx}
-   	</select>	
-   	
-    <insert id="write" parameterType="model.BeforeApprovalDTO">
-INSERT INTO PPROPOSE (PROPOSE_IDX,ID, CONTENT, POSTDATE, VISIT_COUNT, RECOMMEND, TITLE, START_DATE, END_DATE, P_LIMIT, THUMBNAIL, ATTACHEDFILE, ADDRESS, STATE, ADD_POINT) 
-VALUES (pPropose_seq.nextval,'${id}', '${content}',sysdate,0,0,'${title}',TO_DATE('${start_date}', 'YYYY-MM-DD'),TO_DATE('${end_date}', 'YYYY-MM-DD') ,'${p_limit}','${thumbnail}',0,'${address}','wait',10)
-   	</insert>
-	
-	<update id="visitcount" >
-	UPDATE PPROPOSE set visit_count=visit_count+1 WHERE PROPOSE_IDX=#{idx}
-	</update>
-	
+   
+   <select id="listView" resultType="model.ProjectBbsDTO">
+      SELECT * FROM pbbs WHERE idx=#{idx}
+      </select>   
+      
+    <insert id="write" parameterType="model.ProjectBbsDTO">
+INSERT INTO pbbs (idx,ID, CONTENT, POSTDATE, VISIT_COUNT, RECOMMEND, TITLE, START_DATE, END_DATE, m_LIMIT, THUMBNAIL, ATTACHEDFILE, ADDRESS, STATE, ADD_POINT) 
+VALUES (pbbs_seq.nextval,'${id}', '${content}',sysdate,0,0,'${title}',TO_DATE('${start_date}', 'YYYY-MM-DD'),TO_DATE('${end_date}', 'YYYY-MM-DD') ,'${m_limit}','${thumbnail}',0,'${address}','대기중',10)
+      </insert>
+   
+   <update id="visitcount" >
+   UPDATE pbbs set visit_count=visit_count+1 WHERE idx=#{idx}
+   </update>
+   
    <!--추천중복확인 -->
         <select id="confirmrec" resultType="int">
-        SELECT count(*) FROM pproposeEntry WHERE idx=#{0} AND id=#{1}
+        SELECT count(*) FROM pEntry WHERE idx=#{0} AND id=#{1}
      </select>
      
      
-	
-	
-	<update id="recommendproc" >
-	UPDATE PPROPOSE set recommend=recommend+1 WHERE PROPOSE_IDX=#{idx}
-	</update>
+   
+   
+   <update id="recommendproc" >
+   UPDATE pbbs set recommend=recommend+1 WHERE idx=#{idx}
+   </update>
 
 </mapper>   

@@ -110,9 +110,9 @@ html, body {
 
 	<!-- Header -->
 
-	<div class="w3-row">
+	<!-- <div class="w3-row">
 		<img src="./resources/images/10.jpg" alt="" />
-	</div>
+	</div> -->
 	
 
 	<!--///////////////////////////////////////////////  -->

@@ -64,9 +64,9 @@ background-color:#F2F3F2;
 </style>
 <body>
 <div>
-	<div class="w3-row">
+	<!-- <div class="w3-row">
 		<img src="./resources/images/10.jpg" alt="" />
-	</div>
+	</div> -->
 
 	<!-- First Grid -->
 

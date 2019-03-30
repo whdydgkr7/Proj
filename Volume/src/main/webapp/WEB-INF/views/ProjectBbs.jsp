@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <title>W3.CSS Template</title>
@@ -66,10 +67,10 @@ background-color:#F2F3F2;
 <body>
 <div>
 
-	<div class="w3-row">
+	<!-- <div class="w3-row">
 	
 		<img src="./resources/images/10.jpg" alt="" />
-	</div>
+	</div> -->
 	
 	<!-- First Grid -->
 	<div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 1500px; ">
@@ -142,8 +143,8 @@ background-color:#F2F3F2;
 												</c:otherwise>		
 											</c:choose>			
 										
-										<td class="text-center">${row.start_date }</td>
-										<td class="text-center">${row.end_date }</td>
+										<td class="text-center">${fn:substring(row.start_date,0,11)}</td>
+										<td class="text-center">${fn:substring(row.end_date,0,11)}</td>
 										<td class="text-center">
 										<a href="./ProjectBbsViewController.do?idx=${row.idx}"> 
 											${row.title}</a></td>

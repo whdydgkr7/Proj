@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <!DOCTYPE html>
 <html lang="en">
 <title>W3.CSS Template</title>
@@ -136,7 +137,7 @@ window.onload= function() {
 	    <div class="col-sm-4">
 	      <div class="panel panel-success">
 	        <div class="panel-heading">개인정보 수정하기</div>
-	        <div class="panel-body"><img src="../../../resources/images/my1.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+	        <div><img src="./resources/images/my1.jpg"  style="width:100%" height="200"></div>
 	      </div>
 	    </div>
 	    </a>
@@ -145,7 +146,7 @@ window.onload= function() {
 	    <div class="col-sm-4"> 
 	      <div class="panel panel-success">
 	        <div class="panel-heading">내가 참여한 프로젝트</div>
-	        <div class="panel-body"><img src="../../../resources/images/my2.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+	        <div class="panel-body"><img src="./resources/images/my2.jpg"  style="width:100%" height="200"></div>
 	      </div>
 	    </div>
 	    </a>
@@ -154,7 +155,7 @@ window.onload= function() {
 		    <div class="col-sm-4"> 
 		      <div class="panel panel-success">
 		        <div class="panel-heading">내 프로젝트 제안</div>
-		        <div class="panel-body"><img src="../../../resources/images/my3.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+		        <div class="panel-body"><img src="./resources/images/my3.jpg"  style="width:100%" height="200"></div>
 		      </div>
 		    </div>
 	    </a>
@@ -168,7 +169,7 @@ window.onload= function() {
 		    <div class="col-sm-4">
 		      <div class="panel panel-success">
 		        <div class="panel-heading">나의 원데이 클래스</div>
-		        <div class="panel-body"><img src="../../../resources/images/my4.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+		        <div class="panel-body"><img src="./resources/images/my4.jpg"  style="width:100%" height="200"></div>
 		      </div>
 		    </div>
 	    </a>
@@ -177,7 +178,7 @@ window.onload= function() {
 		    <div class="col-sm-4"> 
 		      <div class="panel panel-success">
 		        <div class="panel-heading">내가 작성한 후기</div>
-		        <div class="panel-body"><img src="../../../resources/images/my5.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+		        <div class="panel-body"><img src="./resources/images/my5.jpg"  style="width:100%" height="200"></div>
 		      </div>
 		    </div>
 	    </a>
@@ -186,7 +187,7 @@ window.onload= function() {
 		    <div class="col-sm-4"> 
 		      <div class="panel panel-success">
 		        <div class="panel-heading">MyPoint</div>
-		        <div class="panel-body"><img src="../../../resources/images/my6.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+		        <div class="panel-body"><img src="./resources/images/my6.jpg"  style="width:100%" height="200"></div>
 		      </div>
 		    </div>
 	    </a>
