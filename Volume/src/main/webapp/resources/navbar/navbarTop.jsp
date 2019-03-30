@@ -12,7 +12,6 @@
 		<%if(session.getAttribute("login")!=null) { 
 			if( !((UserDTO)session.getAttribute("login")).getAuthority().equals("ADMIN")) { %>
 				<button type="button" class="w3-white w3-bar-item w3-button" style="z-index:1;width:160;;font-weight:bold;">${login.id }(${login.name }) 님 환영합니다.</button>
-			if( !((UserDTO)session.getAttribute("login")).getAuthority().equals("ADMIN")) { %>ㅋ
 				<button type="button" class="w3-white w3-bar-item w3-button" style="z-index:1;width:*;font-weight:bold;">${login.id }(${login.name }) 님 환영합니다.</button>
 				<button type="button" onclick="location.href='MyPage'" class="w3-bar-item w3-button" style="z-index:2;width:160px;font-weight:bold;">마이페이지</button>
 				<button type="button" onclick="location.href='logout'" class="w3-bar-item w3-button" style="z-index:3;width:160px;font-weight:bold;">로그아웃</button>

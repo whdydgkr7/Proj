@@ -29,4 +29,7 @@ public interface UserImpl {
 	
 	//비밀번호찾기 - 임시비번생성후 업데이트
 	public int randomPassUpdate(String userEmail, String randomStr);
+	
+	//회원정보 수정
+	public int Modifi(String name, String email, String pass, String id);
 }

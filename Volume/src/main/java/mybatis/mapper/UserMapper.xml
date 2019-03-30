@@ -46,4 +46,11 @@
 		UPDATE users SET pass=#{param2} WHERE email=#{param1}
 	</update>
 	
+	<!-- 회원정보 수정처리  -->
+	<update id="Modifi">
+		UPDATE users SET name=#{0},email=#{1},pass=#{2}  WHERE id =#{3}
+	</update>
+	
+
+	
 </mapper>

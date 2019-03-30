@@ -61,9 +61,10 @@ public class LoginController {
    @RequestMapping("/loginAction")
    public ModelAndView loginAction(Model model, HttpServletRequest req, HttpSession session, HttpServletResponse resp) {
       ModelAndView mv = new ModelAndView();
+      int auth=0;
       
       UserDTO usersDTO = sqlSession.getMapper(UserImpl.class).login(req.getParameter("id"), req.getParameter("pass"));
-      int auth= sqlSession.getMapper(UserImpl.class).isAuth(req.getParameter("id"));
+      auth= sqlSession.getMapper(UserImpl.class).isAuth(req.getParameter("id"));
       
       
       
