@@ -60,6 +60,18 @@ public interface OnedayImpl {
 
 
 
+	public int confirmjoin(String idx, String id);
+
+
+
+	public void join(String idx, String id);
+
+
+
+	public String selectbbs(String idx);
+
+
+
 	
 
 

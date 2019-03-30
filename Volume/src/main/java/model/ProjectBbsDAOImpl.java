@@ -69,7 +69,7 @@ public void join(String idx, String id);
 
 public int procjoin();
 
-public String selectbbs(String idx);//dddddddd
+public String selectbbs(String idx);
 
 
 

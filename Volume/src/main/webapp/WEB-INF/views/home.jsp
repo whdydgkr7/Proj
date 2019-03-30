@@ -37,7 +37,7 @@ body, h1, h2, h3, h4, h5, h6 {
 <jsp:include page="/resources/navbar/navbarTop.jsp" /></div>
 <body>
 	<div class="w3">
-		<div class="w3-bar w3-black w3-center-align w3-large">
+		<div class="w3-bar w3-lime w3-center-align w3-large">
 			<%--   	<div class="w3-right">
 		<%if(session.getAttribute("login")!=null) { 
 			if( !((UserDTO)session.getAttribute("login")).getAuthority().equals("ADMIN")) { %>
@@ -81,7 +81,7 @@ if(request.getParameter("logoutMsg")!=null) {%>
 	<div class="w3-row">
 
 		<header class="w3-container w3-lime w3-center"
-			style="padding: 120px 16px; height: 390px; background-image: url('./resources/images/8.png');">
+			style="padding: 120px 16px; height: 390px;">
 			<h1 class="w3-margin w3-jumbo" style="font-weight: bold;">
 				<span class="w3-padding w3-lime w3-opacity-min"
 					style="font-size: 90px;">VolUMe</span>

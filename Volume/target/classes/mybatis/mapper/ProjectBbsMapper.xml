@@ -100,14 +100,16 @@
      	SELECT count(*) FROM pEntry WHERE idx=#{0} AND id=#{1}
      </select>
      
+     <!--참가하기  -->
+     <insert id="join">
+     INSERT INTO pEntry (entry_idx,idx,id,regidate,result) VALUES (pEntry_seq.NEXTVAL,#{0},#{1},sysdate,1)
+   	  </insert>	
+         <!--현재 참가자수 뿌려주기  --> 
      <select id="selectbbs" resultType="String">
 		 SELECT COUNT(*) FROM pentry  WHERE idx=#{0}
 	 </select>
 
 
      
-     <!--참가하기  -->
-     <insert id="join">
-     INSERT INTO pEntry (entry_idx,idx,id,regidate,result) VALUES (pEntry_seq.NEXTVAL,#{0},#{1},sysdate,1)
-   	  </insert>	
+
 </mapper>   

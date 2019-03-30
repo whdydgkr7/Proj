@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -95,7 +98,13 @@ public class OneDayController {
 	public String PrjectBbsView(Model model, HttpServletRequest req) {
 		String idx = req.getParameter("idx");
 		OnedayDTO onedayDTO = new OnedayDTO();
-
+		
+        String num = sqlSession.getMapper(OnedayImpl.class).selectbbs(idx);
+        if(!(num==null || num.equals(""))) {
+       	 model.addAttribute("num",num);
+        }
+		
+		
 		onedayDTO = sqlSession.getMapper(OnedayImpl.class).exView(idx);
 		model.addAttribute("onedayDTO", onedayDTO);
 
@@ -157,4 +166,30 @@ public class OneDayController {
 
 		return "redirect:oneDay";
 	}
+	
+	//수강신청
+    @RequestMapping("joinClass")
+    @ResponseBody
+    public void join(@RequestParam("idx") String idx,@RequestParam("id") String id, HttpServletResponse resp) throws IOException {
+  	  resp.setContentType("text/html;charset=UTF-8");
+  	  System.out.println("id1111:"+id);
+  	  System.out.println("idx1111:"+idx);
+  	  
+        String joinMessage="";
+        int canjoin =sqlSession.getMapper(OnedayImpl.class).confirmjoin(idx,id);
+     
+        System.out.println("onedayclassjoin:"+canjoin);
+        if(canjoin==0) {
+      	  sqlSession.getMapper(OnedayImpl.class).join(idx,id);
+	        	  resp.getWriter().println("참가신청되었습니다.");
+	        	  
+      	  
+        }
+        else {
+      	  resp.getWriter().println("이미 참가신청하셨습니다.");
+      	  //return joinMessage;
+        
+        
+        }
+    }
 }

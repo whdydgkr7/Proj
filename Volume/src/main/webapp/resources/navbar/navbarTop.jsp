@@ -31,15 +31,15 @@
 		</div>
  
  
-  <div class="w3-bar w3-black w3-card w3-center-align w3-large" >
+  <div class="w3-bar w3-lime w3-card w3-center-align w3-large" >
   	
   	
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="/Volume" class="w3-bar-item w3-button w3-padding-large w3-black" style="z-index:1;width:340px;font-weight:bold;">HOME(VOLUME)</a>
-    <a href="ProjectController.do" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-black" style="z-index:2;width:340px;font-weight:bold;">진행중인 프로젝트</a>
-    <a href="BeforeApproval.do" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-black" style="z-index:3;width:340px;font-weight:bold;">프로젝트 제안하기</a>
-    <a href="oneDay" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-black" style="z-index:4;width:340px;font-weight:bold;">원데이 클래스</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-black" style="z-index:5;width:340px;font-weight:bold;">REVIEW</a>
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-lime" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="/Volume" class="w3-bar-item w3-button w3-padding-large w3-lime" style="z-index:1;width:340px;font-weight:bold;">HOME(VOLUME)</a>
+    <a href="ProjectController.do" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-lime" style="z-index:2;width:340px;font-weight:bold;">진행중인 프로젝트</a>
+    <a href="BeforeApproval.do" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-lime" style="z-index:3;width:340px;font-weight:bold;">프로젝트 제안하기</a>
+    <a href="oneDay" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-lime" style="z-index:4;width:340px;font-weight:bold;">원데이 클래스</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-lime" style="z-index:5;width:340px;font-weight:bold;">REVIEW</a>
 
     
   

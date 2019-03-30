@@ -21,6 +21,7 @@ function inputValidate(f) {
 	}
 }
 </script>
+
   <c:choose>
   	<c:when test="${empty login}">
   		<hr />
@@ -58,26 +59,20 @@ function inputValidate(f) {
 		
   	</c:when>
   	<c:otherwise>
-  		  <h2>About Me</h2>
-		  <h5>Photo of me:</h5>
-		  <div class="fakeimg">Fake Image</div>
-		  <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-		  <h3>Some Links</h3>
-		  <p>Lorem ipsum dolor sit ame.</p>
-		  <ul class="nav nav-pills flex-column">
-		    <li class="nav-item">
-		      <a class="nav-link active" href="#">Active</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link" href="#">Link</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link" href="#">Link</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link disabled" href="#">Disabled</a>
-		    </li>
-		  </ul>
-		  <hr class="d-sm-none">
+				<div class="w3-card w3-round w3-white">
+					<div class="w3-container">
+						<h4 class="w3-center"></h4>
+						<p class="w3-center">
+							<img src="./resources/images/img_avatar1.png" class="w3-circle"
+								style="height: 106px; width: 106px" alt="Avatar">
+						</p>
+						${login.id}님
+						<hr>
+						<p>
+							<i class="fa fa-heart fa-fw w3-margin-right w3-text-theme"></i>
+							Point : ${boardInfo.t_point }
+						</p>
+					</div>
+				</div>
   	</c:otherwise>
   </c:choose>
