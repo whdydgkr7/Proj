@@ -1,7 +1,10 @@
 package com.kosmo.volume;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -56,17 +59,19 @@ public class LoginController {
 	}
 
 	@RequestMapping("/loginAction")
-	public ModelAndView loginAction(Model model, HttpServletRequest req, HttpSession session) {
+	public ModelAndView loginAction(Model model, HttpServletRequest req, HttpSession session, HttpServletResponse resp) throws IOException{
 		ModelAndView mv = new ModelAndView();
+		
+		resp.setContentType("text/html;charset=UTF-8");
 		UserDTO usersDTO = sqlSession.getMapper(UserImpl.class).login(req.getParameter("id"), req.getParameter("pass"));
 		int auth= sqlSession.getMapper(UserImpl.class).isAuth(req.getParameter("id"));
 		
-		
-		
 		if(auth == 0) {
-			//auth==0�Ͻ� �α��ξȵǰ� ���������̵�,  alert("����") �������
 			mv.addObject("loginCheck", "false");
-			mv.setViewName("home");
+			//mv.setViewName("home");
+			resp.getWriter().println("<script>alert('이메일인증후 사용가능합니다');location.href='./';</script>");
+			
+			return null;
 		}
 		else {
 			if (usersDTO == null) {
@@ -130,10 +135,13 @@ public class LoginController {
 
  	@RequestMapping("/EmailSend.do")
  	public String EmailSend(HttpServletRequest req, Model model) {
+ 		
+ 		
+ 		
  		final String fromEmail = "sz_toss@naver.com";
  		final String toEmail = req.getParameter("email");
- 		final String subject = "�ȳ��ϼ��� ���� volume �Դϴ�. ";
- 		final String contents = ""+"��û�Ͻ� ��й�ȣ��"+req.getParameter("data")+"�Դϴ�.";//req.getParameter("contents").replace("\r\n", "<br/>");
+ 		final String subject = "문의하신비밀번호입니다(VOLUME) ";
+ 		final String contents = ""+"회원님의 비밀번호는"+req.getParameter("data")+"입니다.";//req.getParameter("contents").replace("\r\n", "<br/>");
  		System.out.println(req.getParameter("data"));
  		System.out.println(req.getParameter("email"));
  	
@@ -157,11 +165,11 @@ public class LoginController {
  		
  		try {
  			mailSender.send(preparator);
- 			model.addAttribute("mailResult","������ ����߼� �Ǿ����ϴ�");
+ 			
  		}
  		catch (Exception e) {
  			System.out.println("���ܹ߻�");
- 			model.addAttribute("mailResult","���Ϲ߼ۿ���");
+ 			model.addAttribute("mailResult","메일보내기실패");
  			e.printStackTrace();
  		}
  		
@@ -176,7 +184,8 @@ public class LoginController {
 	}  
 
 	@RequestMapping("/registerAction")
-	public ModelAndView regiUserAction(Model model, HttpServletRequest req, HttpSession session) {
+	public ModelAndView regiUserAction(Model model, HttpServletRequest req, HttpSession session, HttpServletResponse resp) {
+		resp.setContentType("text/html;charset=UTF-8");
 		ModelAndView mv = new ModelAndView();
 
 		// ����,īī���� �����α��ν��ʿ�
@@ -205,11 +214,16 @@ public class LoginController {
 		final String fromEmail = "sz_toss@naver.com";
 		final String email = req.getParameter("email");
 		final String id = req.getParameter("id");
-		final String title = id + "�Կ���(VOLUME�ø�)";
-		final String htmlStr = "<div>" + id + "��, ���� ���񽺸� �̿����ּż� �����մϴ�" + "VOLUME �̿��� ���� ������ �̸����� �������ֽñ� �ٶ��ϴ�.<br/>"
-				+ "�̸��� ������ �Ϸ�Ǹ� ���������� ����Ʈ �̿��� �����մϴ�.<br/>" + "<a href='http://localhost:8080" + req.getContextPath()
-				+ "/user/key_alter?id=" + id + "&key=" + key + "'>�����ϱ�</a><br/>"
-				+ "(Ȥ�� �߸� ���޵� �����̶�� �� �̸����� �����ϼŵ� �˴ϴ�) <br/>" + "<hr/>" + "VOLUME" + "</div>";
+		final String title = id + "님께(VOLUME올림)";
+		final String htmlStr ="<div>"
+	            +"<div>"+ id +"님, 저희 서비스를 이용해주셔서 감사합니다.</div>"
+	            +"VOLUME서비스 이용을 위해 고객님의 이메일을 인증해주시기 바랍니다.<br/>"
+	            +"이메일 인증이 완료되면 정상적으로 사이트 이용이 가능합니다.<br/>"
+	            + "<a href='http://localhost:8080" + req.getContextPath() + "/user/key_alter?id="+ id +"&key="+key+"'>인증하기</a><br/>"
+	            +"(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다) <br/>"
+	            +"<hr/>"
+	            +"VOLUME올림"
+	         +"</div>";
 		sqlSession.getMapper(UserImpl.class).GetKey(id, key);
 
 		final MimeMessagePreparator preparator = new MimeMessagePreparator() {
@@ -226,15 +240,17 @@ public class LoginController {
 
 		try {
 			mailSender.send(preparator);
-			model.addAttribute("mailResult", "������ ����߼� �Ǿ����ϴ�");
+			resp.getWriter().println("<script>alert('이메일을발송했습니다 메일인증후사용해주세요');location.href='./';</script>");
+			
+			return null;
 		} catch (Exception e) {
-			System.out.println("���ܹ߻�");
-			model.addAttribute("mailResult", "���Ϲ߼ۿ���");
+			System.out.println("메일인증오류");
+			model.addAttribute("mailResult", "메일전송에 실패했어요1");
 			e.printStackTrace();
 		}
 
-		session.setAttribute("login", dto);
-		mv.setViewName("home");
+		//session.setAttribute("login", dto);
+		mv.setViewName("redirect:/");
 
 		return mv;
 	}
@@ -245,7 +261,7 @@ public class LoginController {
 
 		sqlSession.getMapper(UserImpl.class).alter_userKey(id, key);
 
-		return "home";
+		return "redirect:/";
 	}
 
 	@RequestMapping("/idCheck.do")

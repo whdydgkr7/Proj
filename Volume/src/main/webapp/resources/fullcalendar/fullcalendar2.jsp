@@ -30,7 +30,7 @@
             $.ajax({
                type: "POST",
                  contentType: "application/json; charset=utf-8", 
-                 url: "CalendarView.do", 
+                 url: "CalendarView2.do", 
                  dataType: 'json',
                  success: function(data){
                     console.log(data);

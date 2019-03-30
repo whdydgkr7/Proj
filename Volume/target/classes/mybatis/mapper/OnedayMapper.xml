@@ -85,4 +85,8 @@ VALUES (eBBS_seq.NEXTVAL,'${id}','${title}','${content}',sysdate,TO_DATE('${star
 	<select id="selectbbs" resultType="String">
 	SELECT COUNT(*) FROM Eentry  WHERE idx=#{0}
 	 </select>
+	 
+	   <select id="clist" resultType="model.ProjectBbsDTO">
+      SELECT * FROM Ebbs ORDER BY idx DESC
+      </select>
 </mapper>   

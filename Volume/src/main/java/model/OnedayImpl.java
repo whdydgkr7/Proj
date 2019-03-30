@@ -72,6 +72,10 @@ public interface OnedayImpl {
 
 
 
+	public ArrayList<OnedayDTO> clist();
+
+
+
 	
 
 

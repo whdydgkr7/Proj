@@ -192,4 +192,32 @@ public class OneDayController {
         
         }
     }
+    
+    
+    //원데이클래스 캘린더
+    @RequestMapping("Calendar2.do")
+    public String fullcalendar (Model model) {
+       
+       
+       return "fullcalendarView2";
+    }
+    
+    
+    @RequestMapping(value="/CalendarView2.do")
+     @ResponseBody
+     public ArrayList<OnedayDTO> projectBbsView(Model model, HttpServletRequest req){
+       ArrayList<OnedayDTO> list = new ArrayList<OnedayDTO>();
+       
+       ArrayList<OnedayDTO> clist= sqlSession.getMapper(OnedayImpl.class).clist();
+       
+
+       if(clist==null) {
+       }
+       else {
+          list.addAll(clist);
+          
+       }
+         return list;
+     }   
+
 }
