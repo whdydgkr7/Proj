@@ -67,6 +67,8 @@ table.greenTable tbody td {
 
 <jsp:include page="/resources/navbar/navbarTop.jsp" />
 <body class="w3-theme-l5">
+
+
 	
 	<!-- Navbar -->
 	<!-- <div class="w3-row">
@@ -96,7 +98,8 @@ table.greenTable tbody td {
 
 				<div class="w3-container w3-card w3-white w3-round w3-margin"
 					style="border: solid white 1px;">
-
+					<input type="hidden" value="${onedayDTO.id}" id="id">
+					<input type="hidden" value="${onedayDTO.idx}" id="idx">
 					<div class="w3-row-padding"
 						style="margin: 0 -16px; border: solid white 1px;">
 						<div class="w3-half" style="margin-left: 10%; width: 700px;">
@@ -233,13 +236,9 @@ table.greenTable tbody td {
 				<div class="w3-container" style="text-align: center;">
 						<h2 style="font-weight: bold;'">클래스 참가인원</h2>
 
-						<div class="w3-light-grey">
-							<div id="myBar" class="w3-container w3-green"
-								style="height: 24px; width: 0%"></div>
-						</div>
 
-						<p id="myP">
-							현재 인원 <span id="demo">0</span> / 총 100 명
+						<p id="myP" style="font-size: 40px; font-weight:bold;">
+							현재 인원 <span id="demo"></span>${num } 명  / 총 ${onedayDTO.e_limit } 명
 						</p>
 						<p id="Cmyp">참가하기를 클릭해주세요</p>
 
@@ -247,26 +246,36 @@ table.greenTable tbody td {
 						<button class="w3-button w3-lime" onclick="move();">참가하기</button>
 					</div>
 					<hr>
-					<script>
+<script>
 						function move() {
-							var elem = document.getElementById("myBar");
-							var width = 0;
-							width = parseInt(elem.style.width);
 
-							if (width >= 100) {
-								clearInterval(id);
-								alert("정원초과입니다");
-							} else {
-								width += 1;
-								elem.style.width = width + '%';
-								var num = parseInt(elem.style.width);
-								num = num.toFixed(0)
-								document.getElementById("demo").innerHTML = num;
-								document.getElementById("Cmyp").className = "w3-text-green w3-animate-opacity";
-								document.getElementById("Cmyp").innerHTML = "참가 신청되었습니다.!";
-								alert("참가신청이 완료되었습니다.")
-								//location.href="";
-							}
+
+								$.ajax({
+									//요청할 서버의 페이지 경로(form의 action과 동일)
+									url : "joinClass",
+									//응답결과의 데이터 형식 (jsonm xml, html 등)
+									dataType : "html",
+									//전송방식
+									type : "get",
+									data : {
+										id : $('#id').val(),
+										idx : $('#idx').val()
+									},
+									//서버로 전송시의 컨텐츠 타입
+									contentType : "text.html;charset:utf-8",
+
+									//요청 성공 시 콜백 메소드
+									success : function(data) {
+										alert(data);
+									},
+									//요청 실패 시 콜백 메소드
+									error : function(e) {
+										alert("오류발생:" + e.status + ":"
+												+ e.statusText);
+									}
+								});
+							
+
 						}
 					</script>
 
@@ -457,7 +466,7 @@ table.greenTable tbody td {
 						<hr>
 						<p>
 							<i class="fa fa-book fa-fw w3-margin-right w3-text-theme"></i>
-							수업시간 : ${boardInfo.t_time }
+						 님
 						</p>
 						<p>
 							<i class="fa fa-map-marker fa-fw w3-margin-right w3-text-theme"></i>

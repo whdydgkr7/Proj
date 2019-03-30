@@ -105,7 +105,7 @@ html, body {
 					</div>
 					<div class="input-group" style="margin-left: 50px;">
 						<div class="input-group-btn">
-							<button type="button" style="height: 50px; width: 200px; border-radius: 15px;"  onclick="window.open('Calendar.do','window_name','width=1000,height=600,location=no,status=no,scrollbars=no');">
+							<button type="button" style="height: 50px; width: 200px; border-radius: 15px;"  onclick="window.open('Calendar2.do','window_name','width=1000,height=600,location=no,status=no,scrollbars=no');">
 								<i class="glyphicon glyphicon-calendar" style="font-size: 18px; font-weight: bold;">일정보기</i>
 							</button>
 						</div>

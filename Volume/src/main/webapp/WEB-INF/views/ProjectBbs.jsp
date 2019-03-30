@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <title>W3.CSS Template</title>
@@ -142,15 +143,15 @@ background-color:#F2F3F2;
 												</c:otherwise>		
 											</c:choose>			
 										
-										<td class="text-center">${row.start_date }</td>
-										<td class="text-center">${row.end_date }</td>
+										<td class="text-center">${fn:substring(row.start_date,0,11)}</td>
+										<td class="text-center">${fn:substring(row.end_date,0,11)}</td>
 										<td class="text-center">
 										<a href="./ProjectBbsViewController.do?idx=${row.idx}"> 
 											${row.title}</a></td>
 										<td class="text-left">
 										<a href="./ProjectBbsViewController.do?idx=${row.idx}">${row.content}</a>
 										</td>
-										<td class="text-center">${row.rec_count }</td>
+										<td class="text-center">${row.recommend }</td>
 										<td class="text-center">${row.visit_count }</td>
 										<td class="text-center">${row.postdate }</td>
 										<td class="text-center"> 			

@@ -91,8 +91,8 @@ table.greenTable tbody td {
 				ArrayList<ProjectBbsDTO> dto = (ArrayList<ProjectBbsDTO>) request.getAttribute("lists");
 				String id = "";
 				int visitcount = 0;
-				Date sdate = null;
-				Date edate = null;
+				String sdate = null;
+				String edate = null;
 				String content = "";
 				int m_limits = 0;
 				String title = null;
@@ -160,8 +160,8 @@ table.greenTable tbody td {
 						</c:choose>
 						<br>
 						<h2><%=title%>
-							<input type="hid-den" id="id" name="id" value="<%=id%>">
-							<input type="hid-den" id="idx" name="idx" value="<%=idx%>">
+							<input type="hidden" id="id" name="id" value="<%=id%>">
+							<input type="hidden" id="idx" name="idx" value="<%=idx%>">
 						</h2>
 						<br>
 
@@ -357,7 +357,8 @@ table.greenTable tbody td {
 							
 						</p>
 
-
+						<p id="Cmyp">참가하기를 클릭해주세요</p>	
+						
 						<!-- 한번 신청하면 더이상신청안되게하기 -->
 						<button class="w3-button w3-lime" type="submit" onclick="move();">참가하기</button>
 					</div>
