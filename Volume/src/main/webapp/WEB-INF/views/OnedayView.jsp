@@ -98,8 +98,8 @@ table.greenTable tbody td {
 
 				<div class="w3-container w3-card w3-white w3-round w3-margin"
 					style="border: solid white 1px;">
-					<input type="hidden" value="${onedayDTO.id}" id="id">
-					<input type="hidden" value="${onedayDTO.idx}" id="idx">
+					<input type="hi-dden" value="${onedayDTO.id}" id="id">
+					<input type="hi-dden" value="${onedayDTO.idx}" id="idx">
 					<div class="w3-row-padding"
 						style="margin: 0 -16px; border: solid white 1px;">
 						<div class="w3-half" style="margin-left: 10%; width: 700px;">
@@ -131,7 +131,9 @@ table.greenTable tbody td {
 												<%-- <%=size%> --%>
 											</h3>
 										</div>
-										<div class="w3-clear"></div>
+										<div class="w3-clear">
+											<h3>dd</h3>
+										</div>
 										<h4>후기수</h4>
 									</div>
 								</div>
