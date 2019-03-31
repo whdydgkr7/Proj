@@ -98,8 +98,10 @@ table.greenTable tbody td {
 
 				<div class="w3-container w3-card w3-white w3-round w3-margin"
 					style="border: solid white 1px;">
-					<input type="hidden" value="${onedayDTO.id}" id="id">
-					<input type="hidden" value="${onedayDTO.idx}" id="idx">
+					<input type="hi-dden" value="${onedayDTO.id}" id="id">
+					<input type="hi-dden" value="${onedayDTO.idx}" id="idx">
+					<input type="hi-dden" value="${onedayDTO.t_point}" id="point">
+					<input type="hi-dden" value="${login.id}" id="userid">
 					<div class="w3-row-padding"
 						style="margin: 0 -16px; border: solid white 1px;">
 						<div class="w3-half" style="margin-left: 10%; width: 700px;">
@@ -131,7 +133,11 @@ table.greenTable tbody td {
 												<%-- <%=size%> --%>
 											</h3>
 										</div>
-										<div class="w3-clear"></div>
+										<div class="w3-clear">
+											<h3>
+											후기수()
+											</h3>
+										</div>
 										<h4>후기수</h4>
 									</div>
 								</div>
@@ -142,7 +148,7 @@ table.greenTable tbody td {
 										</div>
 										<div class="w3-right">
 											<h3>
-												 ${ondayDTO.visit_count }
+												 ${onedayDTO.visit_count }
 											</h3>
 										</div>
 										<div class="w3-clear"></div>
@@ -157,7 +163,7 @@ table.greenTable tbody td {
 										</div>
 										<div class="w3-right">
 											<h3>
-												  0
+												  
 											</h3>
 										</div>
 										<div class="w3-clear"></div>
@@ -259,7 +265,9 @@ table.greenTable tbody td {
 									type : "get",
 									data : {
 										id : $('#id').val(),
-										idx : $('#idx').val()
+										idx : $('#idx').val(),
+										point: $('#point').val(),
+										userid: $('#userid').val()
 									},
 									//서버로 전송시의 컨텐츠 타입
 									contentType : "text.html;charset:utf-8",

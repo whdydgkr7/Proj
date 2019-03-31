@@ -9,6 +9,7 @@
     </style>
 <div class="w3">
 
+<<<<<<< HEAD
       <div class="w3-right w3-bar w3-white">
       <%if(session.getAttribute("login")!=null) { 
          if( !((UserDTO)session.getAttribute("login")).getAuthority().equals("ADMIN")) { %>
@@ -34,6 +35,30 @@
       </script>
       <%}%>
       </div>
+=======
+ 	   <div class="w3-right w3-bar w3-white">
+		<%if(session.getAttribute("login")!=null) { 
+			if( !((UserDTO)session.getAttribute("login")).getAuthority().equals("ADMIN")) { %>
+				<button type="button" class="w3-white w3-bar-item w3-button" style="z-index:1;width:160;;font-weight:bold;">${login.id }(${login.name }) 님 환영합니다.</button>
+				<button type="button" onclick="location.href='MyPage'" class="w3-bar-item w3-button" style="z-index:2;width:160px;font-weight:bold;">마이페이지</button>
+				<button type="button" onclick="location.href='logout'" class="w3-bar-item w3-button" style="z-index:3;width:160px;font-weight:bold;">로그아웃</button>
+				<span id="plusfriend-chat-button" data-plusfriend-id="_kxgxbkj" data-title="consult" data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true"></span>
+			<%} else {%>
+				<button type="button" onclick="location.href='http://localhost:8080/VolumeAdmin/admin/adminMain.jsp'" class="w3-bar-item w3-button" style="z-index:1;width:150px;font-weight:bold;">관리자페이지</button>
+				<button type="button" onclick="location.href='logout'" class="w3-bar-item w3-button" style="z-index:2;width:150px;font-weight:bold;">로그아웃</button>
+			<%} 
+		} 
+		else{%>
+			<button type="button" onclick="location.href='login'" class="w3-bar-item w3-button" style="z-index:1;width:160px;font-weight:bold; margin-left: 1700px;">로그인</button>
+			<%}
+		if(request.getParameter("logoutMsg")!=null) {%>
+		<script type="text/javascript">
+			alert('로그아웃 되었습니다.');
+		</script>
+		<%}%>
+		</div>
+
+>>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
  
  
   <div class="w3-bar w3-lime w3-card w3-center-align w3-large" >

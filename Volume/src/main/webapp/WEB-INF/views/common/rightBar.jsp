@@ -70,7 +70,7 @@ function inputValidate(f) {
 						<hr>
 						<p>
 							<i class="fa fa-heart fa-fw w3-margin-right w3-text-theme"></i>
-							Point : ${boardInfo.t_point }
+							Point : ${login.point} 점
 						</p>
 					</div>
 				</div>

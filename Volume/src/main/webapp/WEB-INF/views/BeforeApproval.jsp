@@ -144,7 +144,6 @@ html, body {
                   <th>추천수</th>
                   <th>조회수</th>
                   <th>작성일</th>
-                  <th>첨부파일</th>
                </thead>
                <tbody style="vertical-align: middle;">
                   <c:choose>
@@ -181,7 +180,7 @@ html, body {
                               </td>
                               <td class="text-center">${row.recommend }</td>
                               <td class="text-center">${row.visit_count }</td>
-                              <td class="text-center">${row.postdate }</td>
+                              <td class="text-center">${fn:substring(row.postdate,0,11)}</td>
 
 
                            </tr>

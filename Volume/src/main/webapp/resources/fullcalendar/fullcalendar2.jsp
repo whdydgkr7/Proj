@@ -57,7 +57,7 @@
             });
          },
          eventClick: function(event) {
-        	 location.href="./ProjectBbsViewController.do?idx="+event.idx;
+        	 location.href="./OndayViewController.do?idx="+event.idx;
         	 //alert(event.idx);
          }
          

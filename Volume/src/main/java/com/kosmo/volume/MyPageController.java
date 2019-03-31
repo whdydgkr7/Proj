@@ -27,12 +27,45 @@ import user.UserImpl;
 @Controller
 public class MyPageController {
 
+<<<<<<< HEAD
    @Autowired
    private SqlSession sqlSession;
+=======
+	@Autowired
+	private SqlSession sqlSession;
 
+	
+	
+>>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
+
+<<<<<<< HEAD
    @RequestMapping("/MyPage")
    public String Mypage(Model model, HttpServletRequest req) {
+=======
+	@RequestMapping("MyPage")
+	public String Mypage(Model model) {
+		return "MyPage/MyPageMain";
+		
+	}
+	
 
+	
+	@RequestMapping("/MyInfo.do")
+	public String MyInfo(HttpSession session,Model model) {
+		
+		UserDTO login=(UserDTO) session.getAttribute("login");
+		
+		model.addAttribute("login",login);
+		
+		
+		return "MyPage/MyInforView";
+	}
+	
+	@RequestMapping("/modifiAction.do")
+	public String ModifiAction(HttpSession session, Model model, HttpServletRequest req) {
+>>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
+
+<<<<<<< HEAD
       return "MyPage/MyPageMain";
    }
 
@@ -133,3 +166,56 @@ public class MyPageController {
    }
 
 }
+=======
+		UserDTO login=(UserDTO) session.getAttribute("login");
+		
+		model.addAttribute("login",login);
+		
+		return "MyPage/MyInformodifi";
+	}
+	
+	@RequestMapping("/modifityAction.do")
+	public String modifityAction(HttpSession session, Model model, HttpServletRequest req) {
+		String id=req.getParameter("id");
+		String pass=req.getParameter("pass");
+		String email=req.getParameter("email");
+		String name=req.getParameter("name");
+		
+
+		
+		
+		sqlSession.getMapper(UserImpl.class).Modifi(name, email, pass, id);
+		
+		
+		return "redirect:/loginAction?id="+id+"&pass="+pass;
+	}
+	
+	
+	@RequestMapping("/MyTakeProject.do")
+	public String MyTakeProject(Model model, HttpServletRequest req) {
+		String id= req.getParameter("id");
+		System.out.println("id"+id);
+		ArrayList<ProjectBbsDTO> lists=sqlSession.getMapper(MyPageImpl.class).ViewMyProj(id);
+		System.out.println(lists.size());
+		model.addAttribute("lists",lists);
+
+		
+		return "MyPage/MyTakeProject";
+	}
+	
+	@RequestMapping("/MyOfferProject.do")
+	public String MyOfferProject(Model model) {
+		return "MyPage/MyOfferProject";
+	}
+	@RequestMapping("/MyOneDayClass.do")
+	public String MyOneDayClass(Model model) {
+		return "MyPage/MyOneDayClass";
+	}
+	@RequestMapping("/MyProjectLatter.do")
+	public String MyProjectLatter(Model model) {
+		return "MyPage/MyProjectLatter";
+	}
+	
+	
+}
+>>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git

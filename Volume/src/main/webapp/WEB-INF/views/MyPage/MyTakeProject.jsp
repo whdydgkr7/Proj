@@ -69,6 +69,7 @@ background-color:#F2F3F2;
 
 <script type="text/javascript">
 window.onload= function() {
+<<<<<<< HEAD
 	$.ajax({
 			url: "MyPageProjView",
 			type: "get",
@@ -100,7 +101,69 @@ window.onload= function() {
 		});
 }
 </script>
+=======
+   $.ajax({
+         url: "MyPageProjView",
+         type: "get",
+         data: {
+            id: "<%=((UserDTO)(session.getAttribute("login"))).getId() %>"
+         },
+         contentType: "text/html;charset:utf-8;",
+         dataType: "json",
+         success: function(responseData) {
+            var str="";
+            $.each(responseData, function(index, data) {
+               str+="<tr id='"+data.id+"' style='background-color:white;' onmouseover=\"this.style.backgroundColor='#ffb0a5';\" onmouseout=\"this.style.backgroundColor='white';\">";
+               //str+="<td class='text-center'><input type='radio' name='user' id='"+data.id+"' value='"+data.id+"' onClick='selectAdmin(this.value);'/></td>";
+               str+="<td class='text-center'>"+data.idx+"</td>";
+               str+="<td class='text-center'>"+data.id+"</td>";
+               str+="<td class='text-center'>"+data.title+"</td>";
+               str+="<td class='text-center'>"+data.postdate+"</td>";
+               str+="<td class='text-center'>"+data.visit_count+"</td>";
+               str+="<td class='text-center'>"+data.attachedfile+"</td>";
+               str+="<td class='text-center'>"+data.m_limit+"</td>";
+               str+="<td class='text-center'>"+data.add_point+"</td>";
+               str+="</tr>";
+            });
+            $("#ajaxProj").html(str);
+         },   
+         error: function(errorData) {
+            alert("오류발생:"+errorData.status+": "+errorData.statusText);
+         }
+      });
+}
+</script>
 
+<!-- <script type="text/javascript">
+   
+   function changeView(value){
+      
+      if(value == "0"){
+         location.href="MyInfo.do";
+         
+      }
+      else if(value == "1"){
+         location.href="MyTakeProject.do";
+      }
+      else if(value == "2"){
+         location.href="MyOfferProject.do";
+      }
+      else if(value == "3"){
+         location.href="MyOneDayClass.do";
+      }
+      else if(value == "4"){
+         location.href="MyProjectLatter.do";
+      }
+   }
+
+</script> -->
+<body>
+<div>
+   <jsp:include page="../../../resources/navbar/navbarTop.jsp" />
+<div>
+>>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
+
+<<<<<<< HEAD
 <!-- <script type="text/javascript">
 	
 	function changeView(value){
@@ -214,6 +277,94 @@ window.onload= function() {
 	
 	
 	<jsp:include page="../../../resources/navbar/footer.jsp" />
+=======
+   <!-- First Grid -->
+   <div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 1500px; ">
+      <h1 class="w3-text-BLACK" style="font-weight:bold;">내가 참여한 프로젝트</h1>
+      <div class="w3-row">
+           
+                 
+                            
+              <table class="table table-success"style="width:90%; margin:10px;">
+                 <thead class="w3-lime">
+                   <th>이미지</th>
+                   <th>프로젝트시작일</th> 
+                   <th>프로젝트마감일</th>
+                   <th>프로젝트명</th>
+                   <th>프로젝트 내용</th>   
+                     <th>추천수</th>                    
+                   <th>조회수</th>                   
+                   <th>작성일</th>
+                   <th>첨부파일</th>
+                 </thead>
+                <tbody>
+                  <c:choose>
+                     <c:when test="${empty lists }">
+                        <tr>
+                           <td colspan="8" class="text-center">
+                              등록된 프로젝트가 없습니다.
+                           </td>
+                        </tr>
+                     </c:when>
+                     <c:otherwise>
+                        <c:forEach items="${lists }" var="row" varStatus="loop">
+                           <!-- 리스트반복시작 -->                           
+                                                         
+                                 <c:choose>
+                                    <c:when test=" ${not empty row.thumbnail }" >
+                                    <td class="text-center" > 
+                                       <img src="./resources/thumbnail/${row.thumbnail}"  width="200" height="200">
+                                    </td>   
+                                    </c:when>
+                                    <c:otherwise>   
+                                    <td class="text-center">
+                                       <img src="./resources/images/defaultimage.jpg" width="200" height="200">
+                                    </td>
+                                    </c:otherwise>      
+                                 </c:choose>         
+                              
+                              <td class="text-center">${fn:substring(row.start_date,0,11)}</td>
+                              <td class="text-center">${fn:substring(row.end_date,0,11)}</td>
+                              <td class="text-center">
+                              <a href="./ProjectBbsViewController.do?idx=${row.idx}"> 
+                                 ${row.title}</a></td>
+                              <td class="text-left">
+                              <a href="./ProjectBbsViewController.do?idx=${row.idx}">${row.content}</a>
+                              </td>
+                              <td class="text-center">${row.recommend }</td>
+                              <td class="text-center">${row.visit_count }</td>
+                              <td class="text-center">${row.postdate }</td>
+                              <td class="text-center">          
+                                 <c:if test="${not empty row.attachedfile }">
+                                    <span class="glyphicon glyphicon-paperclip"></span>               
+                                 </c:if>
+                              </td>
+                                                                                                               
+
+                        
+                              <td class="text-center w3-text-lime"  style="font-size: 20px; color: #F2F3F2; ">
+                              <i class="glyphicon glyphicon-edit" ></i>
+                              </td>
+                              <td class="text-center w3-text-lime" style="font-size: 20px; color: #F2F3F2;" >
+                              <i class="glyphicon glyphicon-trash" ></i>
+                              </td>
+                        
+                           </tr>
+                           <!-- 리스트반복끝 -->
+                        </c:forEach>
+                     </c:otherwise>
+                  </c:choose>
+                </tbody>
+            </table>
+
+          
+       </div>
+   </div>
+</div>
+   
+   
+   <jsp:include page="../../../resources/navbar/footer.jsp" />
+>>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
 </div>
 </body>
 </html>

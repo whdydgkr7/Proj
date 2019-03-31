@@ -23,6 +23,13 @@ import model.OnedayDTO;
 import model.OnedayImpl;
 import model.PagingUtil;
 import model.ParamDTO;
+<<<<<<< HEAD
+=======
+import model.ProjectBbsDAOImpl;
+import model.ProjectBbsDTO;
+import user.UserDTO;
+import user.UserImpl;
+>>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
 
 @Controller
 public class OneDayController {
@@ -93,6 +100,7 @@ public class OneDayController {
 	@RequestMapping("OndayViewController.do")
 	public String PrjectBbsView(Model model, HttpServletRequest req) {
 		String idx = req.getParameter("idx");
+		//String id = req.getParameter("id");
 		OnedayDTO onedayDTO = new OnedayDTO();
 		
         String num = sqlSession.getMapper(OnedayImpl.class).selectbbs(idx);
@@ -101,6 +109,7 @@ public class OneDayController {
         }
 		
 		
+        sqlSession.getMapper(OnedayImpl.class).visit(idx);
 		onedayDTO = sqlSession.getMapper(OnedayImpl.class).exView(idx);
 		model.addAttribute("onedayDTO", onedayDTO);
 
@@ -166,17 +175,22 @@ public class OneDayController {
 	//수강신청
     @RequestMapping("joinClass")
     @ResponseBody
-    public void join(@RequestParam("idx") String idx,@RequestParam("id") String id, HttpServletResponse resp) throws IOException {
+    public void join(@RequestParam("idx") String idx,@RequestParam("id") String id,@RequestParam("userid") String userid,
+    		@RequestParam("point") String point, HttpServletResponse resp) throws IOException {
   	  resp.setContentType("text/html;charset=UTF-8");
   	  System.out.println("id1111:"+id);
   	  System.out.println("idx1111:"+idx);
+  	  System.out.println("point"+point);
+  	  System.out.println("userid"+userid);
   	  
         String joinMessage="";
-        int canjoin =sqlSession.getMapper(OnedayImpl.class).confirmjoin(idx,id);
+        int canjoin =sqlSession.getMapper(OnedayImpl.class).confirmjoin(idx,userid);
      
         System.out.println("onedayclassjoin:"+canjoin);
         if(canjoin==0) {
-      	  sqlSession.getMapper(OnedayImpl.class).join(idx,id);
+      	  sqlSession.getMapper(OnedayImpl.class).join(idx,userid);
+      	  //참가하기누르면 포인트 차감
+      	  sqlSession.getMapper(UserImpl.class).point(point,userid);
 	        	  resp.getWriter().println("참가신청되었습니다.");
 	        	  
       	  
@@ -205,6 +219,9 @@ public class OneDayController {
        ArrayList<OnedayDTO> list = new ArrayList<OnedayDTO>();
        
        ArrayList<OnedayDTO> clist= sqlSession.getMapper(OnedayImpl.class).clist();
+       //포인트사용
+       //ArrayList<UserDTO> point= sqlSession.getMapper(UserImpl.class).userPoint();
+       
        
 
        if(clist==null) {

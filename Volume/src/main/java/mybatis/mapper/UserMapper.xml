@@ -41,6 +41,12 @@
        SELECT pass FROM users WHERE email = #{user_email}
     </select>
 
+<<<<<<< HEAD
+=======
+    
+    <!-- 포인트사용하기 -->
+    <update id="point" > update users set point=point-#{0} where id=#{1}</update>
+>>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
     
     <!-- 임시 비번 업데이트 -->
 	<update id="randomPassUpdate" parameterType="String">
@@ -52,7 +58,15 @@
 		UPDATE users SET name=#{0},email=#{1},pass=#{2}  WHERE id =#{3}
 	</update>
 	
+<<<<<<< HEAD
 
 	
 </mapper>
+=======
+   
+</mapper>
+
+
+
+>>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
 

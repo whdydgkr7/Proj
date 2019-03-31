@@ -58,7 +58,10 @@ public interface BeforeApprovalImpl {
 
 
    //추천중복확인
-   public int confirmrec(String idx, String id);
+   public int confirmrec(String idx, String sessionid);
+
+  //ppropse에 추천한 사람 등록 
+  public void addppropose(String idx, String sessionid);
 
 
 

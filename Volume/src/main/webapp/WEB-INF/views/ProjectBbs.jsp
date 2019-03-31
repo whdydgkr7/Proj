@@ -107,15 +107,15 @@ background-color:#F2F3F2;
 					  			  
 			  	<table class="table table-success"style="width:90%; margin:10px;">
 					  <thead class="w3-lime">
-					    <th>이미지</th>
-					    <th>프로젝트시작일</th> 
-					    <th>프로젝트마감일</th>
-					    <th>프로젝트명</th>
-					    <th>프로젝트 내용</th>	
-					   	<th>추천수</th>	 				    
-					    <th>조회수</th>					    
-					    <th>작성일</th>
-					    <th>첨부파일</th>
+					    <th class="text-center">이미지</th>
+					    <th class="text-center">프로젝트시작일</th> 
+					    <th class="text-center">프로젝트마감일</th>
+					    <th class="text-center">프로젝트명</th>
+					    <th class="text-center">프로젝트 내용</th>	
+					   	<th class="text-center">추천수</th>	 				    
+					    <th class="text-center">조회수</th>					    
+					    <th class="text-center">작성일</th>
+
 					  </thead>
 					 <tbody>
 						<c:choose>
@@ -153,14 +153,26 @@ background-color:#F2F3F2;
 										</td>
 										<td class="text-center">${row.recommend }</td>
 										<td class="text-center">${row.visit_count }</td>
-										<td class="text-center">${row.postdate }</td>
-										<td class="text-center"> 			
-											<c:if test="${not empty row.attachedfile }">
-												<span class="glyphicon glyphicon-paperclip"></span>					
-											</c:if>
-										</td>
-																																					
+										<td class="text-center">${fn:substring(row.postdate,0,10)}</td>
 
+																																					
+<<<<<<< HEAD
+
+=======
+<%-- 										<%
+										  String id =request.getAttribute("id").toString();
+										  String user_id="";
+										  if(session.getAttribute("id")!=null){
+											  user_id=session.getAttribute("id").toString();
+										  }
+										 if(id.equals(user_id)){		
+										%>  --%>
+								<% 
+								
+								
+								
+								%>
+>>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
 								
 										<td class="text-center w3-text-lime"  style="font-size: 20px; color: #F2F3F2; ">
 										<i class="glyphicon glyphicon-edit" ></i>
