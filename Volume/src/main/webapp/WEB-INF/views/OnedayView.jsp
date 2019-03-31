@@ -132,7 +132,9 @@ table.greenTable tbody td {
 											</h3>
 										</div>
 										<div class="w3-clear">
-											<h3>dd</h3>
+											<h3>
+											후기수()
+											</h3>
 										</div>
 										<h4>후기수</h4>
 									</div>
@@ -144,7 +146,7 @@ table.greenTable tbody td {
 										</div>
 										<div class="w3-right">
 											<h3>
-												 ${ondayDTO.visit_count }
+												 
 											</h3>
 										</div>
 										<div class="w3-clear"></div>
@@ -159,7 +161,7 @@ table.greenTable tbody td {
 										</div>
 										<div class="w3-right">
 											<h3>
-												  0
+												  
 											</h3>
 										</div>
 										<div class="w3-clear"></div>

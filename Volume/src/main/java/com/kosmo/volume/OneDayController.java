@@ -104,6 +104,7 @@ public class OneDayController {
         }
 		
 		
+        sqlSession.getMapper(OnedayImpl.class).visit(idx);
 		onedayDTO = sqlSession.getMapper(OnedayImpl.class).exView(idx);
 		model.addAttribute("onedayDTO", onedayDTO);
 

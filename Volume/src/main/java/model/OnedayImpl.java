@@ -57,22 +57,16 @@ public interface OnedayImpl {
 
 
 	public ArrayList<OnedayDTO> mainebbs();
-
-
-
 	public int confirmjoin(String idx, String id);
-
-
 
 	public void join(String idx, String id);
 
-
-
 	public String selectbbs(String idx);
 
-
-
 	public ArrayList<OnedayDTO> clist();
+
+	//조회수증가
+	public void visit(String idx);
 
 
 

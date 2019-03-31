@@ -59,6 +59,10 @@
 	<select id="exView" resultType="model.OnedayDTO">
 		SELECT * FROM ebbs WHERE IDX = #{0}
 	</select>
+	<!-- 조회수증가 -->
+	<update id="visit" >
+      update ebbs set VISIT_COUNT= VISIT_COUNT+1 where idx=#{idx}
+   </update>
 
     <insert id="write" parameterType="model.OnedayDTO">
 INSERT INTO ebbs (IDX,ID,TITLE ,CONTENT, POSTDATE,START_DATE,END_DATE, ADDRESS, VISIT_COUNT,T_METHOD,T_TIME,T_POINT,ATTACHEDFILE, THUMBNAIL,E_LIMIT,STATE, REPORT_COUNT) 
