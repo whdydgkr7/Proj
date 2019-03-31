@@ -3,126 +3,123 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
-    
-    <mapper namespace="model.OnedayImpl">
-   
-   <select id="list" resultType="model.OnedayDTO">
-      SELECT * FROM ebbs ORDER BY idx DESC
-   </select>
 
-   
-   
-   <!-- 방명록 페이지 처리 -->
-   <!-- 전체 게시물수 카운트 -->
-   <select id="getTotalCount" resultType="int">
-      SELECT COUNT(*) FROM ebbs
-   </select>
-   
-   <select id="listPage" resultType="model.OnedayDTO">
-      SELECT * FROM (
-         SELECT Tb.*, rownum rNum FROM (
-            SELECT * FROM ebbs ORDER BY idx DESC
-         ) Tb
-      )
-      WHERE rNum BETWEEN #{param1} AND #{param2}
-   </select>
-   
-   
-   <!-- 전체 게시물수 카운트 : 검색기능추가 -->
-   <select id="getTotalCountSearch" resultType="int" 
-      parameterType="model.ParamDTO">
-      SELECT COUNT(*) FROM ebbs
-      <if test="!keyString.equals('') and keyString!=null">
-         WHERE ${keyField} like '%'||#{keyString}||'%'
-         </if> 
-   </select> 
 
-<<<<<<< HEAD
-   
-   <select id="listPageSearch" 
-      resultType="model.OnedayDTO" 
-      parameterType="model.ParamDTO">
-      SELECT * FROM (
-         SELECT Tb.*, rownum rNum FROM (
-            SELECT * FROM ebbs 
-            <if test="!keyString.equals('') and keyString!=null">
-               WHERE ${keyField} like '%'||#{keyString}||'%'
-               </if> 
-            ORDER BY idx DESC
-         ) Tb
-      )
-      WHERE rNum BETWEEN ${start} AND ${end}
-   </select>
-   
-   <!-- 상세보기  -->
-   
-   <select id="exView" resultType="model.OnedayDTO">
-      SELECT * FROM ebbs WHERE IDX = #{0}
-   </select>
-=======
-	
-	<select id="listPageSearch" 
-		resultType="model.OnedayDTO" 
+<mapper namespace="model.OnedayImpl">
+
+	<select id="list" resultType="model.OnedayDTO">
+		SELECT * FROM ebbs ORDER BY idx
+		DESC
+	</select>
+
+
+
+	<!-- 방명록 페이지 처리 -->
+	<!-- 전체 게시물수 카운트 -->
+	<select id="getTotalCount" resultType="int">
+		SELECT COUNT(*) FROM ebbs
+	</select>
+
+	<select id="listPage" resultType="model.OnedayDTO">
+		SELECT * FROM (
+		SELECT Tb.*,
+		rownum rNum FROM (
+		SELECT * FROM ebbs ORDER BY idx DESC
+		) Tb
+		)
+		WHERE rNum
+		BETWEEN #{param1} AND #{param2}
+	</select>
+
+
+	<!-- 전체 게시물수 카운트 : 검색기능추가 -->
+	<select id="getTotalCountSearch" resultType="int"
+		parameterType="model.ParamDTO">
+		SELECT COUNT(*) FROM ebbs
+		<if test="!keyString.equals('') and keyString!=null">
+			WHERE ${keyField} like '%'||#{keyString}||'%'
+		</if>
+	</select>
+
+
+	<select id="listPageSearch" resultType="model.OnedayDTO"
 		parameterType="model.ParamDTO">
 		SELECT * FROM (
-			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM ebbs 
-				<if test="!keyString.equals('') and keyString!=null">
-					WHERE ${keyField} like '%'||#{keyString}||'%'
-			   	</if> 
-				ORDER BY idx DESC
-			) Tb
+		SELECT Tb.*, rownum rNum FROM (
+		SELECT * FROM ebbs
+		<if test="!keyString.equals('') and keyString!=null">
+			WHERE ${keyField} like '%'||#{keyString}||'%'
+		</if>
+		ORDER BY idx DESC
+		) Tb
 		)
 		WHERE rNum BETWEEN ${start} AND ${end}
 	</select>
-	
-	<!-- 상세보기  -->
-	
-	<select id="exView" resultType="model.OnedayDTO">
-		SELECT * FROM ebbs WHERE IDX = #{0}
-	</select>
-	<!-- 조회수증가 -->
-	<update id="visit" >
-      update ebbs set VISIT_COUNT= VISIT_COUNT+1 where idx=#{idx}
-   </update>
->>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
 
-    <insert id="write" parameterType="model.OnedayDTO">
-INSERT INTO ebbs (IDX,ID,TITLE ,CONTENT, POSTDATE,START_DATE,END_DATE, ADDRESS, VISIT_COUNT,T_METHOD,T_TIME,T_POINT,ATTACHEDFILE, THUMBNAIL,E_LIMIT,STATE, REPORT_COUNT) 
-VALUES (eBBS_seq.NEXTVAL,'${id}','${title}','${content}',sysdate,TO_DATE('${start_date}', 'YYYY-MM-DD'),'1999-10-10' ,'${address}',0,'${t_method}','${t_time}','${t_point}',0,'${thumbnail}','${e_limit}','${state}',0)
-      </insert>
-   
-   
-   <select id="mainebbs" resultType="model.OnedayDTO">
-        SELECT * FROM (SELECT * FROM ebbs ORDER BY idx DESC) WHERE ROWNUM<![CDATA[ < ]]>=4
-   </select>
-   
-   
-        <!--참가중복확인 -->
-     <select id="confirmjoin" resultType="int">
-        SELECT count(*) FROM Eentry WHERE idx=#{0} AND id=#{1}
-     </select>
-     
-     <!--참가하기  -->
-     <insert id="join">
-     INSERT INTO Eentry (entry_idx,idx,id,regidate,state) VALUES (pEntry_seq.NEXTVAL,#{0},#{1},sysdate,1)
-        </insert>   
-         
-        <!--현재 참가자수 뿌려주기  --> 
-   <select id="selectbbs" resultType="String">
-   SELECT COUNT(*) FROM Eentry  WHERE idx=#{0}
-    </select>
-    
-      <select id="clist" resultType="model.ProjectBbsDTO">
-      SELECT * FROM Ebbs ORDER BY idx DESC
-      </select>
-      
-      <!-- 마이페이지 - 참여 진행한 프로젝트  -->
-      <select id="myoneDay" resultType="model.OnedayDTO">
-       SELECT * FROM ebbs WHERE id =#{0}
-      </select>
-      
-      
-      
+	<!-- 상세보기 -->
+
+	<select id="exView" resultType="model.OnedayDTO">
+		SELECT * FROM ebbs WHERE IDX =
+		#{0}
+	</select>
+
+
+
+
+	<!-- 조회수증가 -->
+	<update id="visit">
+		update ebbs set VISIT_COUNT= VISIT_COUNT+1 where
+		idx=#{idx}
+	</update>
+
+	<insert id="write" parameterType="model.OnedayDTO">
+		INSERT INTO ebbs (IDX,ID,TITLE
+		,CONTENT, POSTDATE,START_DATE,END_DATE,
+		ADDRESS,
+		VISIT_COUNT,T_METHOD,T_TIME,T_POINT,ATTACHEDFILE,
+		THUMBNAIL,E_LIMIT,STATE, REPORT_COUNT)
+		VALUES
+		(eBBS_seq.NEXTVAL,'${id}','${title}','${content}',sysdate,TO_DATE('${start_date}',
+		'YYYY-MM-DD'),'1999-10-10'
+		,'${address}',0,'${t_method}','${t_time}','${t_point}',0,'${thumbnail}','${e_limit}','${state}',0)
+	</insert>
+
+
+	<select id="mainebbs" resultType="model.OnedayDTO">
+		SELECT * FROM (SELECT * FROM ebbs ORDER BY idx DESC) WHERE ROWNUM<![CDATA[ < ]]>=4
+	</select>
+
+
+	<!--참가중복확인 -->
+	<select id="confirmjoin" resultType="int">
+		SELECT count(*) FROM Eentry
+		WHERE idx=#{0} AND id=#{1}
+	</select>
+
+	<!--참가하기 -->
+	<insert id="join">
+		INSERT INTO Eentry (entry_idx,idx,id,regidate,state)
+		VALUES
+		(pEntry_seq.NEXTVAL,#{0},#{1},sysdate,1)
+	</insert>
+
+	<!--현재 참가자수 뿌려주기 -->
+	<select id="selectbbs" resultType="String">
+		SELECT COUNT(*) FROM Eentry
+		WHERE idx=#{0}
+	</select>
+
+	<select id="clist" resultType="model.ProjectBbsDTO">
+		SELECT * FROM Ebbs ORDER BY idx
+		DESC
+	</select>
+
+	<!-- 마이페이지 - 참여 진행한 프로젝트 -->
+	<select id="myoneDay" resultType="model.OnedayDTO">
+		SELECT * FROM ebbs WHERE id
+		=#{0}
+	</select>
+
+
+
 </mapper>   

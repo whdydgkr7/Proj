@@ -23,214 +23,201 @@ import model.OnedayDTO;
 import model.OnedayImpl;
 import model.PagingUtil;
 import model.ParamDTO;
-<<<<<<< HEAD
-=======
+
 import model.ProjectBbsDAOImpl;
 import model.ProjectBbsDTO;
 import user.UserDTO;
 import user.UserImpl;
->>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
+
 
 @Controller
 public class OneDayController {
-	
 
-	@Autowired
-	SqlSession sqlSession;
+   @Autowired
+   SqlSession sqlSession;
 
-	@Autowired
-	ServletContext servletContext;
-	
-	
-	@RequestMapping("/oneDay")
-	public String oneDay(Model model ,HttpServletRequest req) {
-		// 검색 처리
-		ParamDTO paramDTO = new ParamDTO();
-		String addQueryString = "";
-		String keyField = req.getParameter("keyField");
-		String keyString = req.getParameter("keyString");
-		if (keyString != null) {
-			addQueryString = String.format("keyField=%s" + "%keyString=%s&", keyField, keyString);
+   @Autowired
+   ServletContext servletContext;
 
-			paramDTO.setKeyField(keyField);
-			paramDTO.setKeyString(keyString);
-		}
+   @RequestMapping("/oneDay")
+   public String oneDay(Model model, HttpServletRequest req) {
+      // 검색 처리
+      ParamDTO paramDTO = new ParamDTO();
+      String addQueryString = "";
+      String keyField = req.getParameter("keyField");
+      String keyString = req.getParameter("keyString");
+      if (keyString != null) {
+         addQueryString = String.format("keyField=%s" + "%keyString=%s&", keyField, keyString);
 
-		// 검색어 처리
-		int totalRecordCount = sqlSession.getMapper(OnedayImpl.class).getTotalCount();
-		// 검색어에 따른 레코드 갯수 확인용
-		System.out.println("totalRecordCount=" + totalRecordCount);
+         paramDTO.setKeyField(keyField);
+         paramDTO.setKeyString(keyString);
+      }
 
-		// 페이지 처리를 위한 설정값
-		int pageSize = 5;
-		int blockPage = 10;
+      // 검색어 처리
+      int totalRecordCount = sqlSession.getMapper(OnedayImpl.class).getTotalCount();
+      // 검색어에 따른 레코드 갯수 확인용
+      System.out.println("totalRecordCount=" + totalRecordCount);
 
-		int totalPage = (int) Math.ceil((double) totalRecordCount / pageSize);
+      // 페이지 처리를 위한 설정값
+      int pageSize = 5;
+      int blockPage = 10;
 
-		// 시작 및 끝 rownum 구하기
-		int nowPage = req.getParameter("nowPage") == null ? 1 : Integer.parseInt(req.getParameter("nowPage"));
-		int start = (nowPage - 1) * pageSize + 1;
-		int end = nowPage * pageSize;
+      int totalPage = (int) Math.ceil((double) totalRecordCount / pageSize);
 
-		// 검색처리를 위한 추가부분
-		paramDTO.setStart(start);
-		paramDTO.setEnd(end);
+      // 시작 및 끝 rownum 구하기
+      int nowPage = req.getParameter("nowPage") == null ? 1 : Integer.parseInt(req.getParameter("nowPage"));
+      int start = (nowPage - 1) * pageSize + 1;
+      int end = nowPage * pageSize;
 
-		/* Mybatis 이용 */
-		ArrayList<OnedayDTO> lists = sqlSession.getMapper(OnedayImpl.class).listPageSearch(paramDTO);
+      // 검색처리를 위한 추가부분
+      paramDTO.setStart(start);
+      paramDTO.setEnd(end);
 
-		// 페이지 처리
-		String pagingImg = PagingUtil.pagingImg(totalRecordCount, pageSize, blockPage, nowPage,
-				req.getContextPath() + "/BeforeApproval.do?" + addQueryString);
+      /* Mybatis 이용 */
+      ArrayList<OnedayDTO> lists = sqlSession.getMapper(OnedayImpl.class).listPageSearch(paramDTO);
 
-		model.addAttribute("pagingImg", pagingImg);
+      // 페이지 처리
+      String pagingImg = PagingUtil.pagingImg(totalRecordCount, pageSize, blockPage, nowPage,
+            req.getContextPath() + "/BeforeApproval.do?" + addQueryString);
 
-		// 줄바꿈처리
-		for (OnedayDTO dto : lists) {
-			String temp = dto.getContent().replace("\r\n", "<br/>");
-			dto.setContent(temp);
+      model.addAttribute("pagingImg", pagingImg);
 
-		}
-		model.addAttribute("lists", lists);
-		
-		return "OneDay";
-	}
-	
-	// 상세보기
-	@RequestMapping("OndayViewController.do")
-	public String PrjectBbsView(Model model, HttpServletRequest req) {
-		String idx = req.getParameter("idx");
-		//String id = req.getParameter("id");
-		OnedayDTO onedayDTO = new OnedayDTO();
-		
-        String num = sqlSession.getMapper(OnedayImpl.class).selectbbs(idx);
-        if(!(num==null || num.equals(""))) {
-       	 model.addAttribute("num",num);
-        }
-		
-		
-        sqlSession.getMapper(OnedayImpl.class).visit(idx);
-		onedayDTO = sqlSession.getMapper(OnedayImpl.class).exView(idx);
-		model.addAttribute("onedayDTO", onedayDTO);
+      // 줄바꿈처리
+      for (OnedayDTO dto : lists) {
+         String temp = dto.getContent().replace("\r\n", "<br/>");
+         dto.setContent(temp);
 
-		return "OnedayView";
-	}	
-	// 글쓰기
-	@RequestMapping("OnedayWriteController.do")
-	public String OnedayWriteController(Model model, HttpServletRequest req, HttpSession session) {
-		if (session.getAttribute("login") == null) {
-			model.addAttribute("backUrl", "/OnedayWrite");
-			return "redirect:login.do";
-		}
+      }
+      model.addAttribute("lists", lists);
 
-		return "OnedayWrite";
-	}	
-	
-	
-	//글쓰기 처리
-	@RequestMapping("OnedayWriteAction.do")
-	public String OnedayWriteAction(Model model,  MultipartHttpServletRequest req) {
-		
-		
-		MultipartFile mf = req.getFile("thumbnail"); //업로드 파라미터
-		String path = req.getRealPath("./resources/thumbnail"); // 저장될 위치
-		String thumbnail= mf.getOriginalFilename();//업로드 파일이름
-		File uploadfile = new File(path+"//"+thumbnail);//복사될 위치
-		
-		try {
-			mf.transferTo(uploadfile);//업로드
-			
-			
-		}
-		catch (IllegalStateException e) {
-			e.printStackTrace();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+      return "OneDay";
+   }
 
-		String t_time = req.getParameter("start_time")+"~"+req.getParameter("end_time");
-		String state="wait";
-				
-		OnedayDTO onedayDTO = new OnedayDTO();
-		onedayDTO.setId(req.getParameter("id"));
-		onedayDTO.setTitle(req.getParameter("title"));
-		onedayDTO.setContent(req.getParameter("content"));
-		onedayDTO.setThumbnail(thumbnail);
-		onedayDTO.setE_limit(Integer.parseInt(req.getParameter("e_limit")));
-		onedayDTO.setStart_date(req.getParameter("start_date"));
-		onedayDTO.setT_time(t_time);
-		onedayDTO.setState(state);
-		onedayDTO.setAddress(req.getParameter("address"));
-		onedayDTO.setT_point(req.getParameter("t_point"));
-		onedayDTO.setT_method(req.getParameter("t_method"));
+   // 상세보기
+   @RequestMapping("OndayViewController.do")
+   public String PrjectBbsView(Model model, HttpServletRequest req) {
+      String idx = req.getParameter("idx");
+      // String id = req.getParameter("id");
+      OnedayDTO onedayDTO = new OnedayDTO();
 
-		ServletContext application = this.servletContext;
+      String num = sqlSession.getMapper(OnedayImpl.class).selectbbs(idx);
+      if (!(num == null || num.equals(""))) {
+         model.addAttribute("num", num);
+      }
 
-		sqlSession.getMapper(OnedayImpl.class).write(onedayDTO);
+      sqlSession.getMapper(OnedayImpl.class).visit(idx);
+      onedayDTO = sqlSession.getMapper(OnedayImpl.class).exView(idx);
+      model.addAttribute("onedayDTO", onedayDTO);
 
-		return "redirect:oneDay";
-	}
-	
-	//수강신청
-    @RequestMapping("joinClass")
-    @ResponseBody
-    public void join(@RequestParam("idx") String idx,@RequestParam("id") String id,@RequestParam("userid") String userid,
-    		@RequestParam("point") String point, HttpServletResponse resp) throws IOException {
-  	  resp.setContentType("text/html;charset=UTF-8");
-  	  System.out.println("id1111:"+id);
-  	  System.out.println("idx1111:"+idx);
-  	  System.out.println("point"+point);
-  	  System.out.println("userid"+userid);
-  	  
-        String joinMessage="";
-        int canjoin =sqlSession.getMapper(OnedayImpl.class).confirmjoin(idx,userid);
-     
-        System.out.println("onedayclassjoin:"+canjoin);
-        if(canjoin==0) {
-      	  sqlSession.getMapper(OnedayImpl.class).join(idx,userid);
-      	  //참가하기누르면 포인트 차감
-      	  sqlSession.getMapper(UserImpl.class).point(point,userid);
-	        	  resp.getWriter().println("참가신청되었습니다.");
-	        	  
-      	  
-        }
-        else {
-      	  resp.getWriter().println("이미 참가신청하셨습니다.");
-      	  //return joinMessage;
-        
-        
-        }
-    }
-    
-    
-    //원데이클래스 캘린더
-    @RequestMapping("Calendar2.do")
-    public String fullcalendar (Model model) {
-       
-       
-       return "fullcalendarView2";
-    }
-    
-    
-    @RequestMapping(value="/CalendarView2.do")
-     @ResponseBody
-     public ArrayList<OnedayDTO> projectBbsView(Model model, HttpServletRequest req){
-       ArrayList<OnedayDTO> list = new ArrayList<OnedayDTO>();
-       
-       ArrayList<OnedayDTO> clist= sqlSession.getMapper(OnedayImpl.class).clist();
-       //포인트사용
-       //ArrayList<UserDTO> point= sqlSession.getMapper(UserImpl.class).userPoint();
-       
-       
+      return "OnedayView";
+   }
 
-       if(clist==null) {
-       }
-       else {
-          list.addAll(clist);
-          
-       }
-         return list;
-     }   
+   // 글쓰기
+   @RequestMapping("OnedayWriteController.do")
+   public String OnedayWriteController(Model model, HttpServletRequest req, HttpSession session) {
+      if (session.getAttribute("login") == null) {
+         model.addAttribute("backUrl", "/OnedayWrite");
+         return "redirect:login.do";
+      }
+
+      return "OnedayWrite";
+   }
+
+   // 글쓰기 처리
+   @RequestMapping("OnedayWriteAction.do")
+   public String OnedayWriteAction(Model model, MultipartHttpServletRequest req) {
+
+      MultipartFile mf = req.getFile("thumbnail"); // 업로드 파라미터
+      String path = req.getRealPath("c:\\thumbnail"); // 저장될 위치
+      String thumbnail = mf.getOriginalFilename();// 업로드 파일이름
+      File uploadfile = new File(path + "//" + thumbnail);// 복사될 위치
+
+      try {
+         mf.transferTo(uploadfile);// 업로드
+
+      } catch (IllegalStateException e) {
+         e.printStackTrace();
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+
+      String t_time = req.getParameter("start_time") + "~" + req.getParameter("end_time");
+      String state = "wait";
+
+      OnedayDTO onedayDTO = new OnedayDTO();
+      onedayDTO.setId(req.getParameter("id"));
+      onedayDTO.setTitle(req.getParameter("title"));
+      onedayDTO.setContent(req.getParameter("content"));
+      onedayDTO.setThumbnail(thumbnail);
+      onedayDTO.setE_limit(Integer.parseInt(req.getParameter("e_limit")));
+      onedayDTO.setStart_date(req.getParameter("start_date"));
+      onedayDTO.setT_time(t_time);
+      onedayDTO.setState(state);
+      onedayDTO.setAddress(req.getParameter("address"));
+      onedayDTO.setT_point(req.getParameter("t_point"));
+      onedayDTO.setT_method(req.getParameter("t_method"));
+
+      ServletContext application = this.servletContext;
+
+      sqlSession.getMapper(OnedayImpl.class).write(onedayDTO);
+
+      return "redirect:oneDay";
+   }
+
+   // 수강신청
+   @RequestMapping("joinClass")
+   @ResponseBody
+   public void join(@RequestParam("idx") String idx, @RequestParam("id") String id,
+         @RequestParam("userid") String userid, @RequestParam("point") String point, HttpServletResponse resp)
+         throws IOException {
+      resp.setContentType("text/html;charset=UTF-8");
+      System.out.println("id1111:" + id);
+      System.out.println("idx1111:" + idx);
+      System.out.println("point" + point);
+      System.out.println("userid" + userid);
+      int canpoint = sqlSession.getMapper(UserImpl.class).canpoint(userid, point);
+      int canjoin = sqlSession.getMapper(OnedayImpl.class).confirmjoin(idx, userid);
+
+      System.out.println("onedayclassjoin:" + canjoin);
+      if (canjoin == 0) {
+         if (canpoint == 1) {
+            sqlSession.getMapper(OnedayImpl.class).join(idx, userid);
+            // 참가하기누르면 포인트 차감
+            sqlSession.getMapper(UserImpl.class).point(point, userid);
+            resp.getWriter().println("참가신청되었습니다.");
+         } else {
+            resp.getWriter().println("포인트가 부족합니다");
+         }
+      } else {
+         resp.getWriter().println("이미 참가신청하셨습니다.");
+         // return joinMessage;
+
+      }
+
+   }
+
+   // 원데이클래스 캘린더
+   @RequestMapping("Calendar2.do")
+   public String fullcalendar(Model model) {
+
+      return "fullcalendarView2";
+   }
+
+   @RequestMapping(value = "/CalendarView2.do")
+   @ResponseBody
+   public ArrayList<OnedayDTO> projectBbsView(Model model, HttpServletRequest req) {
+      ArrayList<OnedayDTO> list = new ArrayList<OnedayDTO>();
+
+      ArrayList<OnedayDTO> clist = sqlSession.getMapper(OnedayImpl.class).clist();
+      // 포인트사용
+      // ArrayList<UserDTO> point= sqlSession.getMapper(UserImpl.class).userPoint();
+
+      if (clist == null) {
+      } else {
+         list.addAll(clist);
+
+      }
+      return list;
+   }
 
 }

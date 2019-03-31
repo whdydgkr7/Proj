@@ -48,51 +48,26 @@ public interface OnedayImpl {
    //글쓰기
    public void write(OnedayDTO onedayDTO);
 
-
-
-
    //추천하기
    public void recommendAction(int idx);
 
-
-
-<<<<<<< HEAD
    public ArrayList<OnedayDTO> mainebbs();
 
 
-
    public int confirmjoin(String idx, String id);
-=======
-	public ArrayList<OnedayDTO> mainebbs();
-	public int confirmjoin(String idx, String id);
->>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
-
-<<<<<<< HEAD
 
 
    public void join(String idx, String id);
-=======
-	public void join(String idx, String id);
->>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
-
-<<<<<<< HEAD
 
 
    public String selectbbs(String idx);
-=======
-	public String selectbbs(String idx);
->>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
-
-<<<<<<< HEAD
 
 
    public ArrayList<OnedayDTO> clist();
    
    //마이페이지 - 내가(참여,진행)한 원데이 클래스
    public ArrayList<OnedayDTO> myoneDay(String id);
-=======
-	public ArrayList<OnedayDTO> clist();
->>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
+
 
 	//조회수증가
 	public void visit(String idx);

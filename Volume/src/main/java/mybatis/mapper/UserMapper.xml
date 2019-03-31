@@ -34,19 +34,18 @@
    
    <!-- 아이디 찾기 -->
     <select id="findId" parameterType="String" resultType="String">
-       SELECT id FROM users WHERE email = #{user_email} AND name = #{user_name}
+       SELECT id FROM users WHERE name = #{0} AND email = #{1}
     </select>
     <!-- 비밀번호 찾기 -->
     <select id="findPass" parameterType="String" resultType="String">
        SELECT pass FROM users WHERE email = #{user_email}
     </select>
 
-<<<<<<< HEAD
-=======
+
     
     <!-- 포인트사용하기 -->
     <update id="point" > update users set point=point-#{0} where id=#{1}</update>
->>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
+
     
     <!-- 임시 비번 업데이트 -->
 	<update id="randomPassUpdate" parameterType="String">
@@ -58,15 +57,20 @@
 		UPDATE users SET name=#{0},email=#{1},pass=#{2}  WHERE id =#{3}
 	</update>
 	
-<<<<<<< HEAD
+	<!--포인트  -->
+	<select id="canpoint" resultType="int">
+        SELECT count(*) FROM users WHERE point>=#{1} and id=#{0} 
+     </select>
+	
+
 
 	
 </mapper>
-=======
+
    
-</mapper>
 
 
 
->>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
+
+
 

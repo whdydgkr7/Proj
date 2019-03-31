@@ -155,10 +155,6 @@ background-color:#F2F3F2;
 										<td class="text-center">${row.visit_count }</td>
 										<td class="text-center">${fn:substring(row.postdate,0,10)}</td>
 
-																																					
-<<<<<<< HEAD
-
-=======
 <%-- 										<%
 										  String id =request.getAttribute("id").toString();
 										  String user_id="";
@@ -172,7 +168,7 @@ background-color:#F2F3F2;
 								
 								
 								%>
->>>>>>> branch 'master' of https://github.com/whdydgkr7/proj.git
+
 								
 										<td class="text-center w3-text-lime"  style="font-size: 20px; color: #F2F3F2; ">
 										<i class="glyphicon glyphicon-edit" ></i>

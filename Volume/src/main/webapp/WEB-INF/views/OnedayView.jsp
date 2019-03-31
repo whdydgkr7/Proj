@@ -464,27 +464,10 @@ table.greenTable tbody td {
 			<!--  Right Column -->
 			<div class="w3-col m4" style="padding: 80px;">
 				<!-- Profile -->
-				<div class="w3-card w3-round w3-white">
-					<div class="w3-container">
-						<h4 class="w3-center">My Profile</h4>
-						<p class="w3-center">
-							<img src="./resources/images/img_avatar1.png" class="w3-circle"
-								style="height: 106px; width: 106px" alt="Avatar">
-						</p>
-						<hr>
-						<p>
-							<i class="fa fa-book fa-fw w3-margin-right w3-text-theme"></i>
-						 님
-						</p>
-						<p>
-							<i class="fa fa-map-marker fa-fw w3-margin-right w3-text-theme"></i>
-							수업방식 : ${boardInfo.t_method }
-						</p>
-						<p>
-							<i class="fa fa-heart fa-fw w3-margin-right w3-text-theme"></i>
-							Point : ${boardInfo.t_point }
-						</p>
-					</div>
+				<div style="text-align: center;">
+					
+    				<jsp:include page="./common/rightBar.jsp"></jsp:include>
+    	
 				</div>
 				<br>
 

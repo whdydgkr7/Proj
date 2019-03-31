@@ -108,6 +108,7 @@ public class LoginController {
         String result = sqlSession.getMapper(UserImpl.class).findId(user_name, user_email);  //searchService.userIdSearch(user_name, user_email);
        System.out.println("user_name="+user_name);
         System.out.println("user_email="+user_email);
+        
         return result;
      }
      
@@ -216,7 +217,8 @@ public class LoginController {
    }  
 
    @RequestMapping("/registerAction")
-   public ModelAndView regiUserAction(Model model, HttpServletRequest req, HttpSession session) {
+   public ModelAndView regiUserAction(Model model, HttpServletRequest req, HttpSession session, HttpServletResponse resp) {
+      resp.setContentType("text/html;charset=UTF-8");
       ModelAndView mv = new ModelAndView();
 
       // ����,īī���� �����α��ν��ʿ�
@@ -248,12 +250,12 @@ public class LoginController {
       final String title = id + "님께(VOLUME올림)";
       final String htmlStr ="<div>"
                +"<div>"+ id +"님, 저희 서비스를 이용해주셔서 감사합니다.</div>"
-               +"똑닥똑닥서비스 이용을 위해 고객님의 이메일을 인증해주시기 바랍니다.<br/>"
+               +"VOLUME서비스 이용을 위해 고객님의 이메일을 인증해주시기 바랍니다.<br/>"
                +"이메일 인증이 완료되면 정상적으로 사이트 이용이 가능합니다.<br/>"
-               + "<a href='http://localhost:8080" + req.getContextPath() + "/user/key_alter?id="+ id +"&user_key="+key+"'>인증하기</a><br/>"
+               + "<a href='http://localhost:8080" + req.getContextPath() + "/user/key_alter?id="+ id +"&key="+key+"'>인증하기</a><br/>"
                +"(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다) <br/>"
                +"<hr/>"
-               +"똑닥똑닥드림"
+               +"VOLUME올림"
             +"</div>";
       sqlSession.getMapper(UserImpl.class).GetKey(id, key);
 
@@ -271,15 +273,17 @@ public class LoginController {
 
       try {
          mailSender.send(preparator);
-         model.addAttribute("mailResult", "메일전송이되었습니다");
+         resp.getWriter().println("<script>alert('이메일을발송했습니다 메일인증후사용해주세요');location.href='./';</script>");
+         
+         return null;
       } catch (Exception e) {
          System.out.println("메일인증오류");
          model.addAttribute("mailResult", "메일전송에 실패했어요1");
          e.printStackTrace();
       }
 
-      session.setAttribute("login", dto);
-      mv.setViewName("home");
+      //session.setAttribute("login", dto);
+      mv.setViewName("redirect:/");
 
       return mv;
    }
@@ -290,7 +294,7 @@ public class LoginController {
 
       sqlSession.getMapper(UserImpl.class).alter_userKey(id, key);
 
-      return "home";
+      return "redirect:/";
    }
 
    @RequestMapping("/idCheck.do")
