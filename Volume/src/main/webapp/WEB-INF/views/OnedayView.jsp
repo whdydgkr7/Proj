@@ -100,6 +100,8 @@ table.greenTable tbody td {
 					style="border: solid white 1px;">
 					<input type="hi-dden" value="${onedayDTO.id}" id="id">
 					<input type="hi-dden" value="${onedayDTO.idx}" id="idx">
+					<input type="hi-dden" value="${onedayDTO.t_point}" id="point">
+					<input type="hi-dden" value="${login.id}" id="userid">
 					<div class="w3-row-padding"
 						style="margin: 0 -16px; border: solid white 1px;">
 						<div class="w3-half" style="margin-left: 10%; width: 700px;">
@@ -146,7 +148,7 @@ table.greenTable tbody td {
 										</div>
 										<div class="w3-right">
 											<h3>
-												 
+												 ${onedayDTO.visit_count }
 											</h3>
 										</div>
 										<div class="w3-clear"></div>
@@ -263,7 +265,9 @@ table.greenTable tbody td {
 									type : "get",
 									data : {
 										id : $('#id').val(),
-										idx : $('#idx').val()
+										idx : $('#idx').val(),
+										point: $('#point').val(),
+										userid: $('#userid').val()
 									},
 									//서버로 전송시의 컨텐츠 타입
 									contentType : "text.html;charset:utf-8",

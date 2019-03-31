@@ -1,5 +1,7 @@
 package user;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserImpl {
@@ -26,4 +28,13 @@ public interface UserImpl {
    public String findId(@Param("user_name")String user_name, @Param("user_email")String user_email);
    //��й�ȣ ã��
    public String findPass(@Param("user_email")String user_email);
+
+   //포인트사용
+   public void point(String point, String userid);
+
+    
+
+	//public ArrayList<UserDTO> userPoint();
+    
+    
 }

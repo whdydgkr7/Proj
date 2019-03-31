@@ -40,5 +40,9 @@
     <select id="findPass" parameterType="String" resultType="String">
        SELECT pass FROM users WHERE email = #{user_email}
     </select>
+    
+    <!-- 포인트사용하기 -->
+    <update id="point" > update users set point=point-#{0} where id=#{1}</update>
+    
    
 </mapper>
