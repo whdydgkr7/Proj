@@ -1,3 +1,4 @@
+<%@page import="user.UserDTO"%>
 <%@page import="model.ProjectBbsDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Set"%>
@@ -64,6 +65,9 @@ table.greenTable tbody td {
    ProjectBbsDTO ProjectBbsDTO = (ProjectBbsDTO) request.getAttribute("ProjectBbsDTO");
    int idx = ProjectBbsDTO.getIdx();
    String thumbnail=ProjectBbsDTO.getThumbnail();
+   
+   
+   UserDTO login = (UserDTO) session.getAttribute("login");
 %>   
 
 <jsp:include page="/resources/navbar/navbarTop.jsp" />
@@ -96,8 +100,10 @@ table.greenTable tbody td {
                </h1>
             </header>
          </div>
-         <input type="hidden" id="idx" value="${ProjectBbsDTO.idx}">
-         <input type="hidden" id="id" value="${ProjectBbsDTO.id}">
+         
+         <input type="hid-den" id="idx" value="${ProjectBbsDTO.idx}">
+         <input type="hid-den" id="sessionid" value="${login.id}">
+         <input type="hid-den" id="id" value="${ProjectBbsDTO.id}">
          <div class="w3-container w3-card w3-white w3-round w3-margin"
             style="border: solid white 1px; text-align: center;">
 
@@ -305,7 +311,7 @@ table.greenTable tbody td {
                            //전송방식
                            type : "get",
                            data : {
-                              id : $('#id').val(),
+                        	   sessionid : $('#sessionid').val(),
                               idx : $('#idx').val()
                            },
                            //서버로 전송시의 컨텐츠 타입

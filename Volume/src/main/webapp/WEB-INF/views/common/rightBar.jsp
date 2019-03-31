@@ -41,8 +41,8 @@ function inputValidate(f) {
 	        <br />
 		    <div class="form-group">
 			  <button class="w3-button w3-lime w3-small" type="submit" >로그인</button>&nbsp;
-			  <button class="w3-button w3-orange w3-small" type="button">ID 찾기</button>&nbsp;
-			  <button class="w3-button w3-green w3-small" type="button">PW 찾기</button>
+			  <button class="w3-button w3-orange w3-small" type="button" onclick="location.href='findId';">ID 찾기</button>&nbsp;
+			  <button class="w3-button w3-green w3-small" type="button" onclick="location.href='findPass';">PW 찾기</button>
 		    </div>                           
 		</form>
 		</fieldset><br />
@@ -70,7 +70,7 @@ function inputValidate(f) {
 						<hr>
 						<p>
 							<i class="fa fa-heart fa-fw w3-margin-right w3-text-theme"></i>
-							Point : ${boardInfo.t_point }
+							Point : ${login.point} 점
 						</p>
 					</div>
 				</div>

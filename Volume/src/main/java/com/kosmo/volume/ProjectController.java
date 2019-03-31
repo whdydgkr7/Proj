@@ -174,25 +174,23 @@ public class ProjectController {
       //참가신청완료
       @RequestMapping("join")
       @ResponseBody
-      public void join(@RequestParam("idx") String idx,@RequestParam("id") String id, HttpServletResponse resp) throws IOException {
+      public void join(@RequestParam("idx") String idx,@RequestParam("sessionid") String sessionid, HttpServletResponse resp) throws IOException {
     	  resp.setContentType("text/html;charset=UTF-8");
-    	  System.out.println("id:"+id);
+    	  System.out.println("id:"+sessionid);
     	  System.out.println("id:"+idx);
     	  
           String joinMessage="";
-          int canjoin =sqlSession.getMapper(ProjectBbsDAOImpl.class).confirmjoin(idx,id);
+          int canjoin =sqlSession.getMapper(ProjectBbsDAOImpl.class).confirmjoin(idx,sessionid);
        
           System.out.println("canjoin:"+canjoin);
-          if(canjoin==0) {
-        	  sqlSession.getMapper(ProjectBbsDAOImpl.class).join(idx,id);
-	        	  resp.getWriter().println("참가신청되었습니다.");
-	        	  
-        	  
-          }
-          else {
+          if(canjoin>=1) {
         	  resp.getWriter().println("이미 참가신청하셨습니다.");
         	  //return joinMessage;
-          
+          }
+          else {
+
+        	  sqlSession.getMapper(ProjectBbsDAOImpl.class).join(idx,sessionid);
+        	  resp.getWriter().println("참가신청되었습니다.");
           
           }
          

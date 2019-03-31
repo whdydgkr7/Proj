@@ -6,7 +6,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-<title>회원가입</title>
+<title>회원정보</title>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 <div class="container">
 <br>
@@ -17,34 +17,6 @@ window.onload=function (){
 	id.focus();
 }
 
-function inputValidate(f) {
-	
-
-	
-	if (!f.name.value) {
-		alert("닉네임을 입력 해 주세요.");
-		f.name.focus();
-		return false;
-	}
-	if (!f.email.value) {
-		alert("이메일을 입력 해 주세요.");
-		f.email.focus();
-		return false;
-	}
-	if (!f.pass.value) {
-		alert("비밀번호를 입력 해 주세요.");
-		f.pass.focus();
-		return false;
-	}
-	if (f.pass2.value!=f.pass.value) {
-		alert("비밀번호 입력을 확인 해 주세요.");
-		f.pass.value="";
-		f.pass2.value="";
-		f.pass.focus();
-		return false;
-	}
-
-}
 
 function checkInputId(param) {
 	
@@ -77,7 +49,55 @@ function checkInputId(param) {
 }
 </script>
 
-
+<script type="text/javascript">
+function isAlphaNumber(param){
+	var idFLA=param.toUpperCase();
+	for (var i = 0; i < idFLA.length; i++) {
+		var aCode=idFLA[i].charCodeAt(0);
+		if ( !((aCode>=65 && aCode<=90) || (aCode>=48 && aCode<=57))) return false;
+	}
+	return true;
+}
+      
+function idOverlap() {
+  	if (regiFrm.id.value=="") {
+  		alert("아이디를 입력 후 중복확인을 누르세요");
+  		regiFrm.id.focus();
+  		return false;
+  	}
+  	
+  	if(checkInputId(regiFrm.id.value)==false){
+  		return false;
+  	}
+  	else{
+  		$.ajax({
+  			url: "idCheck.do",
+  			type: "post",
+  			data: {
+  				id: $("#id").val()
+  			},
+  			contentType: "application/x-www-form-urlencoded;charset:utf-8",
+  			dataType: "text",
+  			success: function(responseData) {
+  				if (responseData=="true") {
+  					alert("사용 가능한 아이디입니다.");
+      				regiFrm.id.readOnly = true;
+      				hidden2.value=1;
+				}
+  				else{
+  					alert("중복 된 아이디입니다.\n 다시 입력 해 주세요.");
+  					regiFrm.id.value="";
+  					regiFrm.id.focus();
+  					hidden2.value=0;
+  				}
+  			},	
+  			error: function(errorData) {
+  				alert("오류발생:"+errorData.status+": "+errorData.statusText);
+  			}
+  		});
+  	}
+}
+</script>
 <%
  UserDTO login = (UserDTO)session.getAttribute("login");
  
@@ -85,7 +105,7 @@ function checkInputId(param) {
 %>
 <div class="card bg-light">
 <article class="card-body mx-auto" style="max-width: 400px;">
-	<h4 class="card-title mt-3 text-center">회원가입</h4>
+	<h4 class="card-title mt-3 text-center">회원정보</h4>
 	<p class="text-center">Volume 과 함께 해요</p>
 	<!-- <hr />
 	<p class="text-center">
@@ -98,14 +118,14 @@ function checkInputId(param) {
 	       <span class="bg-light">또는</span>
 	</p> -->
 	<hr />
-	<form action="modifityAction.do" onsubmit="return inputValidate(this);" method="post" name="regiFrm">
+	<form action="modifiAction.do" onsubmit="" method="post" name="regiFrm">
 	<input type="hidden" id="hidden1" name="hidden1"/>
 	<input type="hidden" id="hidden2" name="hidden2" value="0"/>
 	<div class="form-group input-group">
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 		 </div>
-        <input id="id" name="id" class="form-control" value="${login.id }" type="text" readonly="readonly" >
+        <input id="id" name="id" class="form-control" value="${login.id }" type="text" readonly="readonly">
 
         
     </div> <!-- form-group// -->
@@ -113,13 +133,13 @@ function checkInputId(param) {
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 		 </div>
-        <input name="name" class="form-control" value="${login.name }" type="text">
+        <input name="name" id="name" class="form-control" value="${login.name }" type="text" readonly="readonly">
     </div> <!-- form-group// -->
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
-        <input name="email" class="form-control" value="${login.email} " type="email">
+        <input name="email" id="email" class="form-control" value="${login.email} " type="email" readonly="readonly">
         <script type="text/javascript">
         function checkemailaddy(){
             if (regiFrm.email_select.value == 'custom') {
@@ -143,19 +163,15 @@ function checkInputId(param) {
 		    <option value="@nate.com">nate.com</option>
 		    <option value="custom">직접 입력하기</option>
 		</select> -->
-    </div> <!-- form-group// -->
+    </div> 
+    <!-- form-group// -->
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 		</div>
-        <input class="form-control" placeholder="비밀번호 입력" type="password" name="pass">
-    </div> <!-- form-group// -->
-    <div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-		</div>
-        <input class="form-control" placeholder="비밀번호 재입력" type="password" name="pass2">
-    </div> <!-- form-group// -->                                      
+        <input class="form-control" type="password" name="pass" id="pass" value="${login.pass}" readonly="readonly">
+    </div>
+    <!-- form-group// -->                                      
     <div class="form-group">
         <button type="submit" class="btn btn-primary btn-block"> 수정하기  </button>
     </div> <!-- form-group// -->      

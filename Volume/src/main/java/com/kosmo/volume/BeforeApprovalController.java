@@ -175,21 +175,23 @@ public class BeforeApprovalController {
    // 추천하기
    @RequestMapping("recommendAction")
    @ResponseBody
-   public void recommendAction(@RequestParam("idx") String idx,@RequestParam("id") String id, HttpServletResponse resp) throws IOException {
-
+   public void recommendAction(@RequestParam("idx") String idx,@RequestParam("sessionid") String sessionid, HttpServletResponse resp) throws IOException {
+	   System.out.println(sessionid);
+	   System.out.println(idx);
       
       
-      int recommend=sqlSession.getMapper(BeforeApprovalImpl.class).confirmrec(idx,id);
+      int recommend=sqlSession.getMapper(BeforeApprovalImpl.class).confirmrec(idx,sessionid);
       System.out.println("recommend:"+recommend);
       
-      if(recommend==0) {
-         sqlSession.getMapper(BeforeApprovalImpl.class).recommendproc(idx);
-         resp.getWriter().println("추천되었습니다.");
+      if(recommend >=1) {
+    	  resp.getWriter().println("이미 추천하셨습니다.");
          
       }
       else {
-         resp.getWriter().println("이미 추천하셨습니다.");
-         
+    	  
+         sqlSession.getMapper(BeforeApprovalImpl.class).recommendproc(idx);
+         sqlSession.getMapper(BeforeApprovalImpl.class).addppropose(idx,sessionid);
+         resp.getWriter().println("추천되었습니다.");
       }
    }
 

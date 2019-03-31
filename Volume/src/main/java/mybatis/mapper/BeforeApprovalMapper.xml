@@ -67,10 +67,12 @@ VALUES (pbbs_seq.nextval,'${id}', '${content}',sysdate,0,0,'${title}',TO_DATE('$
    
    <!--추천중복확인 -->
         <select id="confirmrec" resultType="int">
-        SELECT count(*) FROM pEntry WHERE idx=#{0} AND id=#{1}
+        SELECT count(*) FROM pproposeentry WHERE idx=#{0} AND id=#{1}
      </select>
      
-     
+     <insert id="addppropose">
+     INSERT INTO pproposeentry (entry_idx,idx,id,regidate,result) VALUES (pEntry_seq.NEXTVAL,#{0},#{1},sysdate,1)
+     </insert>
    
    
    <update id="recommendproc" >

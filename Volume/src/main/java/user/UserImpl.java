@@ -21,6 +21,7 @@ public interface UserImpl {
    public void GetKey(String id, String key);
    public void alter_userKey(String id, String key);
 
+
    //�̸��� ����Ȯ���ϱ�
    public int isAuth(String parameter);
    
@@ -34,7 +35,10 @@ public interface UserImpl {
 
     
 
-	//public ArrayList<UserDTO> userPoint();
-    
-    
+	//비밀번호찾기 - 임시비번생성후 업데이트
+	public int randomPassUpdate(String userEmail, String randomStr);
+	
+	//회원정보 수정
+	public int Modifi(String name, String email, String pass, String id);
 }
+

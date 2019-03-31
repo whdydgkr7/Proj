@@ -61,10 +61,11 @@ public class LoginController {
    @RequestMapping("/loginAction")
    public ModelAndView loginAction(Model model, HttpServletRequest req, HttpSession session, HttpServletResponse resp) throws IOException{
       ModelAndView mv = new ModelAndView();
+      int auth=0;
       
       resp.setContentType("text/html;charset=UTF-8");
       UserDTO usersDTO = sqlSession.getMapper(UserImpl.class).login(req.getParameter("id"), req.getParameter("pass"));
-      int auth= sqlSession.getMapper(UserImpl.class).isAuth(req.getParameter("id"));
+      auth= sqlSession.getMapper(UserImpl.class).isAuth(req.getParameter("id"));
       
       if(auth == 0) {
          mv.addObject("loginCheck", "false");
