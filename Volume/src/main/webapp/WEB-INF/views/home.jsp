@@ -36,15 +36,16 @@ body, h1, h2, h3, h4, h5, h6 {
    font-size: 200px
 }
 </style>
-<div>
-<jsp:include page="/resources/navbar/navbarTop.jsp" />
-</div>
+
 <body>
 
    </script>
 
    <!-- 카카오 플러스친구 -->
-
+	 
+	<div>
+		<jsp:include page="/resources/navbar/navbarTop.jsp" />
+	</div>
 
 
    <!-- Header -->
@@ -59,6 +60,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 
       </header>
+      
       <!-- Navbar -->
 
 

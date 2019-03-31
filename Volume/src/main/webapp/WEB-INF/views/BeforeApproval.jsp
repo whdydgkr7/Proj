@@ -89,10 +89,6 @@ html, body {
 <body>
    <div>
 
-      <div class="w3-row">
-         
-         <img src="./resources/images/10.jpg" alt="" />
-      </div>
 
       <!-- First Grid -->
       <div class="w3-row-padding w3-padding-64 w3-container-fluid "

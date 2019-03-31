@@ -84,9 +84,6 @@ public class ProjectController {
       }
       
       
-
-      
-      
       model.addAttribute("lists",lists);
       return "ProjectBbs";
    }   

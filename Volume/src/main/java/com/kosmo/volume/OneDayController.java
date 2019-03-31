@@ -19,13 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import model.BeforeApprovalImpl;
 import model.OnedayDTO;
 import model.OnedayImpl;
 import model.PagingUtil;
 import model.ParamDTO;
-import model.ProjectBbsDAOImpl;
-import model.ProjectBbsDTO;
 
 @Controller
 public class OneDayController {

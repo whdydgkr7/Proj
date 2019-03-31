@@ -9,7 +9,7 @@
     </style>
 <div class="w3">
 
-       <div class="w3-right w3-bar w3-white">
+      <div class="w3-right w3-bar w3-white">
       <%if(session.getAttribute("login")!=null) { 
          if( !((UserDTO)session.getAttribute("login")).getAuthority().equals("ADMIN")) { %>
             <button type="button" class="w3-white w3-bar-item w3-button" style="z-index:1;width:160;;font-weight:bold;">${login.id }(${login.name }) 님 환영합니다.</button>
@@ -24,7 +24,9 @@
          <%} 
       } 
       else{%>
-         <button type="button" onclick="location.href='login'" class="w3-bar-item w3-button" style="z-index:1;width:160px;font-weight:bold; margin-left: 1700px;">로그인</button>
+         <button type="button" onclick="location.href='login'" class="w3-button w3-indigo w3-hover-white w3-border w3-border-green w3-round-large" style="z-index:1;width:160px;font-weight:bold; margin-left: 1550px;">로그인</button>
+         <button type="button" onclick="location.href='register'" class="w3-button w3-indigo w3-hover-white w3-border w3-border-green w3-round-large" style="z-index:2;width:160px;font-weight:bold;">회원가입</button>
+         
          <%}
       if(request.getParameter("logoutMsg")!=null) {%>
       <script type="text/javascript">
@@ -32,7 +34,6 @@
       </script>
       <%}%>
       </div>
-
  
  
   <div class="w3-bar w3-lime w3-card w3-center-align w3-large" >

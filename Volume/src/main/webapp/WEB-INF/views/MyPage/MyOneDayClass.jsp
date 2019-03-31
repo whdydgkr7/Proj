@@ -1,9 +1,13 @@
+<%@page import="user.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
-<html>
-<head>
-<title>MyInformodifi.jsp</title>
+<html lang="en">
+<title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -15,6 +19,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
@@ -62,29 +67,137 @@ background-color:#F2F3F2;
  }
 </style>
 
-</head>
+<script type="text/javascript">
+window.onload= function() {
+   $.ajax({
+         url: "MyPageProjView",
+         type: "get",
+         data: {
+            id: "<%=((UserDTO)(session.getAttribute("login"))).getId() %>"
+         },
+         contentType: "text/html;charset:utf-8;",
+         dataType: "json",
+         success: function(responseData) {
+            var str="";
+            $.each(responseData, function(index, data) {
+               str+="<tr id='"+data.id+"' style='background-color:white;' onmouseover=\"this.style.backgroundColor='#ffb0a5';\" onmouseout=\"this.style.backgroundColor='white';\">";
+               //str+="<td class='text-center'><input type='radio' name='user' id='"+data.id+"' value='"+data.id+"' onClick='selectAdmin(this.value);'/></td>";
+               str+="<td class='text-center'>"+data.idx+"</td>";
+               str+="<td class='text-center'>"+data.id+"</td>";
+               str+="<td class='text-center'>"+data.title+"</td>";
+               str+="<td class='text-center'>"+data.postdate+"</td>";
+               str+="<td class='text-center'>"+data.visit_count+"</td>";
+               str+="<td class='text-center'>"+data.attachedfile+"</td>";
+               str+="<td class='text-center'>"+data.m_limit+"</td>";
+               str+="<td class='text-center'>"+data.add_point+"</td>";
+               str+="</tr>";
+            });
+            $("#ajaxProj").html(str);
+         },   
+         error: function(errorData) {
+            alert("오류발생:"+errorData.status+": "+errorData.statusText);
+         }
+      });
+}
+</script>
+
+
 <body>
+<div>
+   <jsp:include page="../../../resources/navbar/navbarTop.jsp" />
+<div>
 
-	<br /><br /><br /><br />
-		<h1 class="w3-text-BLACK" style="font-weight:bold;">나의 원데이 클래스</h1>
-		<div class="w3-row">	
-			<table class="table table-success"style="width:90%; margin:10px;">
-				  <thead class="w3-lime">
-				    <th>이미지</th>
-				    <th>프로젝트시작일</th> 
-				    <th>프로젝트마감일</th>
-				    <th>프로젝트명</th>
-				    <th>프로젝트 내용</th>	
-				   	<th>추천수</th>	 				    
-				    <th>조회수</th>					    
-				    <th>작성일</th>
-				    <th>첨부파일</th>
-				  </thead>
-				 <tbody id="ajaxOneday">
-					<!-- c:choose문 들어갔던 자리 -->
-		       	</tbody>
-			</table>
-    	</div>
+   <!-- First Grid -->
+   <div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 1500px; ">
+      <h1 class="w3-text-BLACK" style="font-weight:bold;">내가쓴 원데이 클래스</h1>
+      <div class="w3-row">
+           
+                 
+                            
+              <table class="table table-success"style="width:90%; margin:10px;">
+                 <thead class="w3-lime">
+                  <th>글번호</th>
+                   <th>이미지</th>
+                   <th>수강날짜</th> 
+                   <th>수업명</th>
+                   <th>수업내용</th>
+                   <th>수업방식</th>   
+                     <th>필요 포인트</th>                    
+                     <th>인원수</th>                    
+                   <th>조회수</th>                   
+                   <th>작성일</th>
+                   <th>거래상태</th>
+                 </thead>
+                <tbody>
+                  <c:choose>
+                     <c:when test="${empty lists }">
+                        <tr>
+                           <td colspan="8" class="text-center">
+                              등록된 프로젝트가 없습니다.
+                           </td>
+                        </tr>
+                     </c:when>
+                     <c:otherwise>
+                        <c:forEach items="${lists }" var="row" varStatus="loop">
+                           <!-- 리스트반복시작 -->                           
+                                                         
+                                 <c:choose>
+                                    <c:when test=" ${not empty row.thumbnail }" >
+                                    <td class="text-center" > 
+                                       <img src="./resources/thumbnail/${row.thumbnail}"  width="200" height="200">
+                                    </td>   
+                                    </c:when>
+                                    <c:otherwise>   
+                                    <td class="text-center">
+                                       <img src="./resources/images/defaultimage.jpg" width="200" height="200">
+                                    </td>
+                                    </c:otherwise>      
+                                 </c:choose>         
+                              
+                              <td class="text-center">${fn:substring(row.start_date,0,11)}</td>
+                              
+                              <td class="text-center">
+                              <a href="./OndayViewController.do?idx=${row.idx}"> 
+                                 ${row.title}</a></td>
+                              <td class="text-left">
+                              <a href="./OndayViewController.do?idx=${row.idx}">${row.content}</a>
+                              </td>
+                              <td class="text-center">${row.t_method }</td>
+                              <td class="text-center">${row.t_point }</td>
+                              <td class="text-center">${row.e_limit }</td>
+                              <td class="text-center">${row.visit_count }</td>
+                              <td class="text-center">${row.postdate }</td>
+                              <td class="text-center">${row.state}</td>
+                              <td class="text-center">          
+                                 <c:if test="${not empty row.attachedfile }">
+                                    <span class="glyphicon glyphicon-paperclip"></span>               
+                                 </c:if>
+                              </td>
+                                                                                                               
 
+                        
+                              <td class="text-center w3-text-lime"  style="font-size: 20px; color: #F2F3F2; ">
+                              <i class="glyphicon glyphicon-edit" ></i>
+                              </td>
+                              <td class="text-center w3-text-lime" style="font-size: 20px; color: #F2F3F2;" >
+                              <i class="glyphicon glyphicon-trash" ></i>
+                              </td>
+                        
+                           </tr>
+                           <!-- 리스트반복끝 -->
+                        </c:forEach>
+                     </c:otherwise>
+                  </c:choose>
+                </tbody>
+            </table>
+
+          
+       </div>
+   </div>
+</div>
+   
+   
+   <jsp:include page="../../../resources/navbar/footer.jsp" />
+</div>
 </body>
 </html>

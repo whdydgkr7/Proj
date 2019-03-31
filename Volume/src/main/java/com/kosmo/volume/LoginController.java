@@ -1,12 +1,12 @@
 package com.kosmo.volume;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -59,27 +59,27 @@ public class LoginController {
    }
 
    @RequestMapping("/loginAction")
-   public ModelAndView loginAction(Model model, HttpServletRequest req, HttpSession session, HttpServletResponse resp) throws IOException{
+   public ModelAndView loginAction(Model model, HttpServletRequest req, HttpSession session, HttpServletResponse resp) {
       ModelAndView mv = new ModelAndView();
-      int auth=0;
       
-      resp.setContentType("text/html;charset=UTF-8");
       UserDTO usersDTO = sqlSession.getMapper(UserImpl.class).login(req.getParameter("id"), req.getParameter("pass"));
-      auth= sqlSession.getMapper(UserImpl.class).isAuth(req.getParameter("id"));
+      int auth= sqlSession.getMapper(UserImpl.class).isAuth(req.getParameter("id"));
+      
+      
       
       if(auth == 0) {
+         mv.addObject("auth",auth);
          mv.addObject("loginCheck", "false");
-         //mv.setViewName("home");
-         resp.getWriter().println("<script>alert('이메일인증후 사용가능합니다');location.href='./';</script>");
-         
-         return null;
+         mv.setViewName("home");
       }
       else {
          if (usersDTO == null) {
             mv.addObject("loginCheck", "false");
+            mv.addObject("auth", auth);
             mv.setViewName("login/login");
          } else {
             mv.addObject("loginCheck", "true");
+            mv.addObject("auth", auth);
             session.setAttribute("login", usersDTO);
             mv.setViewName("home");
          }
@@ -87,7 +87,8 @@ public class LoginController {
 
       return mv;
    }
-
+   //���̵� ���ã��
+   //���̵� ã�� ��
      @RequestMapping(value = "/findId")
      public String find_id_form() throws Exception{
         
@@ -120,30 +121,59 @@ public class LoginController {
       }
      
      //��й�ȣ ã��
-     @RequestMapping(value = "/passFind.do", method = RequestMethod.POST)
+     @RequestMapping(value = "/passFind.do")
      @ResponseBody
      public String userpassSearch(@RequestParam("user_email") String user_email) {
-       System.out.println(user_email);
+       
         
-        String result = sqlSession.getMapper(UserImpl.class).findPass(user_email);  //searchService.userIdSearch(user_name, user_email);
-       System.out.println("user_email="+user_email);
-        return result;
+       /*String result = sqlSession.getMapper(UserImpl.class).findPass(user_email);  //searchService.userIdSearch(user_name, user_email);
+       System.out.println("user_email="+user_email);*/
+       String randomStr = randomStrInit();
+       
+     //임시패스워드로 회원정보 업데이트
+       int updateResult = sqlSession.getMapper(UserImpl.class).randomPassUpdate(user_email, randomStr); 
+       
+     //이메일 발송
+   	   String sendResult = EmailSend(user_email, randomStr);
+       
+        return sendResult;
         
+     }
+     
+    // 이메일 난수 만드는 메서드
+     private boolean lowerCheck = true;
+     private int size = 10;
+     private String randomStrInit() {
+     	Random ran = new Random();
+     	StringBuffer sb = new StringBuffer();
+     	int num = 0;
+
+     	do {
+     		num = ran.nextInt(75) + 48;
+     		if ((num >= 48 && num <= 57) || (num >= 65 && num <= 90) || (num >= 97 && num <= 122)) {
+     			sb.append((char) num);
+     		} else {
+     			continue;
+     		}
+
+     	} while (sb.length() < size);
+     	
+     	if (lowerCheck) {
+     		return sb.toString().toLowerCase();
+     	}
+     	return sb.toString();
      }
      
 
 
-    @RequestMapping("/EmailSend.do")
-    public String EmailSend(HttpServletRequest req, Model model) {
-       
-       
-       
+    //@RequestMapping("/EmailSend.do")
+    public String EmailSend(String email, String pass) {
        final String fromEmail = "sz_toss@naver.com";
-       final String toEmail = req.getParameter("email");
-       final String subject = "문의하신비밀번호입니다(VOLUME) ";
-       final String contents = ""+"회원님의 비밀번호는"+req.getParameter("data")+"입니다.";//req.getParameter("contents").replace("\r\n", "<br/>");
-       System.out.println(req.getParameter("data"));
-       System.out.println(req.getParameter("email"));
+       final String toEmail = email;
+       final String subject = "회원님의 임시비밀번호입니다(VOLUME) ";
+       final String contents = ""+"회원님의 임시비밀번호는"+pass+"입니다.";//req.getParameter("contents").replace("\r\n", "<br/>");
+       System.out.println(pass);
+       System.out.println(email);
     
        final MimeMessagePreparator preparator = new MimeMessagePreparator() {         
           @Override
@@ -163,17 +193,19 @@ public class LoginController {
           }
        };
        
+       String returnStr = "";
+       
        try {
           mailSender.send(preparator);
-          
+          returnStr = "success";
        }
        catch (Exception e) {
-          System.out.println("���ܹ߻�");
-          model.addAttribute("mailResult","메일보내기실패");
-          e.printStackTrace();
+    	   System.out.println("메일보내기실패");
+		   returnStr = "fail";
+		   e.printStackTrace();
        }
        
-       return "idpassFind/emailSend";
+       return returnStr;
     }
    
 
@@ -184,8 +216,7 @@ public class LoginController {
    }  
 
    @RequestMapping("/registerAction")
-   public ModelAndView regiUserAction(Model model, HttpServletRequest req, HttpSession session, HttpServletResponse resp) {
-      resp.setContentType("text/html;charset=UTF-8");
+   public ModelAndView regiUserAction(Model model, HttpServletRequest req, HttpSession session) {
       ModelAndView mv = new ModelAndView();
 
       // ����,īī���� �����α��ν��ʿ�
@@ -217,12 +248,12 @@ public class LoginController {
       final String title = id + "님께(VOLUME올림)";
       final String htmlStr ="<div>"
                +"<div>"+ id +"님, 저희 서비스를 이용해주셔서 감사합니다.</div>"
-               +"VOLUME서비스 이용을 위해 고객님의 이메일을 인증해주시기 바랍니다.<br/>"
+               +"똑닥똑닥서비스 이용을 위해 고객님의 이메일을 인증해주시기 바랍니다.<br/>"
                +"이메일 인증이 완료되면 정상적으로 사이트 이용이 가능합니다.<br/>"
-               + "<a href='http://localhost:8080" + req.getContextPath() + "/user/key_alter?id="+ id +"&key="+key+"'>인증하기</a><br/>"
+               + "<a href='http://localhost:8080" + req.getContextPath() + "/user/key_alter?id="+ id +"&user_key="+key+"'>인증하기</a><br/>"
                +"(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다) <br/>"
                +"<hr/>"
-               +"VOLUME올림"
+               +"똑닥똑닥드림"
             +"</div>";
       sqlSession.getMapper(UserImpl.class).GetKey(id, key);
 
@@ -240,17 +271,15 @@ public class LoginController {
 
       try {
          mailSender.send(preparator);
-         resp.getWriter().println("<script>alert('이메일을발송했습니다 메일인증후사용해주세요');location.href='./';</script>");
-         
-         return null;
+         model.addAttribute("mailResult", "메일전송이되었습니다");
       } catch (Exception e) {
          System.out.println("메일인증오류");
          model.addAttribute("mailResult", "메일전송에 실패했어요1");
          e.printStackTrace();
       }
 
-      //session.setAttribute("login", dto);
-      mv.setViewName("redirect:/");
+      session.setAttribute("login", dto);
+      mv.setViewName("home");
 
       return mv;
    }
@@ -261,7 +290,7 @@ public class LoginController {
 
       sqlSession.getMapper(UserImpl.class).alter_userKey(id, key);
 
-      return "redirect:/";
+      return "home";
    }
 
    @RequestMapping("/idCheck.do")

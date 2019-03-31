@@ -152,10 +152,10 @@ window.onload= function() {
 	    </div>
 	    </a>
 	    
-	    <a href="MyOfferProject.do">
+	    <a href="MyOfferProject.do?user_id=${login.id }">
 		    <div class="col-sm-4"> 
 		      <div class="panel panel-success">
-		        <div class="panel-heading">내 프로젝트 제안</div>
+		        <div class="panel-heading">내가 제안한 프로젝트</div>
 		        <div class="panel-body"><img src="./resources/images/my3.jpg"  style="width:100%" height="200"></div>
 		      </div>
 		    </div>
@@ -166,7 +166,7 @@ window.onload= function() {
 	
 	<div class="container">    
 	  <div class="row">
-	    <a href="MyOneDayClass.do">
+	    <a href="MyOneDayClass.do?user_id=${login.id }">
 		    <div class="col-sm-4">
 		      <div class="panel panel-success">
 		        <div class="panel-heading">나의 원데이 클래스</div>
@@ -184,11 +184,26 @@ window.onload= function() {
 		    </div>
 	    </a>
 	    
-	    <a href="MyInfo.do">
+	    <a>
 		    <div class="col-sm-4"> 
 		      <div class="panel panel-success">
-		        <div class="panel-heading">MyPoint</div>
-		        <div class="panel-body"><img src="./resources/images/my6.jpg"  style="width:100%" height="200"></div>
+		        <h4 class="w3-center">My Profile</h4>
+						<p class="w3-center">
+							<img src="./resources/images/img_avatar1.png" class="w3-circle"
+								style="height: 106px; width: 106px" alt="Avatar">
+						</p>
+						<hr>
+						<p>
+							<i class="fa fa-book fa-fw w3-margin-right w3-text-theme"></i>
+						 ${login.name}님
+						</p>
+						<p>
+							<i class="fa fa-heart fa-fw w3-margin-right w3-text-theme"></i>
+							사용가능한 Point : ${login.point }
+						</p>
+						<p>
+						
+						</p>
 		      </div>
 		    </div>
 	    </a>

@@ -6,7 +6,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-<title>회원가입</title>
+<title>회원정보 수정</title>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 <div class="container">
 <br>
@@ -85,7 +85,7 @@ function checkInputId(param) {
 %>
 <div class="card bg-light">
 <article class="card-body mx-auto" style="max-width: 400px;">
-	<h4 class="card-title mt-3 text-center">회원가입</h4>
+	<h4 class="card-title mt-3 text-center">회원정보 수정</h4>
 	<p class="text-center">Volume 과 함께 해요</p>
 	<!-- <hr />
 	<p class="text-center">
