@@ -98,10 +98,10 @@ table.greenTable tbody td {
 
 				<div class="w3-container w3-card w3-white w3-round w3-margin"
 					style="border: solid white 1px;">
-					<input type="hi-dden" value="${onedayDTO.id}" id="id">
-					<input type="hi-dden" value="${onedayDTO.idx}" id="idx">
-					<input type="hi-dden" value="${onedayDTO.t_point}" id="point">
-					<input type="hi-dden" value="${login.id}" id="userid">
+					<input type="hidden" value="${onedayDTO.id}" id="id">
+					<input type="hidden" value="${onedayDTO.idx}" id="idx">
+					<input type="hidden" value="${onedayDTO.t_point}" id="point">
+					<input type="hidden" value="${login.id}" id="userid">
 					<div class="w3-row-padding"
 						style="margin: 0 -16px; border: solid white 1px;">
 						<div class="w3-half" style="margin-left: 10%; width: 700px;">

@@ -101,9 +101,9 @@ table.greenTable tbody td {
             </header>
          </div>
          
-         <input type="hid-den" id="idx" value="${ProjectBbsDTO.idx}">
-         <input type="hid-den" id="sessionid" value="${login.id}">
-         <input type="hid-den" id="id" value="${ProjectBbsDTO.id}">
+         <input type="hidden" id="idx" value="${ProjectBbsDTO.idx}">
+         <input type="hidden" id="sessionid" value="${login.id}">
+         <input type="hidden" id="id" value="${ProjectBbsDTO.id}">
          <div class="w3-container w3-card w3-white w3-round w3-margin"
             style="border: solid white 1px; text-align: center;">
 

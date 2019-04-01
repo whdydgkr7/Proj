@@ -175,24 +175,33 @@ public class BeforeApprovalController {
    // 추천하기
    @RequestMapping("recommendAction")
    @ResponseBody
-   public void recommendAction(@RequestParam("idx") String idx,@RequestParam("sessionid") String sessionid, HttpServletResponse resp) throws IOException {
-	   System.out.println(sessionid);
+   public void recommendAction(@RequestParam("idx") String idx,@RequestParam("sessionid") String sessionid, HttpServletResponse resp, HttpSession session,Model model) throws IOException {
+	   System.out.println("sessionid"+sessionid);
 	   System.out.println(idx);
       
-      
-      int recommend=sqlSession.getMapper(BeforeApprovalImpl.class).confirmrec(idx,sessionid);
-      System.out.println("recommend:"+recommend);
-      
-      if(recommend >=1) {
-    	  resp.getWriter().println("이미 추천하셨습니다.");
-         
+	   System.out.println(sessionid);
+	  if (sessionid == null || sessionid=="") {
+		  resp.getWriter().println("로그인후 이용가능합니다.");
+		  //resp.getWriter().println("<script>alert('로그인후 이용가능합니다.');location.href='./';</script>");
+	         
       }
-      else {
-    	  
-         sqlSession.getMapper(BeforeApprovalImpl.class).recommendproc(idx);
-         sqlSession.getMapper(BeforeApprovalImpl.class).addppropose(idx,sessionid);
-         resp.getWriter().println("추천되었습니다.");
-      }
+	  else {
+		  int recommend=sqlSession.getMapper(BeforeApprovalImpl.class).confirmrec(idx,sessionid);
+	      System.out.println("recommend:"+recommend);
+	      
+	      if(recommend >=1) {
+	    	  resp.getWriter().println("이미 추천하셨습니다.");
+	         
+	      }
+	      else {
+	         sqlSession.getMapper(BeforeApprovalImpl.class).recommendproc(idx);
+	         System.out.println("1");
+	         sqlSession.getMapper(BeforeApprovalImpl.class).addppropose(idx,sessionid);
+	         resp.getWriter().println("추천되었습니다.");
+	      }
+	  }
+      
+      
    }
 
 }

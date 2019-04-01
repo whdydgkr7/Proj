@@ -21,7 +21,7 @@
             <span id="plusfriend-chat-button" data-plusfriend-id="_kxgxbkj" data-title="consult" data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true"></span>
          <%} else {%>
             <button type="button" onclick="location.href='http://localhost:8080/VolumeAdmin/admin/adminMain.jsp'" class="w3-bar-item w3-button" style="z-index:1;width:150px;font-weight:bold;">관리자페이지</button>
-            
+            <button type="button" onclick="location.href='logout'" class="w3-bar-item w3-button" style="z-index:3;width:160px;font-weight:bold;">로그아웃</button>
          <%} 
       } 
       else{%>

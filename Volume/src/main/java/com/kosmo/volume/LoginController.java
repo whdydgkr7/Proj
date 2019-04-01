@@ -1,6 +1,7 @@
 package com.kosmo.volume;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -59,27 +60,26 @@ public class LoginController {
    }
 
    @RequestMapping("/loginAction")
-   public ModelAndView loginAction(Model model, HttpServletRequest req, HttpSession session, HttpServletResponse resp) {
+   public ModelAndView loginAction(Model model, HttpServletRequest req, HttpSession session, HttpServletResponse resp) throws IOException{
       ModelAndView mv = new ModelAndView();
       
+      resp.setContentType("text/html;charset=UTF-8");
       UserDTO usersDTO = sqlSession.getMapper(UserImpl.class).login(req.getParameter("id"), req.getParameter("pass"));
       int auth= sqlSession.getMapper(UserImpl.class).isAuth(req.getParameter("id"));
       
-      
-      
       if(auth == 0) {
-         mv.addObject("auth",auth);
          mv.addObject("loginCheck", "false");
-         mv.setViewName("home");
+         //mv.setViewName("home");
+         resp.getWriter().println("<script>alert('이메일인증후 사용가능합니다');location.href='./';</script>");
+         
+         return null;
       }
       else {
          if (usersDTO == null) {
             mv.addObject("loginCheck", "false");
-            mv.addObject("auth", auth);
             mv.setViewName("login/login");
          } else {
             mv.addObject("loginCheck", "true");
-            mv.addObject("auth", auth);
             session.setAttribute("login", usersDTO);
             mv.setViewName("home");
          }
