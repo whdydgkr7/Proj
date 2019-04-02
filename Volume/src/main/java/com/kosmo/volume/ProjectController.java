@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,7 +123,7 @@ public class ProjectController {
    
    //상세보기이동(댓글뿌리기) 조회수증가
       @RequestMapping("ProjectBbsViewController.do")
-      public String PrjectBbsView(Model model , HttpServletRequest req) {
+      public String PrjectBbsView(Model model , HttpServletRequest req,HttpSession session) {
          String idx= req.getParameter("idx");
 
 
@@ -134,6 +135,10 @@ public class ProjectController {
          if(!(num==null || num.equals(""))) {
         	 model.addAttribute("num",num);
          }
+         if (session.getAttribute("login") == null) {
+        	 model.addAttribute("backUrl", "/ExchangeWrite");
+             return "redirect:login.do";
+		}
 
         
         model.addAttribute("pcomment",pcomment);

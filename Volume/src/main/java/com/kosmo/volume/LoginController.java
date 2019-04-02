@@ -69,6 +69,10 @@ public class LoginController {
       UserDTO usersDTO = sqlSession.getMapper(UserImpl.class).login(req.getParameter("id"), req.getParameter("pass"));
       int auth= sqlSession.getMapper(UserImpl.class).isAuth(req.getParameter("id"));
       
+     
+      
+      
+      
       
       if(userright==1) {
       

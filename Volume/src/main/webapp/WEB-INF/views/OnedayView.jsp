@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -136,7 +137,7 @@ table.greenTable tbody td {
 										<div class="w3-clear">
 											<h3>후기수()</h3>
 										</div>
-										<h4>후기수</h4>
+										<!-- <h4>후기수</h4> -->
 									</div>
 								</div>
 								<div class="w3-col s4 ">
@@ -190,41 +191,41 @@ table.greenTable tbody td {
 								<table class="greenTable">
 									<tbody>
 										<tr>
-											<td style="background-color: #F2F0E8;">클래스명:</td>
-											<td>${onedayDTO.title }</td>
+											<td style="background-color: #F2F0E8; font-size:20px;">클래스명:</td>
+											<td style="font-size: 20px;">${onedayDTO.title }</td>
 										<tr>
-											<td style="background-color: #F2F0E8;">클래스 개시자</td>
-											<td>${onedayDTO.id }</td>
+											<td style="background-color: #F2F0E8; font-size:20px;">클래스 개시자</td>
+											<td style="font-size: 20px;">${onedayDTO.id }</td>
 										</tr>
 										</tr>
 
 										<tr>
-											<td style="background-color: #F2F0E8;">클래스 시작일 :</td>
-											<td>${onedayDTO.start_date }</td>
+											<td style="background-color: #F2F0E8; font-size:20px;">클래스 시작일 :</td>
+											<td style="font-size: 20px;">${fn:substring(onedayDTO.start_date,0,11) }</td>
 										</tr>
 										<tr>
-											<td style="background-color: #F2F0E8;">클래스 종료일:</td>
-											<td>${onedayDTO.end_date }</td>
+											<td style="background-color: #F2F0E8; font-size:20px;">클래스 종료일:</td>
+											<td style="font-size: 20px;">${fn:substring(onedayDTO.end_date,0,11) }</td>
 										</tr>
 										<tr>
-											<td style="background-color: #F2F0E8;">클래스 시간:</td>
-											<td>${onedayDTO.t_time }</td>
+											<td style="background-color: #F2F0E8; font-size:20px;">클래스 시간:</td>
+											<td style="font-size: 20px;">${onedayDTO.t_time }</td>
 										</tr>
 										<tr>
-											<td style="background-color: #F2F0E8;">클래스 방식 :</td>
-											<td>${onedayDTO.t_method }</td>
+											<td style="background-color: #F2F0E8; font-size:20px;">클래스 방식 :</td>
+											<td style="font-size: 20px;">${onedayDTO.t_method }</td>
 										</tr>
 										<tr style="height: 300px;">
-											<td style="background-color: #F2F0E8;">클래스 설명:</td>
-											<td>${onedayDTO.content }</td>
+											<td style="background-color: #F2F0E8; font-size:20px;">클래스 설명:</td>
+											<td style="font-size: 20px;">${onedayDTO.content }</td>
 										</tr>
 										<tr>
-											<td style="background-color: #F2F0E8;">클래스 총 수용인원:</td>
-											<td>${onedayDTO.e_limit }</td>
+											<td style="background-color: #F2F0E8; font-size:20px;">클래스 총 수용인원:</td>
+											<td style="font-size: 20px;">${onedayDTO.e_limit }</td>
 										</tr>
 										<tr>
-											<td style="background-color: #F2F0E8;">클래스 상태 :</td>
-											<td>${onedayDTO.state }</td>
+											<td style="background-color: #F2F0E8; font-size:20px;">클래스 상태 :</td>
+											<td style="font-size: 20px;">${onedayDTO.state }</td>
 										</tr>
 
 

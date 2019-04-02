@@ -6,6 +6,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 
 <!DOCTYPE html>
@@ -37,6 +39,9 @@
 <style>
 html, body, h1, h2, h3, h4, h5 {
    font-family: "Open Sans", sans-serif
+}
+tr,td{
+	font-size: 20px;
 }
 
 table.greenTable {
@@ -161,11 +166,11 @@ table.greenTable tbody td {
 
                         <tr>
                            <td style="background-color: #F2F0E8;">프로젝트 시작일 :</td>
-                           <td>${ProjectBbsDTO.start_date}</td>
+                           <td>${fn:substring(ProjectBbsDTO.start_date,0,11)}</td>
                         </tr>
                         <tr>
                            <td style="background-color: #F2F0E8;">프로젝트 종료일:</td>
-                           <td>${ProjectBbsDTO.end_date}</td>
+                           <td>${fn:substring(ProjectBbsDTO.end_date,0,11)}</td>
                         </tr>
                         <tr style="height: 300px;">
                            <td style="background-color: #F2F0E8;">프로젝트 설명:</td>

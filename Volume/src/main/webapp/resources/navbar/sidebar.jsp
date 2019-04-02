@@ -33,22 +33,16 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="ProjectController.do" class="w3-bar-item w3-button w3-padding"><i class="fa fa-file-powerpoint-o"></i>  진행중인 프로젝트</a>
     <a href="BeforeApproval.do" class="w3-bar-item w3-button w3-padding"><i class="fa fa-handshake-o"></i>  프로젝트 제안하기</a>
     <a href="oneDay" class="w3-bar-item w3-button w3-padding"><i class="fa fa-pencil-square-o"></i>  원데이 클래스</a>
-    
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Settings</a><br><br>
   </div>
 </nav>
 
 
 
 
-  <!-- Footer -->
-  <footer class="w3-container w3-padding-16 w3-light-grey">
-    <h4>FOOTER</h4>
-    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-  </footer>
+  
 
   <!-- End page content -->
-</div>
+
 
 <script>
 // Get the Sidebar

@@ -142,7 +142,6 @@ html, body {
 
 				<table class="table table-success" style="width: 90%; margin: 10px;">
 					<thead class="w3-lime">
-						<th>글번호</th>
 						<th>이미지</th>
 						<th>수강날짜</th>
 						<th>수업명</th>
@@ -187,7 +186,7 @@ html, body {
 									<td class="text-center">${row.t_point }</td>
 									<td class="text-center">${row.e_limit }</td>
 									<td class="text-center">${row.visit_count }</td>
-									<td class="text-center">${row.postdate }</td>
+									<td class="text-center">${fn:substring(row.postdate,0,11)}</td>
 									<td class="text-center">${row.state}</td>
 									<%--                               <td class="text-center">          
                                  <c:if test="${not empty row.attachedfile }">

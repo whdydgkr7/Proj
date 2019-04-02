@@ -68,6 +68,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 		<h3 style="font-weight: bold; padding: 100px;">진행중인 프로젝트</h3>
 
+	 	
 		<div class="w3-row-padding w3-padding-16 w3-center" id="food"
 			style="padding: 100px;">
 			<div class="row">
@@ -85,6 +86,7 @@ body, h1, h2, h3, h4, h5, h6 {
 						</div>
 					</c:when>
 					<c:otherwise>
+						<a href="BeforeApproval.do">
 						<c:forEach items="${projectBbsDTO }" var="row" varStatus="loop">
 
 							<div class="col-md-3">
@@ -110,10 +112,12 @@ body, h1, h2, h3, h4, h5, h6 {
 								</div>
 							</div>
 						</c:forEach>
+						</a>
 					</c:otherwise>
 				</c:choose>
 			</div>
 		</div>
+
 
 		<br />
 

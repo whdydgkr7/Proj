@@ -95,7 +95,7 @@ public class OneDayController {
 
    // 상세보기
    @RequestMapping("OndayViewController.do")
-   public String PrjectBbsView(Model model, HttpServletRequest req) {
+   public String PrjectBbsView(Model model, HttpServletRequest req, HttpSession session) {
       String idx = req.getParameter("idx");
       // String id = req.getParameter("id");
       OnedayDTO onedayDTO = new OnedayDTO();
@@ -103,6 +103,10 @@ public class OneDayController {
       String num = sqlSession.getMapper(OnedayImpl.class).selectbbs(idx);
       if (!(num == null || num.equals(""))) {
          model.addAttribute("num", num);
+      }
+      if (session.getAttribute("login") == null) {
+          model.addAttribute("backUrl", "/ExchangeWrite");
+          return "redirect:login.do";
       }
 
       sqlSession.getMapper(OnedayImpl.class).visit(idx);

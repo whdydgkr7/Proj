@@ -12,6 +12,10 @@
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 
+<div style="margin-right: 600px;">
+	<jsp:include page="/resources/navbar/sidebar.jsp" />
+</div>
+
 <div class="container">
 	<br> <br />
 	<hr>
@@ -37,9 +41,7 @@
 		}
 	</script>
 
-	<div style="margin-right: 200px;">
-		<jsp:include page="/resources/navbar/sidebar.jsp" />
-	</div>
+	
 
 	<div class="card bg-light">
 		
