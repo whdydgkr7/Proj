@@ -142,7 +142,7 @@ window.onload= function() {
                                  <c:choose>
                                     <c:when test=" ${not empty row.thumbnail }" >
                                     <td class="text-center" > 
-                                       <img src="./resources/thumbnail/${row.thumbnail}"  width="200" height="200">
+                                       <img src="./resources/18/${row.thumbnail}"  width="200" height="200">
                                     </td>   
                                     </c:when>
                                     <c:otherwise>   
@@ -168,15 +168,12 @@ window.onload= function() {
                                     <span class="glyphicon glyphicon-paperclip"></span>               
                                  </c:if>
                               </td>
-                                                                                                               
+                             <td>
+                                <button type="button" onclick="location.href='./point.do?idx=${row.idx}';">프로젝트완료</button>
+                             </td>                                                                                  
 
                         
-                              <td class="text-center w3-text-lime"  style="font-size: 20px; color: #F2F3F2; ">
-                              <i class="glyphicon glyphicon-edit" ></i>
-                              </td>
-                              <td class="text-center w3-text-lime" style="font-size: 20px; color: #F2F3F2;" >
-                              <i class="glyphicon glyphicon-trash" ></i>
-                              </td>
+                             
                         
                            </tr>
                            <!-- 리스트반복끝 -->

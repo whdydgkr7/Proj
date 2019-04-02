@@ -75,13 +75,11 @@ table.greenTable tbody td {
    UserDTO login = (UserDTO) session.getAttribute("login");
 %>   
 
+<!-- Navbar -->
 <jsp:include page="/resources/navbar/navbarTop.jsp" />
 <body class="w3-theme-l5">
-   
-   <!-- Navbar -->
-   <div class="w3-row">
-      <img src="./resources/images/10.jpg" alt="" />
-   </div>
+<!-- Navbar -->
+
 
 
 

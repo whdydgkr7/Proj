@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import user.UserDTO;
+
 public interface ProjectBbsDAOImpl {
 
    public ArrayList<ProjectBbsDTO> list();
@@ -72,6 +74,12 @@ public interface ProjectBbsDAOImpl {
    
    //마이페이지 - 내가제안한 프로젝트 셀랙
    public ArrayList<ProjectBbsDTO> mybbs(String id);
+   
+   //포인트증가를위한 아이디저장
+   public ArrayList<UserDTO> userPoint(String idx);
+
+   //포인트지급완료후(진행중에서제거)
+   public void state(String idx);
    
 
 }

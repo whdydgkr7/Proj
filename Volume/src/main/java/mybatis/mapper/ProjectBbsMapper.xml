@@ -111,9 +111,18 @@
      
      <!-- 마이페이지 - 내가 제안한 프로젝트 -->
      <select id="mybbs" resultType="model.ProjectBbsDTO">
-       SELECT * FROM pbbs WHERE id =#{0}
+       SELECT * FROM pbbs WHERE id =#{0} and state='대기중'
     </select>
     
+    <!-- 안되면 model.ProjectBbsDTO유저로변경 -->
+    <select id="userPoint" resultType="user.UserDTO">
+       SELECT id FROM pentry WHERE idx=#{param1}
+    </select>
+    
+    <!-- state변경 -->
+    <update id="state">
+      UPDATE pbbs SET state='종료'  WHERE idx=#{idx}
+   </update>
     
      
 </mapper>   
