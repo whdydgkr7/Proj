@@ -128,7 +128,7 @@ public class OneDayController {
    public String OnedayWriteAction(Model model, MultipartHttpServletRequest req) {
 
       MultipartFile mf = req.getFile("thumbnail"); // 업로드 파라미터
-      String path = req.getRealPath("c:\\thumbnail"); // 저장될 위치
+      String path = req.getRealPath("/resources/18"); // 저장될 위치
       String thumbnail = mf.getOriginalFilename();// 업로드 파일이름
       File uploadfile = new File(path + "//" + thumbnail);// 복사될 위치
 

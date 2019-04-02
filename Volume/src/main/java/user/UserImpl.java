@@ -48,6 +48,9 @@ public interface UserImpl {
    
    //포인트 차감여부
    public int canpoint(String userid, String point);
+   
+   //아이디 비번이 맞는 확인 여부
+   public int userright(String parameter, String parameter2);
 
 	
 	

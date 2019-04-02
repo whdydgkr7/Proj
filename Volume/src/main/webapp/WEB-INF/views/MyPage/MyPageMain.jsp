@@ -175,14 +175,7 @@ window.onload= function() {
 		    </div>
 	    </a>
 	    
-	     <a href="MyProjectLatter.do">
-		    <div class="col-sm-4"> 
-		      <div class="panel panel-success">
-		        <div class="panel-heading">내가 작성한 후기</div>
-		        <div class="panel-body"><img src="./resources/images/my5.jpg"  style="width:100%" height="200"></div>
-		      </div>
-		    </div>
-	    </a>
+	 
 	    
 	    <a>
 		    <div class="col-sm-4"> 

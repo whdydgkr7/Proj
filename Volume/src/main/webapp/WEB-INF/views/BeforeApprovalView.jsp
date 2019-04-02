@@ -114,9 +114,9 @@ table.greenTable tbody td {
                   style="margin-left: 12%; width: 1000px; text-align: center;">
 
                   <c:choose>
-                     <c:when test="${not empty thumbnail}" >
+                     <c:when test="${not empty ProjectBbsDTO.thumbnail}" >
                         <td class="text-center"><img
-                           src="./resources/thumbnail/${thumbnail}"></td>
+                           src="./resources/18/${ProjectBbsDTO.thumbnail}"></td>
                      </c:when>
                      <c:otherwise>
                         <td class="text-center"><img

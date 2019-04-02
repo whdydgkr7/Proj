@@ -46,7 +46,7 @@
     <a href="ProjectController.do" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-lime w3-hover-pale-yellow" style="z-index:2;width:340px;font-weight:bold;">진행중인 프로젝트</a>
     <a href="BeforeApproval.do" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-lime w3-hover-pale-yellow" style="z-index:3;width:340px;font-weight:bold;">프로젝트 제안하기</a>
     <a href="oneDay" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-lime w3-hover-pale-yellow" style="z-index:4;width:340px;font-weight:bold;">원데이 클래스</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-lime w3-hover-pale-yellow" style="z-index:5;width:340px;font-weight:bold;">REVIEW</a>
+    
 
     
   
@@ -57,6 +57,6 @@
     <a href="ProjectController.do" class="w3-bar-item w3-button w3-padding-large">진행중인 프로젝트</a>
     <a href="BeforeApproval.do" class="w3-bar-item w3-button w3-padding-large">프로젝트 제안하기</a>
     <a href="#" class="w3-bar-item w3-button w3-padding-large">원데이 클래스</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">REVIEW</a>
+    
   </div>
 </div>

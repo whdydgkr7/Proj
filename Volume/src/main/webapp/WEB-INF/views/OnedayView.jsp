@@ -69,7 +69,7 @@ table.greenTable tbody td {
 <body class="w3-theme-l5">
 
 
-	
+
 	<!-- Navbar -->
 	<!-- <div class="w3-row">
 		<img src="./resources/images/10.jpg" alt="" />
@@ -93,22 +93,22 @@ table.greenTable tbody td {
 					</div>
 				</div>
 				<div class="w3-container">
-					<h1 style="text-align: center; font-weight: bold;" >원데이 클래스</h1>
+					<h1 style="text-align: center; font-weight: bold;">원데이 클래스</h1>
 				</div>
 
 				<div class="w3-container w3-card w3-white w3-round w3-margin"
 					style="border: solid white 1px;">
-					<input type="hidden" value="${onedayDTO.id}" id="id">
-					<input type="hidden" value="${onedayDTO.idx}" id="idx">
-					<input type="hidden" value="${onedayDTO.t_point}" id="point">
-					<input type="hidden" value="${login.id}" id="userid">
+					<input type="hidden" value="${onedayDTO.id}" id="id"> <input
+						type="hidden" value="${onedayDTO.idx}" id="idx"> <input
+						type="hidden" value="${onedayDTO.t_point}" id="point"> <input
+						type="hidden" value="${login.id}" id="userid">
 					<div class="w3-row-padding"
 						style="margin: 0 -16px; border: solid white 1px;">
 						<div class="w3-half" style="margin-left: 10%; width: 700px;">
 							<c:choose>
-								<c:when test="${not empty thumbnail }">
+								<c:when test="${not empty onedayDTO.thumbnail }">
 									<td class="text-center"><img
-										src="./resources/thumbnail/${onedayDTO.thumbnail}"></td>
+										src="./resources/18/${onedayDTO.thumbnail}"></td>
 								</c:when>
 								<c:otherwise>
 									<td class="text-center"><img
@@ -134,9 +134,7 @@ table.greenTable tbody td {
 											</h3>
 										</div>
 										<div class="w3-clear">
-											<h3>
-											후기수()
-											</h3>
+											<h3>후기수()</h3>
 										</div>
 										<h4>후기수</h4>
 									</div>
@@ -147,9 +145,7 @@ table.greenTable tbody td {
 											<i class="fa fa-eye w3-xxxlarge"></i>
 										</div>
 										<div class="w3-right">
-											<h3>
-												 ${onedayDTO.visit_count }
-											</h3>
+											<h3>${onedayDTO.visit_count }</h3>
 										</div>
 										<div class="w3-clear"></div>
 										<h4>조회수</h4>
@@ -162,9 +158,7 @@ table.greenTable tbody td {
 											<i class="fa fa-users w3-xxxlarge"></i>
 										</div>
 										<div class="w3-right">
-											<h3>
-												  
-											</h3>
+											<h3></h3>
 										</div>
 										<div class="w3-clear"></div>
 										<h4>참여자수</h4>
@@ -172,22 +166,22 @@ table.greenTable tbody td {
 								</div>
 							</div>
 							<div class="w3-row">
-								
-									<div
-										class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"
-										style="font-weight: bold;">상세정보</div>
-								
-									
-									<div
-										class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"
-										style="font-weight: bold;">위치정보</div>
-								
-									<div
-										class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"
-										style="font-weight: bold;">후기</div>
-							
+
+								<div
+									class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"
+									style="font-weight: bold;">상세정보</div>
+
+
+								<div
+									class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"
+									style="font-weight: bold;">위치정보</div>
+
+								<div
+									class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"
+									style="font-weight: bold;">후기</div>
+
 							</div>
-							
+
 							<br>
 							<div id="view" class="w3-container Ex"
 								style="display: block; height: 800px; text-align: left;">
@@ -197,62 +191,62 @@ table.greenTable tbody td {
 									<tbody>
 										<tr>
 											<td style="background-color: #F2F0E8;">클래스명:</td>
-											<td> ${onedayDTO.title }</td>
-											
+											<td>${onedayDTO.title }</td>
 										<tr>
 											<td style="background-color: #F2F0E8;">클래스 개시자</td>
-											<td> ${onedayDTO.id }</td>
-										</tr>											
+											<td>${onedayDTO.id }</td>
+										</tr>
 										</tr>
 
 										<tr>
 											<td style="background-color: #F2F0E8;">클래스 시작일 :</td>
-											<td> ${onedayDTO.start_date }</td>
+											<td>${onedayDTO.start_date }</td>
 										</tr>
 										<tr>
 											<td style="background-color: #F2F0E8;">클래스 종료일:</td>
-											<td> ${onedayDTO.end_date }</td>
+											<td>${onedayDTO.end_date }</td>
 										</tr>
-																				<tr>
+										<tr>
 											<td style="background-color: #F2F0E8;">클래스 시간:</td>
-											<td> ${onedayDTO.t_time }</td>
+											<td>${onedayDTO.t_time }</td>
 										</tr>
 										<tr>
 											<td style="background-color: #F2F0E8;">클래스 방식 :</td>
-											<td> ${onedayDTO.t_method }</td>
-										</tr>										
+											<td>${onedayDTO.t_method }</td>
+										</tr>
 										<tr style="height: 300px;">
 											<td style="background-color: #F2F0E8;">클래스 설명:</td>
-											<td> ${onedayDTO.content }</td>
+											<td>${onedayDTO.content }</td>
 										</tr>
 										<tr>
 											<td style="background-color: #F2F0E8;">클래스 총 수용인원:</td>
-											<td> ${onedayDTO.e_limit }</td>
+											<td>${onedayDTO.e_limit }</td>
 										</tr>
 										<tr>
 											<td style="background-color: #F2F0E8;">클래스 상태 :</td>
-											<td> ${onedayDTO.state }</td>
-										</tr>										
+											<td>${onedayDTO.state }</td>
+										</tr>
 
 
 
 									</tbody>
 
 								</table>
-				<div class="w3-container" style="text-align: center;">
-						<h2 style="font-weight: bold;'">클래스 참가인원</h2>
+								<div class="w3-container" style="text-align: center;">
+									<h2 style="font-weight: bold;'">클래스 참가인원</h2>
 
 
-						<p id="myP" style="font-size: 40px; font-weight:bold;">
-							현재 인원 <span id="demo"></span>${num } 명  / 총 ${onedayDTO.e_limit } 명
-						</p>
-						<p id="Cmyp">참가하기를 클릭해주세요</p>
+									<p id="myP" style="font-size: 40px; font-weight: bold;">
+										현재 인원 <span id="demo"></span>${num } 명 / 총 ${onedayDTO.e_limit }
+										명
+									</p>
+									<p id="Cmyp">참가하기를 클릭해주세요</p>
 
-						<!-- 한번 신청하면 더이상신청안되게하기 -->
-						<button class="w3-button w3-lime" onclick="move();">참가하기</button>
-					</div>
-					<hr>
-<script>
+									<!-- 한번 신청하면 더이상신청안되게하기 -->
+									<button class="w3-button w3-lime" onclick="move();">참가하기</button>
+								</div>
+								<hr>
+								<script>
 						function move() {
 
 
@@ -291,7 +285,7 @@ table.greenTable tbody td {
 							</div>
 
 							<div id="location" class="w3-container Ex"
-								style="display:block; height: 500px; text-align: left;">
+								style="display: block; height: 500px; text-align: left;">
 								<h2>위치정보</h2>
 								<br>
 								<div id="map" style="width: 100%; height: 350px;"></div>
@@ -465,9 +459,9 @@ table.greenTable tbody td {
 			<div class="w3-col m4" style="padding: 80px;">
 				<!-- Profile -->
 				<div style="text-align: center;">
-					
-    				<jsp:include page="./common/rightBar.jsp"></jsp:include>
-    	
+
+					<jsp:include page="./common/rightBar.jsp"></jsp:include>
+
 				</div>
 				<br>
 

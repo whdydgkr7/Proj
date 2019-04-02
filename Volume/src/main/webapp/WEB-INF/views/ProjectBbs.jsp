@@ -130,18 +130,18 @@ background-color:#F2F3F2;
 								<c:forEach items="${lists }" var="row" varStatus="loop">
 									<!-- 리스트반복시작 -->									
 																			
-											<c:choose>
-												<c:when test=" ${not empty row.thumbnail }" >
-												<td class="text-center" > 
-													<img src="./resources/thumbnail/${row.thumbnail}"  width="200" height="200">
-												</td>	
-												</c:when>
-												<c:otherwise>	
-												<td class="text-center">
-													<img src="./resources/images/defaultimage.jpg" width="200" height="200">
-												</td>
-												</c:otherwise>		
-											</c:choose>			
+                                 <c:choose>
+                                    <c:when test="${not empty row.thumbnail }"> 
+                                    <td class="text-center" style="vertical-align: middle;"> 
+                                       <img src="./resources/18/${row.thumbnail}"  width="200" height="200">
+                         </td>   
+                                    </c:when>
+                                    <c:otherwise>   
+                                    <td class="text-center">
+                                       <img src="./resources/images/defaultimage.jpg" width="200" height="200">
+                                    </td>
+                                    </c:otherwise>      
+                                 </c:choose>      
 										
 										<td class="text-center">${fn:substring(row.start_date,0,11)}</td>
 										<td class="text-center">${fn:substring(row.end_date,0,11)}</td>

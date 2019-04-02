@@ -155,21 +155,30 @@ UserDTO login = (UserDTO)session.getAttribute("login");
 					<div class="w3"
 						style="margin-left: 12%; width: 1000px; text-align: center;">
 						<!-- 디비에서 값 받아오기 -->
-						<c:choose>
-							<c:when test="${not empty thumbnail }">
-								<td class="text-center"><img
-									src="./resources/thumbnail/${thumbnail}"></td>
-							</c:when>
-							<c:otherwise>
-								<td class="text-center"><img
-									src="./resources/images/defaultimage.jpg"></td>
-							</c:otherwise>
-						</c:choose>
+						<%-- <c:choose>
+                     <c:when test="${not empty thumbnail}" >
+                        <td class="text-center"><img
+                           src="./resources/18/${thumbnail}"></td>
+                     </c:when>
+                     <c:otherwise>
+                        <td class="text-center"><img
+                           src="./resources/images/defaultimage.jpg"></td>
+                     </c:otherwise>
+                  </c:choose> --%>
+
+						<%if(thumbnail!=null){ %>
+						<td class="text-center"><img
+							src="./resources/18/<%=thumbnail%>"></td>
+						<%}else{ %>
+						<td class="text-center"><img
+							src="./resources/images/defaultimage.jpg"></td>
+						<%} %>
 						<br>
 						<h2><%=title%>
-							<input type="hidden" id="id" name="id" value="<%=id%>">
-							<input type="hidden" id="idx" name="idx" value="<%=idx%>">
-							<input type="hidden" id="sessionid" name="sessionid" value="${login.id }">
+							<input type="hidden" id="id" name="id" value="<%=id%>"> <input
+								type="hidden" id="idx" name="idx" value="<%=idx%>"> <input
+								type="hidden" id="sessionid" name="sessionid"
+								value="${login.id }">
 						</h2>
 						<br>
 
@@ -358,15 +367,17 @@ UserDTO login = (UserDTO)session.getAttribute("login");
 					<div class="w3-container">
 						<h2 style="font-weight: bold; font-size: 40px;">프로젝트 참가인원</h2>
 
-	
+
 
 						<p id="myP" style="font-size: 25px; font-weight: bold;">
-							현재 인원 <span id="demo"></span>${num } 명 / 총 <%=m_limits%> 명
-							
+							현재 인원 <span id="demo"></span>${num } 명 / 총
+							<%=m_limits%>
+							명
+
 						</p>
 
-						<p id="Cmyp">참가하기를 클릭해주세요</p>	
-						
+						<p id="Cmyp">참가하기를 클릭해주세요</p>
+
 						<!-- 한번 신청하면 더이상신청안되게하기 -->
 						<button class="w3-button w3-lime" type="submit" onclick="move();">참가하기</button>
 					</div>
@@ -478,7 +489,8 @@ UserDTO login = (UserDTO)session.getAttribute("login");
 									<table class="table table-bordered"
 										style="margin-left: 250px; margin-right: auto;">
 										<tr style="text-align: left;">
-											<td rowspan="2"><img src="./resources/defaultimg.png"
+											<td rowspan="2"><img
+												src="./resources/images/img_avatar1.png"
 												class="media-object" style="width: 60px"></td>
 											<td>작성자: ${pclist.id } &nbsp;&nbsp;
 												작성일:${pclist.postdate }</td>

@@ -2,69 +2,77 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="user.UserImpl">
-   <select id="login" resultType="user.UserDTO" parameterType="String">
-      SELECT * FROM users WHERE id=#{0} and pass=#{1}
-   </select>
-   
-   <!-- 회원 등록하기 -->
-   <insert id="regiUser" parameterType="user.UserDTO">
-      INSERT INTO users (id,pass,name,email,authority,userType) values (#{id}, #{pass}, #{name}, #{email},#{authority}, #{userType})
-   </insert>
-   
-   <!-- 아이디 중복 체크 -->
-   <select id="idCheck" parameterType="String" resultType="int">
-      SELECT COUNT(*) FROM users WHERE id=#{0}
-   </select>
-   
-   <!-- 회원정보 가져오기 -->
-   <select id="getUser" resultType="user.UserDTO" parameterType="String">
-      SELECT * FROM users WHERE id=#{0}
-   </select>
-   
-   <!-- 유저 인증키 난수로 업데이트 -->
-   <update id="GetKey" parameterType="Map">update users set temp=#{param2} where id=#{param1} </update>
-   <!-- 회원 인증키(난수) y로 변경 -->
-   <update id="alter_userKey" parameterType="Map"> update users set enabled=1 where id=#{param1} and temp=#{param2} </update>
-   
-   <!-- 0사용불가 1사용가능 -->
-   <select id="isAuth" resultType="int" parameterType="String">
-      select enabled from users
-         where id=#{0}
-   </select>
-   
-   <!-- 아이디 찾기 -->
-    <select id="findId" parameterType="String" resultType="String">
-       SELECT id FROM users WHERE name = #{0} AND email = #{1}
-    </select>
-    <!-- 비밀번호 찾기 -->
-    <select id="findPass" parameterType="String" resultType="String">
-       SELECT pass FROM users WHERE email = #{user_email}
-    </select>
+	<select id="login" resultType="user.UserDTO"
+		parameterType="String">
+		SELECT * FROM users WHERE id=#{0} and pass=#{1}
+	</select>
 
+	<!-- 회원 등록하기 -->
+	<insert id="regiUser" parameterType="user.UserDTO">
+		INSERT INTO users (id,pass,name,email,authority,userType) values (#{id},
+		#{pass}, #{name}, #{email},#{authority}, #{userType})
+	</insert>
 
-    
-    <!-- 포인트사용하기 -->
-    <update id="point" > update users set point=point-#{0} where id=#{1}</update>
+	<!-- 아이디 중복 체크 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM users WHERE id=#{0}
+	</select>
 
-    
-    <!-- 임시 비번 업데이트 -->
+	<!-- 회원정보 가져오기 -->
+	<select id="getUser" resultType="user.UserDTO"
+		parameterType="String">
+		SELECT * FROM users WHERE id=#{0}
+	</select>
+
+	<!-- 유저 인증키 난수로 업데이트 -->
+	<update id="GetKey" parameterType="Map">update users set
+		temp=#{param2} where id=#{param1} </update>
+	<!-- 회원 인증키(난수) y로 변경 -->
+	<update id="alter_userKey" parameterType="Map"> update users set
+		enabled=1 where id=#{param1} and temp=#{param2} </update>
+
+	<!-- 0사용불가 1사용가능 -->
+	<select id="isAuth" resultType="int" parameterType="String">
+		select enabled from users
+		where id=#{0}
+	</select>
+
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="String" resultType="String">
+		SELECT id FROM users WHERE name = #{0} AND email = #{1}
+	</select>
+	<!-- 비밀번호 찾기 -->
+	<select id="findPass" parameterType="String" resultType="String">
+		SELECT pass FROM users WHERE email = #{user_email}
+	</select>
+
+	<!-- 포인트사용하기 -->
+	<update id="point"> update users set point=point-#{0} where
+		id=#{1}</update>
+
+	<!-- 임시 비번 업데이트 -->
 	<update id="randomPassUpdate" parameterType="String">
-		UPDATE users SET pass=#{param2} WHERE email=#{param1}
+		UPDATE users SET
+		pass=#{param2} WHERE email=#{param1}
 	</update>
-	
-	<!-- 회원정보 수정처리  -->
+
+	<!-- 회원정보 수정처리 -->
 	<update id="Modifi">
-		UPDATE users SET name=#{0},email=#{1},pass=#{2}  WHERE id =#{3}
+		UPDATE users SET name=#{0},email=#{1},pass=#{2} WHERE
+		id =#{3}
 	</update>
-	
-	<!--포인트  -->
+
+	<!--포인트 -->
 	<select id="canpoint" resultType="int">
-        SELECT count(*) FROM users WHERE point>=#{1} and id=#{0} 
-     </select>
-	
+		SELECT count(*) FROM users WHERE point>=#{1} and id=#{0}
+	</select>
+
+	<!-- 아이디비번 맞는지 확인 -->
+	<select id="userright" resultType="int">
+		SELECT count(*) FROM users WHERE id=#{0} and pass=#{1}
+	</select>
 
 
-	
 </mapper>
 
    

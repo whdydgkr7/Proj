@@ -64,27 +64,43 @@ public class LoginController {
       ModelAndView mv = new ModelAndView();
       
       resp.setContentType("text/html;charset=UTF-8");
+      
+      int userright = sqlSession.getMapper(UserImpl.class).userright(req.getParameter("id"), req.getParameter("pass"));
       UserDTO usersDTO = sqlSession.getMapper(UserImpl.class).login(req.getParameter("id"), req.getParameter("pass"));
       int auth= sqlSession.getMapper(UserImpl.class).isAuth(req.getParameter("id"));
       
-      if(auth == 0) {
-         mv.addObject("loginCheck", "false");
-         //mv.setViewName("home");
-         resp.getWriter().println("<script>alert('이메일인증후 사용가능합니다');location.href='./';</script>");
+      
+      if(userright==1) {
+      
+      
+      
+               if(auth == 0) {
+                  mv.addObject("loginCheck", "false");
+                  //mv.setViewName("home");
+                  resp.getWriter().println("<script>alert('이메일인증후 사용가능합니다');location.href='./';</script>");
+                  
+                  return null;
+               }
+               else {
+                  if (usersDTO == null) {
+                     mv.addObject("loginCheck", "false");
+                     mv.setViewName("login/login");
+                  } 
+                  else {
+                     mv.addObject("loginCheck", "true");
+                     session.setAttribute("login", usersDTO);
+                     mv.setViewName("home");
+                  }
+               }
          
-         return null;
-      }
+              
+               }
       else {
-         if (usersDTO == null) {
-            mv.addObject("loginCheck", "false");
-            mv.setViewName("login/login");
-         } else {
-            mv.addObject("loginCheck", "true");
-            session.setAttribute("login", usersDTO);
-            mv.setViewName("home");
-         }
+          mv.addObject("loginCheck", "false");
+          resp.getWriter().println("<script>alert('아이디 비번이 틀렸습니다');location.href='./';</script>");
+          return null;
       }
-
+      
       return mv;
    }
    //���̵� ���ã��

@@ -98,7 +98,7 @@ public class BeforeApprovalController {
 
    // 상세보기
    @RequestMapping("BeforeApprovalViewController.do")
-   public String PrjectBbsView(Model model, HttpServletRequest req) {
+   public String PrjectBbsView(Model model, HttpServletRequest req,HttpSession session) {
       String idx = req.getParameter("idx");
       ProjectBbsDTO ProjectBbsDTO = new ProjectBbsDTO();
 
@@ -106,6 +106,11 @@ public class BeforeApprovalController {
       sqlSession.getMapper(BeforeApprovalImpl.class).visitcount(idx);
       model.addAttribute("ProjectBbsDTO", ProjectBbsDTO);
       //조회수 증가
+      
+      if (session.getAttribute("login") == null) {
+          model.addAttribute("backUrl", "/ExchangeWrite");
+          return "redirect:login.do";
+      }
       
       return "BeforeApprovalView";
    }
@@ -127,10 +132,11 @@ public class BeforeApprovalController {
       
       
       MultipartFile mf = req.getFile("thumbnail"); //업로드 파라미터
-      String path = req.getRealPath("../resources/thumbnail"); // 저장될 위치
+      String path = req.getRealPath("/resources/18"); // 저장될 위치
+      System.out.println("제발좀:"+path);
       String thumbnail= mf.getOriginalFilename();//업로드 파일이름
       File uploadfile = new File(path+"//"+thumbnail);//복사될 위치
-      
+      System.out.println(thumbnail);
       try {
          mf.transferTo(uploadfile);//업로드
          
@@ -166,6 +172,8 @@ public class BeforeApprovalController {
       ServletContext application = this.servletContext;
 
       sqlSession.getMapper(BeforeApprovalImpl.class).write(beforeApproval);
+      
+      model.addAttribute("path",path);
 
       return "redirect:BeforeApproval.do";
    }
@@ -175,33 +183,24 @@ public class BeforeApprovalController {
    // 추천하기
    @RequestMapping("recommendAction")
    @ResponseBody
-   public void recommendAction(@RequestParam("idx") String idx,@RequestParam("sessionid") String sessionid, HttpServletResponse resp, HttpSession session,Model model) throws IOException {
-	   System.out.println("sessionid"+sessionid);
-	   System.out.println(idx);
+   public void recommendAction(@RequestParam("idx") String idx,@RequestParam("sessionid") String sessionid, HttpServletResponse resp) throws IOException {
+      System.out.println(sessionid);
+      System.out.println(idx);
       
-	   System.out.println(sessionid);
-	  if (sessionid == null || sessionid=="") {
-		  resp.getWriter().println("로그인후 이용가능합니다.");
-		  //resp.getWriter().println("<script>alert('로그인후 이용가능합니다.');location.href='./';</script>");
-	         
+      
+      int recommend=sqlSession.getMapper(BeforeApprovalImpl.class).confirmrec(idx,sessionid);
+      System.out.println("recommend:"+recommend);
+      
+      if(recommend >=1) {
+         resp.getWriter().println("이미 추천하셨습니다.");
+         
       }
-	  else {
-		  int recommend=sqlSession.getMapper(BeforeApprovalImpl.class).confirmrec(idx,sessionid);
-	      System.out.println("recommend:"+recommend);
-	      
-	      if(recommend >=1) {
-	    	  resp.getWriter().println("이미 추천하셨습니다.");
-	         
-	      }
-	      else {
-	         sqlSession.getMapper(BeforeApprovalImpl.class).recommendproc(idx);
-	         System.out.println("1");
-	         sqlSession.getMapper(BeforeApprovalImpl.class).addppropose(idx,sessionid);
-	         resp.getWriter().println("추천되었습니다.");
-	      }
-	  }
-      
-      
+      else {
+         
+         sqlSession.getMapper(BeforeApprovalImpl.class).recommendproc(idx);
+         sqlSession.getMapper(BeforeApprovalImpl.class).addppropose(idx,sessionid);
+         resp.getWriter().println("추천되었습니다.");
+      }
    }
 
 }
