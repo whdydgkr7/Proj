@@ -29,7 +29,37 @@
 	rel="stylesheet">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
-
+<script>
+function writeValidate(f) {
+	
+	if(f.title.value==""){
+		alert("제목을 입력하세요");
+		f.title.focus();
+		return false;
+	}
+	if(f.content.value==""){
+		alert("내용을 입력하세요");
+		f.contents.focus();
+		return false;
+	}
+	if(f.start_date.value==""){
+		alert("시작일을 입력하세요");
+		f.pass.focus();
+		return false;
+	}
+	if(f.end_date.value==""){
+		alert("시작일을 입력하세요");
+		f.pass.focus();
+		return false;
+	}
+	if(f.address.value==""){
+		alert("주소를 입력하세요");
+		f.pass.focus();
+		return false;
+	}
+	
+}
+</script>
 
 <style>
 body, h1, h2, h3, h4, h5, h6 {
@@ -120,7 +150,7 @@ html, body {
 	<form class="form-horizontal" enctype="multipart/form-data"
 		name="writeFrm" method="post"
 		action="<c:url value="BeforeApprovalWriteAction.do"/>"
-		onsubmit="return fileCheck(this.thumbnail.value);">
+		onsubmit="return writeValidate(this.thumbnail.value);">
 		<fieldset>
 
 			<!-- Form Name -->
@@ -263,7 +293,7 @@ $(document).on('change', 'input[type=file]', function(){
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="ln">프로젝트 종료일 : </label>
 				<div class="col-md-4">
-					<input type="date" name="end_date">
+					<input type="date" name="end_date" min="${writeFrm.start_date}" >
 				</div>
 			</div>
 

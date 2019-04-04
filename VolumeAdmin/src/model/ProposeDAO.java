@@ -55,7 +55,7 @@ public class ProposeDAO {
 	
 	//추천수 30이 넘는 프로젝트 제안서 불러오기
 	public List<ProjectBbsDTO> highRecommandPropose() {
-		String sql="SELECT * FROM pbbs WHERE recommend >= 30 and endbbs='진행중' ORDER BY recommend DESC";
+		String sql="SELECT * FROM pbbs WHERE recommend >= 30 and state='대기중' ORDER BY recommend DESC";
 		List<ProjectBbsDTO> list=new Vector<ProjectBbsDTO>();
 		try {
 			psmt=con.prepareStatement(sql);
@@ -116,7 +116,7 @@ public class ProposeDAO {
 	
 	//프로젝트 제안 승인
 	public void submitPropose(int idx) {
-		String sql="UPDATE pbbs SET endbbs='종료' where idx= ?";
+		String sql="UPDATE pbbs SET state='종료'  where idx= ?";
 		
 		try {
 			psmt= con.prepareStatement(sql);

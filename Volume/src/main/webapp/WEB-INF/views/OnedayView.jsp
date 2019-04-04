@@ -135,7 +135,7 @@ table.greenTable tbody td {
 											</h3>
 										</div>
 										<div class="w3-clear">
-											<h3>후기수()</h3>
+											<h3>후기수</h3>
 										</div>
 										<!-- <h4>후기수</h4> -->
 									</div>
@@ -159,7 +159,7 @@ table.greenTable tbody td {
 											<i class="fa fa-users w3-xxxlarge"></i>
 										</div>
 										<div class="w3-right">
-											<h3></h3>
+											<h3>${num }</h3>
 										</div>
 										<div class="w3-clear"></div>
 										<h4>참여자수</h4>

@@ -48,14 +48,14 @@ public class BeforeApprovalController {
       String keyField = req.getParameter("keyField");
       String keyString = req.getParameter("keyString");
       if (keyString != null) {
-         addQueryString = String.format("keyField=%s" + "%keyString=%s&", keyField, keyString);
+         addQueryString = String.format("keyField=%s" + "&keyString=%s", keyField, keyString);
 
          paramDTO.setKeyField(keyField);
          paramDTO.setKeyString(keyString);
       }
 
       // 검색어 처리
-      int totalRecordCount = sqlSession.getMapper(BeforeApprovalImpl.class).getTotalCount();
+      int totalRecordCount = sqlSession.getMapper(BeforeApprovalImpl.class).getTotalCountSearch(paramDTO);
       // 검색어에 따른 레코드 갯수 확인용
       System.out.println("totalRecordCount=" + totalRecordCount);
 

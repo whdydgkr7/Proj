@@ -99,8 +99,8 @@ html, body {
 					<div class="form-group">
 						<select name="searchColumn" style="height: 50px;"
 							class="form-control">
-							<option value="title">프로젝트</option>
-							<option value="name">작성자</option>
+							<option value="title">클래스명</option>
+							<option value="id">작성자</option>
 							<option value="content">내용</option>
 						</select>
 					</div>
@@ -122,7 +122,7 @@ html, body {
 						<div class="input-group-btn">
 							<button type="button"
 								style="height: 50px; width: 200px; border-radius: 15px;"
-								onclick="window.open('Calendar2.do','window_name','width=1000,height=600,location=no,status=no,scrollbars=no');">
+								onclick="window.open('Calendar2.do','window_name','width=1200,height=800,location=no,status=no,scrollbars=no');">
 								<i class="glyphicon glyphicon-calendar"
 									style="font-size: 18px; font-weight: bold;">일정보기</i>
 							</button>
@@ -152,6 +152,7 @@ html, body {
 						<th>조회수</th>
 						<th>작성일</th>
 						<th>거래상태</th>
+						<th>작성자(id)</th>
 					</thead>
 					<tbody>
 						<c:choose>
@@ -180,7 +181,7 @@ html, body {
 										href="./OndayViewController.do?idx=${row.idx}">
 											${row.title}</a></td>
 									<td class="text-left"><a
-										href="./OndayViewController.do?idx=${row.idx}">${row.content}</a>
+										href="./OndayViewController.do?idx=${row.idx}">${fn:substring(row.content,0,50)}</a>
 									</td>
 									<td class="text-center">${row.t_method }</td>
 									<td class="text-center">${row.t_point }</td>
@@ -188,6 +189,7 @@ html, body {
 									<td class="text-center">${row.visit_count }</td>
 									<td class="text-center">${fn:substring(row.postdate,0,11)}</td>
 									<td class="text-center">${row.state}</td>
+									<td class="text-center">${row.id}</td>
 									<%--                               <td class="text-center">          
                                  <c:if test="${not empty row.attachedfile }">
                                     <span class="glyphicon glyphicon-paperclip"></span>               

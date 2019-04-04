@@ -7,6 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -93,7 +94,7 @@ UserDTO login = (UserDTO)session.getAttribute("login");
 		style="max-width: 1400px; margin-top: 80px">
 		<!-- The Grid -->
 		<div class="w3-row ">
-			<%
+<%-- 			<%
 				ProjectBbsDTO list = new ProjectBbsDTO();
 				ArrayList<ProjectBbsDTO> dto = (ArrayList<ProjectBbsDTO>) request.getAttribute("lists");
 				String id = "";
@@ -118,7 +119,7 @@ UserDTO login = (UserDTO)session.getAttribute("login");
 					thumbnail = dt.getThumbnail();
 					idx = dt.getIdx();
 				}
-			%>
+			%> --%>
 			<%
 				ArrayList<PcommentDTO> pcdt = (ArrayList<PcommentDTO>) request.getAttribute("pcomment");
 				int size = 0;
@@ -155,28 +156,28 @@ UserDTO login = (UserDTO)session.getAttribute("login");
 					<div class="w3"
 						style="margin-left: 12%; width: 1000px; text-align: center;">
 						<!-- 디비에서 값 받아오기 -->
-						<%-- <c:choose>
-                     <c:when test="${not empty thumbnail}" >
+					<c:choose>
+                     <c:when test="${not empty projectBbsDTO.thumbnail}" >
                         <td class="text-center"><img
-                           src="./resources/18/${thumbnail}"></td>
+                           src="./resources/18/${projectBbsDTO.thumbnail}"></td>
                      </c:when>
                      <c:otherwise>
                         <td class="text-center"><img
                            src="./resources/images/defaultimage.jpg"></td>
                      </c:otherwise>
-                  </c:choose> --%>
+                  </c:choose> 
 
-						<%if(thumbnail!=null){ %>
+<%-- 						<%if(thumbnail!=null){ %>
 						<td class="text-center"><img
 							src="./resources/18/<%=thumbnail%>"></td>
 						<%}else{ %>
 						<td class="text-center"><img
 							src="./resources/images/defaultimage.jpg"></td>
-						<%} %>
+						<%} %> --%>
 						<br>
-						<h2><%=title%>
-							<input type="hidden" id="id" name="id" value="<%=id%>"> <input
-								type="hidden" id="idx" name="idx" value="<%=idx%>"> <input
+						<h2>${projectBbsDTO.title}
+							<input type="hidden" id="id" name="id" value="${projectBbsDTO.id}"> <input
+								type="hidden" id="idx" name="idx" value="${projectBbsDTO.idx}"> <input
 								type="hidden" id="sessionid" name="sessionid"
 								value="${login.id }">
 						</h2>
@@ -191,10 +192,10 @@ UserDTO login = (UserDTO)session.getAttribute("login");
 										<i class="fa fa-comment w3-xxxlarge"></i>
 									</div>
 									<div class="w3-right">
-										<h3><%=size%></h3>
+										<h3>${ccount}</h3>
 									</div>
 									<div class="w3-clear"></div>
-									<h4>후기수</h4>
+									<h4>댓글수</h4>
 								</div>
 							</div>
 							<div class="w3-col s4 ">
@@ -203,7 +204,7 @@ UserDTO login = (UserDTO)session.getAttribute("login");
 										<i class="fa fa-eye w3-xxxlarge"></i>
 									</div>
 									<div class="w3-right">
-										<h3><%=visitcount%></h3>
+										<h3>${projectBbsDTO.visit_count}</h3>
 									</div>
 									<div class="w3-clear"></div>
 									<h4>조회수</h4>
@@ -216,7 +217,7 @@ UserDTO login = (UserDTO)session.getAttribute("login");
 										<i class="fa fa-users w3-xxxlarge"></i>
 									</div>
 									<div class="w3-right">
-										<h3><%=m_limits%></h3>
+										<h3>${projectBbsDTO.m_limit}</h3>
 									</div>
 									<div class="w3-clear"></div>
 									<h4>참여자수</h4>
@@ -231,19 +232,19 @@ UserDTO login = (UserDTO)session.getAttribute("login");
 
 								<tr>
 									<td style="background-color: #F2F0E8;">프로젝트 시작일 :</td>
-									<td><%=sdate%></td>
+									<td>${fn:substring(projectBbsDTO.start_date,0,11)}</td>
 								</tr>
 								<tr>
 									<td style="background-color: #F2F0E8;">프로젝트 종료일:</td>
-									<td><%=edate%></td>
+									<td>${fn:substring(projectBbsDTO.end_date,0,11)}</td>
 								</tr>
 								<tr style="height: 300px;">
 									<td style="background-color: #F2F0E8;">프로젝트 설명:</td>
-									<td><%=content%></td>
+									<td>${projectBbsDTO.content}</td>
 								</tr>
 								<tr>
 									<td style="background-color: #F2F0E8;">프로젝트 참가인원:</td>
-									<td><%=m_limits%>명</td>
+									<td>${projectBbsDTO.m_limit}명</td>
 								</tr>
 								<tr>
 									<td colspan="2" style="background-color: #DEE686;">장소</td>
@@ -286,7 +287,7 @@ UserDTO login = (UserDTO)session.getAttribute("login");
 											var geocoder = new daum.maps.services.Geocoder();
 											
 											// 주소로 좌표를 검색합니다
-											geocoder.addressSearch('<%=address%>',
+											geocoder.addressSearch('${projectBbsDTO.address}',
 															function(result,
 																	status) {
 
@@ -371,7 +372,7 @@ UserDTO login = (UserDTO)session.getAttribute("login");
 
 						<p id="myP" style="font-size: 25px; font-weight: bold;">
 							현재 인원 <span id="demo"></span>${num } 명 / 총
-							<%=m_limits%>
+							${projectBbsDTO.m_limit}
 							명
 
 						</p>
@@ -386,8 +387,6 @@ UserDTO login = (UserDTO)session.getAttribute("login");
 
 					<script>
 						function move() {
-
-
 								$.ajax({
 									//요청할 서버의 페이지 경로(form의 action과 동일)
 									url : "join",
@@ -450,7 +449,7 @@ UserDTO login = (UserDTO)session.getAttribute("login");
 							style="margin-left: auto; margin-right: auto;">
 							<tr>
 								<td rowspan="2"><img class="w3-circle"
-									src="./resources/defaultimg.png"
+									src="./resources/images/img_avatar1.png" 
 									style="width: 96px; height: 96px"></td>
 								<td>작성자: ${login.id }</td>
 								<td><input type="hidden" /></td>

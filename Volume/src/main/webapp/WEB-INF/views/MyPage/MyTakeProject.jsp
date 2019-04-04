@@ -125,10 +125,10 @@ window.onload= function() {
 <body>
 	<div>
 		<jsp:include page="../../../resources/navbar/navbarTop.jsp" />
-		<div>
+	<div>
 
 
-
+		<div class="w3-row-padding w3-padding-64 w3-container-fluid " style="height: 1500px; ">
 			<h1 class="w3-text-BLACK" style="font-weight: bold;">내가 참여한 프로젝트</h1>
 			<div class="w3-row">
 				<!-- 검색, 셀렉트박스 들어갔던 자리 -->
@@ -145,9 +145,7 @@ window.onload= function() {
 						<th>작성일</th>
 						<th>첨부파일</th>
 					</thead>
-					<tbody id="ajaxProj">
-						<!-- c:choose문 들어갔던 자리 -->
-					</tbody>
+
 					<tbody>
 						<c:choose>
 							<c:when test="${empty lists }">
@@ -160,7 +158,7 @@ window.onload= function() {
 									<!-- 리스트반복시작 -->
 
 									<c:choose>
-										<c:when test=" ${not empty row.thumbnail }">
+										<c:when test="${not empty row.thumbnail}">
 											<td class="text-center"><img
 												src="./resources/18/${row.thumbnail}" width="200"
 												height="200"></td>
@@ -174,10 +172,11 @@ window.onload= function() {
 
 									<td class="text-center">${fn:substring(row.start_date,0,11)}</td>
 									<td class="text-center">${fn:substring(row.end_date,0,11)}</td>
-									<td class="text-center">
-									<a href="./ProjectBbsViewController.do?idx=${row.idx}">
+									<td class="text-center"><a
+										href="./ProjectBbsViewController.do?idx=${row.idx}">
 											${row.title}</a></td>
-									<td class="text-left"><a href="./ProjectBbsViewController.do?idx=${row.idx}">${row.content}</a>
+									<td class="text-left"><a
+										href="./ProjectBbsViewController.do?idx=${row.idx}">${row.content}</a>
 									</td>
 									<td class="text-center">${row.recommend }</td>
 									<td class="text-center">${row.visit_count }</td>
@@ -205,7 +204,8 @@ window.onload= function() {
 				</table>
 				<!-- 페이징 처리 부분 -->
 			</div>
-
+		</div>
+			
 			<jsp:include page="../../../resources/navbar/footer.jsp" />
 
 		</div>

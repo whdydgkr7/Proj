@@ -59,6 +59,7 @@ public class HomeController {
 		
 		model.addAttribute("onedayDTO",onedayDTO);
 		
+		
 		return "home";
 	}
 	

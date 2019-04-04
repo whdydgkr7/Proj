@@ -79,16 +79,16 @@ background-color:#F2F3F2;
 			  
 					  <form class="form-inline" name="searchFrm" onsubmit="return searchValidate(this);">
 							<div class="form-group">
-								<select name="searchColumn" style="height:50px;"  class="form-control">
-									<option value="title">프로젝트</option>
-									<option value="name">작성자</option>
+								<select name="keyField" style="height:50px;"  class="form-control">
+									<option value="title">제목</option>
+									<option value="id">작성자</option>
 									<option value="content">내용</option>
 								</select>
 							</div>
 							
 							
 							<div class="input-group">
-								<input type="text" name="KeyString" style="height: 50px;" class="form-control"/>
+								<input type="text" name="keyString" style="height: 50px;" class="form-control"/>
 								<div class="input-group-btn">
 									<button type="submit" style="height: 50px; width: 50px; border-radius: 15px;"  onclick="location.href='ProjectBbsWriteController.do';">
 										<i class="glyphicon glyphicon-search" style="font-size: 18px; font-weight: bold;"></i>
@@ -115,6 +115,7 @@ background-color:#F2F3F2;
 					   	<th class="text-center">추천수</th>	 				    
 					    <th class="text-center">조회수</th>					    
 					    <th class="text-center">작성일</th>
+					    <th class="text-center">작성자(아이디)</th>
 
 					  </thead>
 					 <tbody>
@@ -149,11 +150,12 @@ background-color:#F2F3F2;
 										<a href="./ProjectBbsViewController.do?idx=${row.idx}"> 
 											${row.title}</a></td>
 										<td class="text-left">
-										<a href="./ProjectBbsViewController.do?idx=${row.idx}">${row.content}</a>
+										<a href="./ProjectBbsViewController.do?idx=${row.idx}">${fn:substring(row.content,0,50)}</a>
 										</td>
 										<td class="text-center">${row.recommend }</td>
 										<td class="text-center">${row.visit_count }</td>
 										<td class="text-center">${fn:substring(row.postdate,0,10)}</td>
+										<td class="text-center">${row.id}</td>
 
 <%-- 										<%
 										  String id =request.getAttribute("id").toString();

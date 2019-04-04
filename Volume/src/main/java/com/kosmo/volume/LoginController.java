@@ -93,7 +93,7 @@ public class LoginController {
                   else {
                      mv.addObject("loginCheck", "true");
                      session.setAttribute("login", usersDTO);
-                     mv.setViewName("home");
+                     mv.setViewName("redirect:/");
                   }
                }
          

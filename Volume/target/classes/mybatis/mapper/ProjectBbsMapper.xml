@@ -28,10 +28,12 @@
    <!-- 전체 게시물수 카운트 : 검색기능추가 -->
    <select id="getTotalCountSearch" resultType="int" 
       parameterType="model.ParamDTO">
-      SELECT COUNT(*) FROM pbbs
+      SELECT COUNT(*) FROM pbbs WHERE
+      state='종료' and endbbs='진행중' 
       <if test="!keyString.equals('') and keyString!=null">
-         WHERE ${keyField} like '%'||#{keyString}||'%'
+          and ${keyField} like '%'||#{keyString}||'%'
          </if> 
+         
    </select> 
 
    
@@ -41,13 +43,14 @@
       SELECT * FROM (
          SELECT Tb.*, rownum rNum FROM (
             SELECT * FROM pbbs
+            WHERE  state='종료' AND endbbs='진행중' 
             <if test="!keyString.equals('') and keyString!=null">
-               WHERE ${keyField} like '%'||#{keyString}||'%' 
-               </if> 
+               AND ${keyField} LIKE '%'||#{keyString}||'%' 
+            </if> 
             ORDER BY idx DESC
          ) Tb
       )
-      WHERE rNum BETWEEN ${start} AND ${end} and endbbs='종료'
+      WHERE rNum BETWEEN ${start} AND ${end} 
    </select>
    
    <!-- 조회수증가 -->
@@ -63,18 +66,18 @@
    </select>
 
    <select id="clist" resultType="model.ProjectBbsDTO">
-      SELECT * FROM pbbs ORDER BY idx DESC
+      SELECT * FROM pbbs WHERE state='종료' and endbbs='진행중' ORDER BY idx DESC 
       </select>
    
    <select id="listView" resultType="model.ProjectBbsDTO">
-      SELECT * FROM pbbs WHERE idx=#{idx}
+      SELECT * FROM pbbs WHERE idx=#{idx} 
       </select>
       <!-- 댓글달기 -->
       <insert id="pcomment" parameterType="model.PcommentDTO">
          INSERT INTO pcomment (comment_idx, idx, id, content) 
-            values(p_seq.nextval, #{idx}, #{id}, #{content})
+            values(pComment_seq.nextval, #{idx}, #{id}, #{content})
          <selectKey keyProperty="comment_idx" resultType="Integer" order="AFTER">
-            select p_seq.currval FROM dual
+            select pComment_seq.currval FROM dual
          </selectKey>
       </insert>
       <!-- 댓글뿌리기 -->
@@ -85,10 +88,14 @@
       <delete id="cdelete" parameterType="model.PcommentDTO">
          delete from pcomment where idx=#{0} and comment_idx=#{1}
       </delete>
+      <!--댓글 수 -->
+      <select id="ccount" resultType="int">
+      	SELECT count(*) from pcomment where idx=#{0}
+      </select>
    
    
    <select id="mainpbbs" resultType="model.ProjectBbsDTO">
-       SELECT * FROM (SELECT * FROM pbbs ORDER BY idx DESC) WHERE ROWNUM<![CDATA[ < ]]>=4
+       SELECT * FROM (SELECT * FROM pbbs ORDER BY idx DESC) WHERE ROWNUM<![CDATA[ < ]]>=4 and state='종료' and endbbs='진행중' 
    </select>
      
      <!--참가중복확인 -->
@@ -96,22 +103,25 @@
         SELECT count(*) FROM pEntry WHERE idx=#{0} AND id=#{1}
      </select>
      
-     <select id="selectbbs" resultType="String">
-       SELECT COUNT(*) FROM pentry  WHERE idx=#{0}
-    </select>
-
-
-     
+          
      <!--참가하기  -->
      <insert id="join">
      INSERT INTO pEntry (entry_idx,idx,id,regidate,result) VALUES (pEntry_seq.NEXTVAL,#{0},#{1},sysdate,1)
      </insert>   
      
      
+     <select id="selectbbs" resultType="String">
+       SELECT COUNT(*) FROM pentry  WHERE idx=#{0} 
+    </select>
+
+
+
+     
+     
      
      <!-- 마이페이지 - 내가 제안한 프로젝트 -->
      <select id="mybbs" resultType="model.ProjectBbsDTO">
-       SELECT * FROM pbbs WHERE id =#{0} and state='대기중'
+       SELECT * FROM pbbs WHERE id =#{0} and state='종료' and  endbbs='진행중'
     </select>
     
     <!-- 안되면 model.ProjectBbsDTO유저로변경 -->
@@ -121,7 +131,7 @@
     
     <!-- state변경 -->
     <update id="state">
-      UPDATE pbbs SET state='종료'  WHERE idx=#{idx}
+      UPDATE pbbs SET endbbs='종료'  WHERE idx=#{idx}
    </update>
     
      

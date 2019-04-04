@@ -43,7 +43,7 @@ public interface ProjectBbsDAOImpl {
    public ArrayList<ProjectBbsDTO> clist();
 
    // 프로젝트게시판 상세보기
-   public ArrayList<ProjectBbsDTO> listView(String idx);
+   public ProjectBbsDTO listView(String idx);
 
    // 댓글
    public void pcomment(PcommentDTO pDTO);
@@ -80,6 +80,8 @@ public interface ProjectBbsDAOImpl {
 
    //포인트지급완료후(진행중에서제거)
    public void state(String idx);
+   //댓글수 카운트
+   public int ccount(String idx);
    
 
 }

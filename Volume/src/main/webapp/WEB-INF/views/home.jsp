@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <title>Volume</title>
@@ -55,7 +56,7 @@ body, h1, h2, h3, h4, h5, h6 {
 			style="padding: 120px 16px; height: 390px; background-image: url('./resources/images/8.png');">
 			<h1 class="w3-margin w3-jumbo" style="font-weight: bold;">
 				<span class="w3-padding w3-lime w3-opacity-min"
-					style="font-size: 90px;">VolUMe</span>
+					style="font-size: 90px; font-family:sans-serif;">VolUMe</span>
 			</h1>
 
 
@@ -63,14 +64,14 @@ body, h1, h2, h3, h4, h5, h6 {
 
 		<!-- Navbar -->
 
+	
 
-
-
-		<h3 style="font-weight: bold; padding: 100px;">진행중인 프로젝트</h3>
+		
+		<h3 style="font-weight: bold; padding: 100px; font-size:60px;">진행중인 프로젝트</h3>
 
 	 	
 		<div class="w3-row-padding w3-padding-16 w3-center" id="food"
-			style="padding: 100px;">
+			style="padding: 100px; border: 5px solid #DAE46A; ">
 			<div class="row">
 				<c:choose>
 					<c:when test="${empty projectBbsDTO }">
@@ -86,9 +87,9 @@ body, h1, h2, h3, h4, h5, h6 {
 						</div>
 					</c:when>
 					<c:otherwise>
-						<a href="BeforeApproval.do">
+					
 						<c:forEach items="${projectBbsDTO }" var="row" varStatus="loop">
-
+							<a href="./ProjectBbsViewController.do?idx=${row.idx}" >
 							<div class="col-md-3">
 								<div class="thumbnail">
 									<c:choose>
@@ -102,10 +103,12 @@ body, h1, h2, h3, h4, h5, h6 {
 										</c:otherwise>
 									</c:choose>
 									<div class="caption">
-										<p style="text-align: left;">
+										<p style="text-align: left; font-weight: bold; font-size:18px;">
 											프로젝트명 :&nbsp; ${row.title } <br /> 프로젝트 기간:&nbsp;
-											${row.start_date }&nbsp;~&nbsp;${row.end_date } <br /> 프로젝트
+											${fn:substring(row.start_date,0,11) }&nbsp;~&nbsp;${fn:substring(row.end_date,0,11) } <br /> 프로젝트
 											필요인원:&nbsp; ${row.m_limit }
+											
+										
 										</p>
 									</div>
 									</a>
@@ -121,9 +124,9 @@ body, h1, h2, h3, h4, h5, h6 {
 
 		<br />
 
-		<h3 style="font-weight: bold; padding: 100px;">원데이 클래스</h3>
+		<h3 style="font-weight: bold; padding: 100px; font-size:60px;">원데이 클래스</h3>
 		<div class="w3-row-padding w3-padding-16 w3-center" id="food"
-			style="padding: 100px;">
+			style="padding: 100px; border: 5px solid #DAE46A;">
 			<div class="row">
 				<c:choose>
 					<c:when test="${empty onedayDTO }">
@@ -132,7 +135,7 @@ body, h1, h2, h3, h4, h5, h6 {
 								<a href="/w3images/lights.jpg"> <img
 									src="/w3images/lights.jpg" alt="Lights" style="width: 100%">
 									<div class="caption">
-										<p>최근 진행중인 프로젝트가 없습니다.</p>
+										<p>최근 등록된 클래스가 없습니다.</p>
 									</div>
 								</a>
 							</div>
@@ -140,7 +143,7 @@ body, h1, h2, h3, h4, h5, h6 {
 					</c:when>
 					<c:otherwise>
 						<c:forEach items="${onedayDTO }" var="row" varStatus="loop">
-
+						<a href="./OndayViewController.do?idx=${row.idx}">
 							<div class="col-md-3">
 								<div class="thumbnail">
 									<c:choose>
@@ -155,9 +158,9 @@ body, h1, h2, h3, h4, h5, h6 {
 									</c:choose>
 
 									<div class="caption">
-										<p style="text-align: left;">
+										<p style="text-align: left; font-weight: bold; font-size:18px;">
 											클래스명 :&nbsp; ${row.title } <br /> 수강날짜
-											:&nbsp;${row.start_date }<br /> 수강인원:&nbsp; ${row.e_limit }
+											:&nbsp;${fn:substring(row.start_date,0,11) }<br /> 수강인원:&nbsp; ${row.e_limit }
 										</p>
 									</div>
 									</a>

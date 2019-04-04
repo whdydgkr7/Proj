@@ -39,8 +39,7 @@ public class ProjectController {
       String keyField = req.getParameter("keyField");
       String keyString = req.getParameter("keyString");
       if(keyString!=null) {
-         addQueryString=String.format("keyField=%s"+"%keyString=%s&",keyField,keyString);
-      
+         addQueryString=String.format("keyField=%s"+"&keyString=%s&",keyField,keyString);
          paramDTO.setKeyField(keyField);
          paramDTO.setKeyString(keyString);
       }
@@ -53,8 +52,8 @@ public class ProjectController {
       
       
       //페이지 처리를 위한 설정값
-      int pageSize = 10;
-      int blockPage = 5;
+      int pageSize = 5;
+      int blockPage = 10;
       
       int totalPage=(int)Math.ceil((double)totalRecordCount/pageSize);
       
@@ -63,6 +62,8 @@ public class ProjectController {
       int start = (nowPage-1)*pageSize+1;
       int end = nowPage * pageSize;
       
+      System.out.println("start"+start);
+      System.out.println("end"+end);
       
       //검색처리를 위한 추가부분
       paramDTO.setStart(start);
@@ -74,6 +75,7 @@ public class ProjectController {
       
       //페이지 처리
       String pagingImg = PagingUtil.pagingImg(totalRecordCount, pageSize, blockPage, nowPage, req.getContextPath()+"/ProjectController.do?"+addQueryString);
+      
       
       model.addAttribute("pagingImg",pagingImg); 
       
@@ -125,11 +127,15 @@ public class ProjectController {
       @RequestMapping("ProjectBbsViewController.do")
       public String PrjectBbsView(Model model , HttpServletRequest req,HttpSession session) {
          String idx= req.getParameter("idx");
-
-
-         ArrayList<ProjectBbsDTO> lists = sqlSession.getMapper(ProjectBbsDAOImpl.class).listView(idx);
+         ProjectBbsDTO projectBbsDTO = new ProjectBbsDTO();
+         
+         projectBbsDTO = sqlSession.getMapper(ProjectBbsDAOImpl.class).listView(idx);
+         
+         
+       /*  ArrayList<ProjectBbsDTO> lists = sqlSession.getMapper(ProjectBbsDAOImpl.class).listView(idx);*/
          ArrayList<PcommentDTO> pcomment= sqlSession.getMapper(ProjectBbsDAOImpl.class).viewcommend(idx);
          sqlSession.getMapper(ProjectBbsDAOImpl.class).visitcount(idx);
+         int ccount=sqlSession.getMapper(ProjectBbsDAOImpl.class).ccount(idx);
          
          String num = sqlSession.getMapper(ProjectBbsDAOImpl.class).selectbbs(idx);
          if(!(num==null || num.equals(""))) {
@@ -142,8 +148,8 @@ public class ProjectController {
 
         
         model.addAttribute("pcomment",pcomment);
-        model.addAttribute("lists",lists);
-       
+        model.addAttribute("projectBbsDTO",projectBbsDTO);
+        model.addAttribute("ccount",ccount);
         
          return "ProjectBbsView";
       }
@@ -195,9 +201,7 @@ public class ProjectController {
         	  resp.getWriter().println("참가신청되었습니다.");
           
           }
-         
-         
-         
+        
          
       }
       

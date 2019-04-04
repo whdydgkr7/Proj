@@ -78,7 +78,7 @@ public class OneDayController {
 
       // 페이지 처리
       String pagingImg = PagingUtil.pagingImg(totalRecordCount, pageSize, blockPage, nowPage,
-            req.getContextPath() + "/BeforeApproval.do?" + addQueryString);
+            req.getContextPath() + "/oneDay?" + addQueryString);
 
       model.addAttribute("pagingImg", pagingImg);
 

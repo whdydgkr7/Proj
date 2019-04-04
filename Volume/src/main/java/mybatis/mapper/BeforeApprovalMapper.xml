@@ -12,8 +12,12 @@
    <!-- 방명록 페이지 처리 -->
    <!-- 전체 게시물수 카운트 -->
    <select id="getTotalCount" resultType="int">
-      SELECT COUNT(*) FROM pbbs
-   </select>
+      SELECT COUNT(*) FROM pbbs 
+      WHERE state='대기중' 
+      <if test="!keyString.equals('') and keyString!=null">
+          and ${keyField} like '%'||#{keyString}||'%'
+         </if> 
+   </select> 
    
    <select id="listPage" resultType="model.ProjectBbsDTO">
       SELECT * FROM (
@@ -28,10 +32,12 @@
    <!-- 전체 게시물수 카운트 : 검색기능추가 -->
    <select id="getTotalCountSearch" resultType="int" 
       parameterType="model.ParamDTO">
-      SELECT COUNT(*) FROM pbbs
+      SELECT COUNT(*) FROM pbbs WHERE
+      state='대기중' 
       <if test="!keyString.equals('') and keyString!=null">
-         WHERE ${keyField} like '%'||#{keyString}||'%'
+          and ${keyField} like '%'||#{keyString}||'%'
          </if> 
+         
    </select> 
 
    
@@ -40,14 +46,15 @@
       parameterType="model.ParamDTO">
       SELECT * FROM (
          SELECT Tb.*, rownum rNum FROM (
-            SELECT * FROM pbbs 
+            SELECT * FROM pbbs
+            WHERE  state='대기중'
             <if test="!keyString.equals('') and keyString!=null">
-               WHERE ${keyField} like '%'||#{keyString}||'%' 
-               </if> 
+               AND ${keyField} LIKE '%'||#{keyString}||'%' 
+            </if> 
             ORDER BY idx DESC
          ) Tb
       )
-      WHERE rNum BETWEEN ${start} AND ${end} and endbbs='진행중'
+      WHERE rNum BETWEEN ${start} AND ${end} 
    </select>
 
 

@@ -83,7 +83,7 @@
 		WHERE id=#{0} and pass=#{1}
 	</select>
 
-	<!-- 포인트증가아이디 -->
+	<!-- 포인트증가 -->
 	<update id="addPoint">
 		UPDATE users SET point=point+1 WHERE id=#{0}
 	</update>
